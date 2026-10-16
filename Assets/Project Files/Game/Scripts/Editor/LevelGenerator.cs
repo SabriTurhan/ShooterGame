@@ -129,7 +129,7 @@ namespace Watermelon.SquadShooter
             for (int attempt = 0; attempt < 60; attempt++)
             {
                 System.Random rng = new System.Random(levelNumber * 7919 + roomIndex * 104729 + attempt * 31);
-                RoomPlan plan = new RoomPlan(rng.Next(world.RoomEnvPresets.Length), palette);
+                RoomPlan plan = new RoomPlan(rng.Next(world.RoomEnvPresets.Length), palette) { WorldName = world.name };
 
                 if (boss)
                     BossLayout(plan, rng);
@@ -677,9 +677,20 @@ namespace Watermelon.SquadShooter
 
             public RoomPlan(int preset, Palette palette) { Preset = preset; this.palette = palette; }
 
+            // character props (e.g. the glacier snowman) look silly in crowds: at most two per room
+            public static readonly Dictionary<string, (string accent, string fallback)> ACCENTS = new Dictionary<string, (string, string)>
+            {
+                { "World_03", ("Block 1x1 Small Half", "Block 1x1 Small") },
+            };
+
+            public string WorldName;
+
             // places an item if its whole footprint is free
             public bool Place(string name, int column, int row, int rotation)
             {
+                if (WorldName != null && ACCENTS.TryGetValue(WorldName, out var accent) && name == accent.accent && Items.Count(i => i.Name == name) >= 2)
+                    name = accent.fallback;
+
                 Vector2Int size = palette.Cells(name, rotation);
 
                 for (int c = column; c < column + size.x; c++)
