@@ -129,7 +129,7 @@ namespace Watermelon.SquadShooter
             for (int attempt = 0; attempt < 60; attempt++)
             {
                 System.Random rng = new System.Random(levelNumber * 7919 + roomIndex * 104729 + attempt * 31);
-                RoomPlan plan = new RoomPlan(rng.Next(world.RoomEnvPresets.Length));
+                RoomPlan plan = new RoomPlan(rng.Next(world.RoomEnvPresets.Length), palette);
 
                 if (boss)
                     BossLayout(plan, rng);
@@ -216,7 +216,7 @@ namespace Watermelon.SquadShooter
                 {
                     if (c / 2 == gap && !mirror) continue;
                     if (mirror && c == 2) continue;
-                    PlaceMirrored(plan, item, c, row, 90, mirror, 2);
+                    PlaceMirrored(plan, item, c, row, 0, mirror, 2);
                 }
             }
         }
@@ -261,15 +261,15 @@ namespace Watermelon.SquadShooter
             // two vertical walls split the far half into three lanes
             int column = rng.Next(1, 3);
             for (int r = rowFrom; r < rowTo; r += 2)
-                PlaceMirrored(plan, Pick(rng, LONG), column, r, 0, true);
+                PlaceMirrored(plan, Pick(rng, LONG), column, r, 90, true);
         }
 
         private static void Fort(RoomPlan plan, System.Random rng, int rowFrom, int rowTo, bool mirror, int density)
         {
             // U-shaped cover open towards the exit; enemies like to sit inside
             int row = rng.Next(rowFrom, Mathf.Max(rowFrom + 1, rowTo - 2));
-            plan.Place("Block 1x2 Medium", 2, row, 90);
-            plan.Place("Block 1x2 Medium", 4, row, 90);
+            plan.Place("Block 1x2 Medium", 2, row, 0);
+            plan.Place("Block 1x2 Medium", 4, row, 0);
             plan.Place("Block 1x1 Medium", 2, row + 1, 0);
             plan.Place("Block 1x1 Medium", 5, row + 1, 0);
         }
@@ -602,7 +602,7 @@ namespace Watermelon.SquadShooter
             public readonly RoomEnvironmentPreset[] Presets;
             private readonly Dictionary<string, LevelItem> byName = new Dictionary<string, LevelItem>();
             private readonly Dictionary<int, LevelItem> byHash = new Dictionary<int, LevelItem>();
-            private readonly Dictionary<string, Vector3> offsets = new Dictionary<string, Vector3>();
+            private readonly Dictionary<string, (Vector2Int, Vector3)> footprints = new Dictionary<string, (Vector2Int, Vector3)>();
 
             public Palette(WorldData world)
             {
@@ -623,33 +623,36 @@ namespace Watermelon.SquadShooter
             public bool IsObstacle(int hash) => byHash.TryGetValue(hash, out LevelItem item) && item.Type == LevelItemType.Obstacle;
             public string NameOf(int hash) => byHash.TryGetValue(hash, out LevelItem item) ? item.Prefab.name : hash.ToString();
 
-            // offset of the visual center from the pivot (from the prefab bounds), so pieces sit centered on their cells
-            public Vector3 Offset(string name)
+            // footprint in grid cells and the collider's offset from the pivot, both read from the prefab's BoxCollider
+            // (in both template worlds "1x2" pieces run along x at 0 degrees and walls sit off-center)
+            public (Vector2Int cells, Vector3 offset) Footprint(string name)
             {
-                if (offsets.TryGetValue(name, out Vector3 cached)) return cached;
+                if (footprints.TryGetValue(name, out var cached)) return cached;
 
-                GameObject prefab = byName[name].Prefab;
-                Bounds bounds = new Bounds(Vector3.zero, Vector3.zero);
-                bool first = true;
-                foreach (Renderer renderer in prefab.GetComponentsInChildren<Renderer>(true))
+                BoxCollider collider = byName[name].Prefab.GetComponentInChildren<BoxCollider>();
+                Vector2Int cells = Vector2Int.one;
+                Vector3 offset = Vector3.zero;
+                if (collider != null)
                 {
-                    MeshFilter filter = renderer.GetComponent<MeshFilter>();
-                    if (filter == null || filter.sharedMesh == null) continue;
-
-                    Bounds local = TransformBounds(filter.sharedMesh.bounds, renderer.transform.localToWorldMatrix);
-                    if (first) { bounds = local; first = false; }
-                    else bounds.Encapsulate(local);
+                    cells = new Vector2Int(Mathf.Max(1, Mathf.RoundToInt(collider.size.x / CELL)), Mathf.Max(1, Mathf.RoundToInt(collider.size.z / CELL)));
+                    offset = new Vector3(collider.center.x, 0f, collider.center.z);
                 }
 
-                Vector3 offset = new Vector3(bounds.center.x, 0f, bounds.center.z);
-                offsets[name] = offset;
+                var result = (cells, offset);
+                footprints[name] = result;
 
-                return offset;
+                return result;
+            }
+
+            public Vector2Int Cells(string name, int rotation)
+            {
+                Vector2Int size = Footprint(name).cells;
+                return rotation % 180 == 0 ? size : new Vector2Int(size.y, size.x);
             }
 
             public Vector3 WorldPosition(ItemPlan item)
             {
-                Vector3 offset = Offset(item.Name);
+                Vector3 offset = Footprint(item.Name).offset;
                 Vector2Int cells = Cells(item.Name, item.Rotation);
                 Vector3 center = new Vector3(CellX(item.Column + (cells.x - 1) * 0.5f), 0f, CellZ(item.Row + (cells.y - 1) * 0.5f));
 
@@ -660,17 +663,6 @@ namespace Watermelon.SquadShooter
 
             public ItemEntityData[] ItemsOf(RoomEnvironmentPreset preset) => (ItemEntityData[])typeof(RoomEnvironmentPreset).GetField("itemEntities", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(preset);
 
-            private static Bounds TransformBounds(Bounds bounds, Matrix4x4 matrix)
-            {
-                Bounds result = new Bounds(matrix.MultiplyPoint3x4(bounds.center), Vector3.zero);
-                for (int i = 0; i < 8; i++)
-                {
-                    Vector3 corner = bounds.center + Vector3.Scale(bounds.extents, new Vector3((i & 1) == 0 ? -1 : 1, (i & 2) == 0 ? -1 : 1, (i & 4) == 0 ? -1 : 1));
-                    result.Encapsulate(matrix.MultiplyPoint3x4(corner));
-                }
-
-                return result;
-            }
         }
 
         private class RoomPlan
@@ -681,12 +673,14 @@ namespace Watermelon.SquadShooter
             public readonly List<EnemyPlan> Enemies = new List<EnemyPlan>();
             public readonly List<(LevelChestType type, Vector3 position, Quaternion rotation)> Chests = new List<(LevelChestType, Vector3, Quaternion)>();
 
-            public RoomPlan(int preset) { Preset = preset; }
+            private readonly Palette palette;
 
-            // places an item if its whole footprint is free; 1x2 pieces run along z at 0 degrees
+            public RoomPlan(int preset, Palette palette) { Preset = preset; this.palette = palette; }
+
+            // places an item if its whole footprint is free
             public bool Place(string name, int column, int row, int rotation)
             {
-                Vector2Int size = Cells(name, rotation);
+                Vector2Int size = palette.Cells(name, rotation);
 
                 for (int c = column; c < column + size.x; c++)
                     for (int r = row; r < row + size.y; r++)
@@ -706,12 +700,6 @@ namespace Watermelon.SquadShooter
             }
         }
 
-        // footprint in grid cells: "1x2" pieces run along z at 0 degrees
-        private static Vector2Int Cells(string name, int rotation)
-        {
-            Vector2Int size = name.Contains("2x2") ? new Vector2Int(2, 2) : name.Contains("1x2") ? new Vector2Int(1, 2) : Vector2Int.one;
-            return rotation % 180 == 0 ? size : new Vector2Int(size.y, size.x);
-        }
 
         private class ItemPlan
         {
