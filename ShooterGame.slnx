@@ -1,0 +1,10 @@
+﻿<Solution>
+  <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="Assembly-CSharp-Editor.csproj" />
+  <Project Path="Core.UE.csproj" />
+  <Project Path="Core.Inspector.Editor.csproj" />
+  <Project Path="Core.Inspector.csproj" />
+  <Project Path="Core.Settings.Editor.csproj" />
+  <Project Path="Core.UE.Editor.csproj" />
+  <Project Path="Core.Settings.csproj" />
+</Solution>

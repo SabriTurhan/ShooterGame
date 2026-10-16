@@ -79,9 +79,21 @@ namespace Watermelon
                 return;
             }
 
-            Hierarchy hierarchy = Hierarchy.GetLastHierarchy();
-            hierarchy.DrawElementGUI(instanceID, selectionRect);
+            if (hierarchyUnsupported) return;
+
+            try
+            {
+                Hierarchy hierarchy = Hierarchy.GetLastHierarchy();
+                hierarchy.DrawElementGUI(instanceID, selectionRect);
+            }
+            catch (System.Exception)
+            {
+                // Unity 6 changed the internal TreeView types this reflection relies on
+                hierarchyUnsupported = true;
+            }
         }
+
+        private static bool hierarchyUnsupported;
 
         public static Texture GetTexture(UnityEngine.Object hierarchyObject)
         {
