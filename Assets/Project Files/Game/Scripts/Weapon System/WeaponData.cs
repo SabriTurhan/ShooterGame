@@ -24,6 +24,11 @@ namespace Watermelon.SquadShooter
         [SerializeField] WeaponUpgrade[] upgrades;
         public WeaponUpgrade[] Upgrades => upgrades;
 
+        // Enemy health is multiplied by this while the weapon is equipped (1 / base strength), so a weapon
+        // that unlocks later starts stronger on the shared difficulty curve (written by Tools/Balance/Import Balance)
+        [SerializeField] float enemyHpScale = 1f;
+        public float EnemyHpScale => enemyHpScale;
+
         public RarityData RarityData => WeaponsController.GetRarityData(rarity);
 
         private WeaponSave save;

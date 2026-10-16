@@ -39,6 +39,9 @@ namespace Watermelon.SquadShooter
 
             weapons = database.Weapons;
 
+            // the list is static and Init runs on every scene load
+            keyUpgradeStages.Clear();
+
             for (int i = 0; i < weapons.Length; i++)
             {
                 weapons[i].Init();
@@ -59,7 +62,7 @@ namespace Watermelon.SquadShooter
                 }
             }
 
-            keyUpgradeStages.OrderBy(s => s.KeyUpgradeNumber);
+            keyUpgradeStages = keyUpgradeStages.OrderBy(s => s.KeyUpgradeNumber).ToList();
 
             CheckWeaponUpdateState();
         }

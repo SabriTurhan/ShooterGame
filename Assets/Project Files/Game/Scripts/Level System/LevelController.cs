@@ -601,6 +601,22 @@ namespace Watermelon.LevelSystem
             }
         }
 
+        public const float KEPT_COINS_ON_DEFEAT = 0.5f;
+
+        // after a defeat the player keeps half of the coins picked up during the run, so a player stuck on a
+        // hard level can still save up for upgrades (without dying being a better farm than winning)
+        public static void KeepCollectedCoins()
+        {
+            int kept = Mathf.RoundToInt(lastLevelMoneyCollected * KEPT_COINS_ON_DEFEAT);
+            lastLevelMoneyCollected = 0;
+
+            if (kept <= 0) return;
+
+            CurrencyController.Add(CurrencyType.Coins, kept);
+
+            SaveController.MarkAsSaveIsRequired();
+        }
+
         public static void OnCoinPicked(int amount)
         {
             lastLevelMoneyCollected += amount;

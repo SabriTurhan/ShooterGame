@@ -16,9 +16,9 @@ MonoBehaviour:
   showDebugText: 0
   difficultyPresets:
   - note: Easy
-    healthMult: 0.6
-    damageMult: 0.5
-    restoredHpMult: 1.5
+    healthMult: 1
+    damageMult: 1
+    restoredHpMult: 1
     upgradeDifference: 3
   - note: Normal
     healthMult: 1
@@ -26,12 +26,12 @@ MonoBehaviour:
     restoredHpMult: 1
     upgradeDifference: 7
   - note: Medium
-    healthMult: 1.3
-    damageMult: 1.15
+    healthMult: 1.05
+    damageMult: 1.05
     restoredHpMult: 1
     upgradeDifference: 13
   - note: Hard
-    healthMult: 1.6
-    damageMult: 1.2
-    restoredHpMult: 0.75
+    healthMult: 1.1
+    damageMult: 1.1
+    restoredHpMult: 0.9
     upgradeDifference: 999

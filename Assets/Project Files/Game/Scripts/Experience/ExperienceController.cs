@@ -47,14 +47,13 @@ namespace Watermelon
 
             CollectedExperiencePoints = 0;
 
-            // new level reached
-            if (ExperiencePoints >= NextLevelData.ExperienceRequired)
+            // a big reward can be worth several levels; stop at the last level of the database
+            while (CurrentLevel < database.ExperienceData.Count && ExperiencePoints >= NextLevelData.ExperienceRequired)
             {
-                // new level reached
                 CurrentLevel++;
 
                 LevelIncreased?.Invoke();
-            };
+            }
 
             ExperienceGained?.Invoke(collectedPoints);
         }

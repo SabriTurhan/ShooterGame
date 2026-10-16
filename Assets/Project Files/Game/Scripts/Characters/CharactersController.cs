@@ -54,7 +54,7 @@ namespace Watermelon.SquadShooter
                 }
             }
 
-            keyUpgrades.OrderBy(u => u.Stats.KeyUpgradeNumber);
+            keyUpgrades = keyUpgrades.OrderBy(u => u.Stats.KeyUpgradeNumber).ToList();
 
             // Check if character from save is unlocked
             if (IsCharacterUnlocked(saveCharacter))

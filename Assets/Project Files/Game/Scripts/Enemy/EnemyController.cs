@@ -1,4 +1,5 @@
 using UnityEngine;
+using Watermelon.LevelSystem;
 
 namespace Watermelon.SquadShooter
 {
@@ -17,12 +18,13 @@ namespace Watermelon.SquadShooter
             database.InitStatsRealation(baseCharacter.Upgrades[0].Stats.Health);
         }
 
-        // set current character and weapon data - to be used in stats calculation for enemies that will be spawned in a moment
+        // set the level's difficulty - to be used in stats calculation for enemies that will be spawned in a moment
         public static void OnLevelWillBeStarted()
         {
-            CharacterStats characterStats = CharactersController.SelectedCharacter.GetCurrentUpgrade().Stats;
+            LevelData level = LevelController.CurrentLevelData;
+            float weaponScale = WeaponsController.GetCurrentWeapon().EnemyHpScale;
 
-            Database.SetCurrentCharacterStats(characterStats.Health, CharacterBehaviour.GetBehaviour().Weapon.Damage.Lerp(0.5f));
+            Database.SetLevelStats(level.EnemyHealthMult * weaponScale, level.EnemyDamageMult);
         }
     }
 }

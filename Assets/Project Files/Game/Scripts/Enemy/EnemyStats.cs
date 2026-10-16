@@ -96,26 +96,17 @@ namespace Watermelon.SquadShooter
             restoredHpToDamage = (float)healForPlayer.Lerp(0.5f) / damage.Lerp(0.5f);
         }
 
-        // creature damage is currently not used - actual damage is calculated based on relation to hp on the first level
-        public void SetCurrentCreatureStats(int characterHealth, int weaponDmg, DifficultySettings difficulty)
+        // Enemy stats follow the level's difficulty curve instead of the player's current gear, so upgrades
+        // really make the player stronger. healthMult already includes the equipped weapon's EnemyHpScale.
+        public void SetCurrentCreatureStats(float healthMult, float damageMult, DifficultySettings difficulty)
         {
-            this.creatureDamage = weaponDmg;
             this.difficulty = difficulty;
 
-            WeaponData currentWeapon = WeaponsController.GetCurrentWeapon();
-            HpToWeaponRelation relation = enemyHpToCreatureDmgRelations.Find(r => r.weapon.Equals(currentWeapon));
+            calculatedHp = Mathf.Max(1, Mathf.RoundToInt(hp * healthMult));
+            calculatedDamage = new DuoInt(Mathf.Max(1, Mathf.RoundToInt(damage.firstValue * damageMult)), Mathf.Max(1, Mathf.RoundToInt(damage.secondValue * damageMult)));
 
-            calculatedHp = (int)(creatureDamage * relation.enemyHpToCreatureDmg);
-
-            float dmgMid = characterHealth / enemyDmgToPlayerHp;
-            float damageSpreadUp = (float)damage.secondValue / (float)damage.Lerp(0.5f);
-            float damageSpreadDown = (float)damage.firstValue / (float)damage.Lerp(0.5f);
-            calculatedDamage = new DuoInt((int)(dmgMid * damageSpreadDown), (int)(dmgMid * damageSpreadUp));
-
-            float restoredHpMid = dmgMid * restoredHpToDamage;
-            float hpSpreadUp = (float)healForPlayer.secondValue / (float)healForPlayer.Lerp(0.5f);
-            float hpSpreadDown = (float)healForPlayer.firstValue / (float)healForPlayer.Lerp(0.5f);
-            calculatedHpForPlayer = new DuoInt((int)(restoredHpMid * hpSpreadDown), (int)(restoredHpMid * hpSpreadUp));
+            // heal drops keep the same share of the player's expected health
+            calculatedHpForPlayer = new DuoInt(Mathf.RoundToInt(healForPlayer.firstValue * damageMult), Mathf.RoundToInt(healForPlayer.secondValue * damageMult));
         }
 
         [System.Serializable]

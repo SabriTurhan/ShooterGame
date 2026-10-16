@@ -145,6 +145,8 @@ namespace Watermelon
         {
             isGameActive = true;
 
+            LevelController.KeepCollectedCoins();
+
             Overlay.Show(0.3f, () =>
             {
                 LevelController.UnloadLevel();

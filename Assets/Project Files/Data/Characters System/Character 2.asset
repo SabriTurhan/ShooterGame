@@ -29,54 +29,90 @@ MonoBehaviour:
   - currencyType: 0
     price: 0
     stats:
-      health: 180
+      health: 165
       bulletDamageMultiplier: 1
-      power: 39
+      power: 16
       keyUpgradeNumber: -1
     changeStage: 0
     stageIndex: -1
   - currencyType: 0
-    price: 400
+    price: 260
     stats:
-      health: 190
+      health: 178
       bulletDamageMultiplier: 1
-      power: 46
-      keyUpgradeNumber: 15
+      power: 18
+      keyUpgradeNumber: -1
     changeStage: 0
     stageIndex: -1
   - currencyType: 0
-    price: 500
+    price: 315
     stats:
-      health: 200
+      health: 192
       bulletDamageMultiplier: 1
-      power: 52
-      keyUpgradeNumber: 17
+      power: 19
+      keyUpgradeNumber: -1
     changeStage: 0
     stageIndex: -1
   - currencyType: 0
-    price: 620
+    price: 385
     stats:
-      health: 210
+      health: 208
       bulletDamageMultiplier: 1
-      power: 57
-      keyUpgradeNumber: 18
+      power: 21
+      keyUpgradeNumber: -1
     changeStage: 0
     stageIndex: -1
   - currencyType: 0
-    price: 730
+    price: 470
     stats:
-      health: 230
+      health: 224
       bulletDamageMultiplier: 1
-      power: 64
-      keyUpgradeNumber: 20
+      power: 22
+      keyUpgradeNumber: -1
     changeStage: 0
     stageIndex: -1
   - currencyType: 0
-    price: 880
+    price: 575
     stats:
-      health: 240
+      health: 242
       bulletDamageMultiplier: 1
-      power: 70
-      keyUpgradeNumber: 22
+      power: 24
+      keyUpgradeNumber: -1
+    changeStage: 0
+    stageIndex: -1
+  - currencyType: 0
+    price: 705
+    stats:
+      health: 262
+      bulletDamageMultiplier: 1
+      power: 26
+      keyUpgradeNumber: -1
+    changeStage: 0
+    stageIndex: -1
+  - currencyType: 0
+    price: 855
+    stats:
+      health: 283
+      bulletDamageMultiplier: 1
+      power: 28
+      keyUpgradeNumber: -1
+    changeStage: 0
+    stageIndex: -1
+  - currencyType: 0
+    price: 1045
+    stats:
+      health: 305
+      bulletDamageMultiplier: 1
+      power: 31
+      keyUpgradeNumber: -1
+    changeStage: 0
+    stageIndex: -1
+  - currencyType: 0
+    price: 1275
+    stats:
+      health: 330
+      bulletDamageMultiplier: 1
+      power: 33
+      keyUpgradeNumber: -1
     changeStage: 0
     stageIndex: -1

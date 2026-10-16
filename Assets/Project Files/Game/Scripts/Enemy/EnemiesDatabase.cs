@@ -16,11 +16,11 @@ namespace Watermelon.SquadShooter
             }
         }
 
-        public void SetCurrentCharacterStats(int characterHealth, int weaponDmg)
+        public void SetLevelStats(float healthMult, float damageMult)
         {
             for (int i = 0; i < enemies.Length; i++)
             {
-                enemies[i].Stats.SetCurrentCreatureStats(characterHealth, weaponDmg, BalanceController.CurrentDifficulty);
+                enemies[i].Stats.SetCurrentCreatureStats(healthMult, damageMult, BalanceController.CurrentDifficulty);
             }
         }
 

@@ -14,18 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   experienceData:
   - experienceRequired: 0
-  - experienceRequired: 500
-  - experienceRequired: 1430
-  - experienceRequired: 2400
-  - experienceRequired: 3700
-  - experienceRequired: 5000
-  - experienceRequired: 7000
-  - experienceRequired: 9000
-  - experienceRequired: 11000
-  - experienceRequired: 13000
-  - experienceRequired: 15000
-  - experienceRequired: 17000
-  - experienceRequired: 19000
-  - experienceRequired: 21000
-  - experienceRequired: 23000
-  - experienceRequired: 25000
+  - experienceRequired: 680
+  - experienceRequired: 1360
+  - experienceRequired: 2360
+  - experienceRequired: 3360
+  - experienceRequired: 4350
+  - experienceRequired: 5490
+  - experienceRequired: 6640
+  - experienceRequired: 7780
+  - experienceRequired: 8920
+  - experienceRequired: 10770
+  - experienceRequired: 12620
+  - experienceRequired: 14460
+  - experienceRequired: 16300
+  - experienceRequired: 18150
+  - experienceRequired: 20080
+  - experienceRequired: 22010
+  - experienceRequired: 23940
+  - experienceRequired: 25870
+  - experienceRequired: 27800

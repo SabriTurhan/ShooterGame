@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iapSettings: {fileID: 1569315140361065267}
   adsSettings: {fileID: 1338303973460554233}
-  isModuleActive: 0
+  isModuleActive: 1
   verboseLogging: 0
   debugMode: 0
   testDevices:
@@ -33,8 +33,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15ddb41bf72d53a48a6bdc593d706f94, type: 3}
   m_Name: Ads Settings
   m_EditorClassIdentifier: 
-  bannerType: 1
-  interstitialType: 1
+  bannerType: 0
+  interstitialType: 0
   rewardedVideoType: 1
   loadAdsOnStart: 1
   interstitialFirstStartDelay: 40

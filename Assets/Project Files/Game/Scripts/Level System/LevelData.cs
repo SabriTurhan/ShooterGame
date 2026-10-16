@@ -23,6 +23,16 @@ namespace Watermelon.LevelSystem
         [SerializeField, LevelEditorSetting] int enemiesLevel;
         public int EnemiesLevel => enemiesLevel;
 
+        // difficulty curve written from Tools/Balance/balance.json
+        [SerializeField, LevelEditorSetting] float enemyHealthMult = 1f;
+        public float EnemyHealthMult => enemyHealthMult;
+
+        [SerializeField, LevelEditorSetting] float enemyDamageMult = 1f;
+        public float EnemyDamageMult => enemyDamageMult;
+
+        [SerializeField, LevelEditorSetting] int recommendedPower;
+        public int RecommendedPower => recommendedPower;
+
         [SerializeField, LevelEditorSetting] bool hasCharacterSuggestion;
         public bool HasCharacterSuggestion => hasCharacterSuggestion;
 

@@ -42,7 +42,7 @@ namespace Watermelon.SquadShooter
 
             UpgradesDifference = 0;
 
-            CharactersController.OnCharacterUpgradedEvent -= OnCharacterSelected;
+            CharactersController.OnCharacterUpgradedEvent -= OnCharacterUpgraded;
             CharactersController.OnCharacterSelectedEvent -= OnCharacterSelected;
 
             WeaponsController.WeaponUpgraded -= OnWeaponUpgraded;
@@ -66,9 +66,12 @@ namespace Watermelon.SquadShooter
                 return;
             }
 
-            PowerRequirement = WeaponsController.GetCeilingKeyPower(LevelController.CurrentLevelData.RequiredUpg) + CharactersController.GetCeilingUpgradePower(LevelController.CurrentLevelData.RequiredUpg);
+            PowerRequirement = LevelController.CurrentLevelData.RecommendedPower;
+            if (PowerRequirement <= 0)
+                PowerRequirement = WeaponsController.GetCeilingKeyPower(LevelController.CurrentLevelData.RequiredUpg) + CharactersController.GetCeilingUpgradePower(LevelController.CurrentLevelData.RequiredUpg);
 
-            UpgradesDifference = Mathf.RoundToInt((PowerRequirement - CurrentGeneralPower) / 6f);
+            // shortfall in 5% steps of the recommended power, so the presets work the same at every level
+            UpgradesDifference = Mathf.RoundToInt((PowerRequirement - CurrentGeneralPower) / (float)PowerRequirement * 20f);
 
             DifficultySettings tempPreset = null;
             DifficultySettings[] presets = database.DifficultyPresets.OrderBy(x => x.UpgradeDifference).ToArray();
