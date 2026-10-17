@@ -32,6 +32,8 @@ namespace Watermelon
             weaponsController.Init(gameSettings.WeaponDatabase);
             experienceController.Init(gameSettings.ExperienceDatabase);
             charactersController.Init(gameSettings.CharactersDatabase);
+
+            WorldHeroes.Apply(gameSettings.LevelsDatabase);
             balanceController.Init(gameSettings.BalanceDatabase);
 
             particlesController.Init();

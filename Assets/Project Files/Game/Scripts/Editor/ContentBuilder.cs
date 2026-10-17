@@ -2,6 +2,7 @@ using System;
 using UnityEditor;
 using UnityEngine;
 using Watermelon.LevelSystem;
+using Watermelon.SquadShooter.Examples;
 
 namespace Watermelon.SquadShooter
 {
@@ -27,13 +28,237 @@ namespace Watermelon.SquadShooter
             Debug.Log($"[Content] world 3 content ready: {cryo.WeaponName}, {frost.name}");
         }
 
-        [MenuItem("Tools/Content/Build World 4 Content (world art)")]
+        [MenuItem("Tools/Content/Build World 4 Content (Rook, Flash Gun, art)")]
         public static void BuildWorld4Content()
         {
+            BuildFlashGun();
+            BuildRook();
             RenderWorldPreview(4, "World_04");
+            AssignWorldHeroes();
+
             AssetDatabase.SaveAssets();
             BalanceImporter.Import();
         }
+
+        // each world's hero and weapon (WorldHeroes unlocks and equips them when the world is reached)
+        [MenuItem("Tools/Content/Assign World Heroes")]
+        public static void AssignWorldHeroes()
+        {
+            (string world, string character, string weapon)[] pairs =
+            {
+                ("World_01", "Character 1", "Weapon Minigun"),
+                ("World_02", "Character 3", "Weapon Lava"),
+                ("World_03", "Character 4", "Weapon Cryo"),
+                ("World_04", "Character 5", "Weapon Flash"),
+                ("World_05", "Character 6", "Weapon Rocket"),
+            };
+
+            foreach (var pair in pairs)
+            {
+                WorldData world = AssetDatabase.LoadAssetAtPath<WorldData>($"{DATA}/Level System/Worlds/{pair.world}.asset");
+                if (world == null) continue;
+
+                SerializedObject serialized = new SerializedObject(world);
+                serialized.FindProperty("featuredCharacter").objectReferenceValue = AssetDatabase.LoadAssetAtPath<CharacterData>($"{DATA}/Characters System/{pair.character}.asset");
+                serialized.FindProperty("featuredWeapon").objectReferenceValue = AssetDatabase.LoadAssetAtPath<WeaponData>($"{DATA}/Weapon System/{pair.weapon}.asset");
+                serialized.ApplyModifiedPropertiesWithoutUndo();
+                EditorUtility.SetDirty(world);
+            }
+        }
+
+        #region Flash Gun
+        // arcing flashbang launcher on the lava gun rig: area damage from above (ignores riot shields) + stun
+        private static WeaponData BuildFlashGun()
+        {
+            string gunPath = GAME + "/Prefabs/Weapons/Gun Flash.prefab";
+            Copy(GAME + "/Prefabs/Weapons/Gun Lava.prefab", gunPath);
+            GameObject gun = PrefabUtility.LoadPrefabContents(gunPath);
+
+            Mesh model = SaveMesh(FlashGunMesh(), "FlashGun_mesh");
+            MeshFilter main = null;
+            foreach (MeshFilter filter in gun.GetComponentsInChildren<MeshFilter>(true))
+                if (filter.GetComponent<MeshRenderer>() != null && (main == null || filter.name == "Flashgun")) main = filter;
+            foreach (MeshFilter filter in gun.GetComponentsInChildren<MeshFilter>(true))
+                if (filter != main && filter.GetComponent<MeshRenderer>() is MeshRenderer extra) extra.enabled = false;
+
+            main.name = "Flashgun";
+            main.sharedMesh = model;
+            main.transform.localRotation = Quaternion.identity;
+            main.transform.localScale = Vector3.one;
+            main.GetComponent<MeshRenderer>().sharedMaterial = AssetDatabase.LoadAssetAtPath<Material>(GAME + "/Materials/Characters/Player.mat");
+
+            foreach (ParticleSystem particle in gun.GetComponentsInChildren<ParticleSystem>(true))
+            {
+                ParticleSystem.MainModule settings = particle.main;
+                settings.startColor = new Color(1f, 0.95f, 0.7f, settings.startColor.color.a);
+            }
+
+            PrefabUtility.SaveAsPrefabAsset(gun, gunPath);
+            PrefabUtility.UnloadPrefabContents(gun);
+
+            string bulletPath = GAME + "/Prefabs/Weapons/Bullets/Flash Bullet.prefab";
+            Copy(GAME + "/Prefabs/Weapons/Bullets/Lava Bullet.prefab", bulletPath);
+            GameObject bullet = PrefabUtility.LoadPrefabContents(bulletPath);
+
+            SerializedObject behaviour = new SerializedObject(bullet.GetComponent<LavaBulletBehavior>());
+            behaviour.FindProperty("hitParticle").stringValue = "Tesla Hit";
+            behaviour.FindProperty("wallHitParticle").stringValue = "Tesla Wall Hit";
+            behaviour.FindProperty("ignoreFrontalArmor").boolValue = true;
+            behaviour.FindProperty("stunMultiplier").floatValue = 0.3f;
+            behaviour.FindProperty("stunDuration").floatValue = 1f;
+            behaviour.ApplyModifiedPropertiesWithoutUndo();
+
+            Mesh canister = SaveMesh(FlashCanisterMesh(), "FlashCanister_mesh");
+            bool replaced = false;
+            foreach (MeshFilter filter in bullet.GetComponentsInChildren<MeshFilter>(true))
+            {
+                MeshRenderer renderer = filter.GetComponent<MeshRenderer>();
+                if (renderer == null) continue;
+                if (!replaced)
+                {
+                    filter.sharedMesh = canister;
+                    filter.transform.localScale = Vector3.one;
+                    renderer.sharedMaterial = AssetDatabase.LoadAssetAtPath<Material>(GAME + "/Materials/Characters/Player.mat");
+                    replaced = true;
+                }
+                else renderer.enabled = false;
+            }
+            foreach (ParticleSystem particle in bullet.GetComponentsInChildren<ParticleSystem>(true))
+            {
+                ParticleSystem.MainModule settings = particle.main;
+                settings.startColor = new Color(1f, 0.97f, 0.8f, settings.startColor.color.a);
+            }
+
+            PrefabUtility.SaveAsPrefabAsset(bullet, bulletPath);
+            PrefabUtility.UnloadPrefabContents(bullet);
+
+            string dataPath = DATA + "/Weapon System/Weapon Flash.asset";
+            bool created = Copy(DATA + "/Weapon System/Weapon Lava.asset", dataPath);
+            WeaponData weapon = AssetDatabase.LoadAssetAtPath<WeaponData>(dataPath);
+
+            SerializedObject data = new SerializedObject(weapon);
+            if (created) data.FindProperty("id").stringValue = Guid.NewGuid().ToString();
+            data.FindProperty("weaponName").stringValue = "FLASH GUN";
+            data.FindProperty("rarity").intValue = (int)Rarity.Epic;
+            data.FindProperty("icon").objectReferenceValue = RenderWeaponIcon(AssetDatabase.LoadAssetAtPath<GameObject>(gunPath), "weapon_flash_gun");
+
+            SerializedProperty upgrades = data.FindProperty("upgrades");
+            for (int i = 0; i < upgrades.arraySize; i++)
+            {
+                SerializedProperty upgrade = upgrades.GetArrayElementAtIndex(i);
+                upgrade.FindPropertyRelative("weaponPrefab").objectReferenceValue = AssetDatabase.LoadAssetAtPath<GameObject>(gunPath);
+                upgrade.FindPropertyRelative("bulletPrefab").objectReferenceValue = AssetDatabase.LoadAssetAtPath<GameObject>(bulletPath);
+            }
+            data.ApplyModifiedPropertiesWithoutUndo();
+            EditorUtility.SetDirty(weapon);
+
+            Register(DATA + "/Weapon System/Weapon Database.asset", "weapons", weapon, "TESLA");
+            return weapon;
+        }
+
+        private static Mesh FlashGunMesh()
+        {
+            PaletteMesh m = new PaletteMesh();
+            m.Box(new Vector3(0.22f, 0.22f, 0.5f), 0.04f, new Vector3(0f, 0.12f, 0.02f), Vector3.zero, Band.Yellow, 0.3f, 0.75f);
+            for (int i = -2; i <= 2; i++)
+                m.Box(new Vector3(0.226f, 0.05f, 0.04f), 0.005f, new Vector3(0f, 0.12f, 0.02f + i * 0.09f), new Vector3(35f, 0f, 0f), Band.Black, 0f, 0.3f);
+            m.Cylinder(0.14f, 0.14f, 0.2f, 10, new Vector3(0f, 0.02f, -0.04f), new Vector3(0f, 0f, 90f), Band.Grey, 0.15f, 0.55f);
+            m.Cylinder(0.145f, 0.145f, 0.04f, 10, new Vector3(0.08f, 0.02f, -0.04f), new Vector3(0f, 0f, 90f), Band.Black, 0f, 0.3f);
+            m.Cylinder(0.1f, 0.1f, 0.32f, 8, new Vector3(0f, 0.16f, 0.42f), new Vector3(90f, 0f, 0f), Band.Black, 0.1f, 0.45f);
+            m.Cylinder(0.115f, 0.115f, 0.06f, 8, new Vector3(0f, 0.16f, 0.57f), new Vector3(90f, 0f, 0f), Band.Orange, 0.3f, 0.7f);
+            m.Box(new Vector3(0.08f, 0.2f, 0.1f), 0.02f, new Vector3(0f, -0.06f, -0.14f), new Vector3(15f, 0f, 0f), Band.Black, 0f, 0.4f);
+            m.Box(new Vector3(0.16f, 0.16f, 0.12f), 0.03f, new Vector3(0f, 0.12f, -0.28f), Vector3.zero, Band.Black, 0f, 0.5f);
+            m.Box(new Vector3(0.05f, 0.07f, 0.12f), 0.01f, new Vector3(0f, 0.27f, 0.1f), Vector3.zero, Band.Red, 0.2f, 0.5f);
+            return m.Build("FlashGun_mesh");
+        }
+
+        private static Mesh FlashCanisterMesh()
+        {
+            PaletteMesh m = new PaletteMesh();
+            m.Cylinder(0.09f, 0.09f, 0.22f, 8, Vector3.zero, new Vector3(90f, 0f, 0f), Band.Grey, 0.1f, 0.5f);
+            m.Cylinder(0.095f, 0.095f, 0.06f, 8, Vector3.zero, new Vector3(90f, 0f, 0f), Band.Yellow, 0.3f, 0.6f);
+            m.Cylinder(0.05f, 0.05f, 0.05f, 6, new Vector3(0f, 0f, 0.13f), new Vector3(90f, 0f, 0f), Band.Black, 0f, 0.4f);
+            return m.Build("FlashCanister_mesh");
+        }
+        #endregion
+
+        #region Rook
+        // street rebel built on Jim's rig: orange hoodie, jeans, sneakers, bandana, backwards cap
+        private static CharacterData BuildRook()
+        {
+            string graphicsPath = GAME + "/Prefabs/Characters/Player/Graphics/Character 5.prefab";
+            GameObject instance = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(GAME + "/Prefabs/Characters/Player/Graphics/Character 1.prefab"));
+            instance.name = "Character 5";
+
+            SkinnedMeshRenderer body = instance.GetComponentInChildren<SkinnedMeshRenderer>();
+            Mesh mesh = UnityEngine.Object.Instantiate(body.sharedMesh);
+            Watermelon.SquadShooter.Examples.ExampleObjectsBuilder.RemapBands(mesh, body.bones, (band, bone) =>
+            {
+                bool feet = bone.Contains("Foot") || bone.Contains("Toe");
+                bool shins = bone.EndsWith("Leg") && !bone.EndsWith("UpLeg");
+                if (band == Band.Black && feet) return Band.White;
+                if (band == Band.Black && shins) return Band.Blue;
+                if (band == Band.Black) return Band.Orange;
+                if (band == Band.Red) return Band.Black;
+                if (band == Band.Navy) return Band.Blue;
+                return band;
+            });
+            body.sharedMesh = SaveMesh(mesh, "Main_Char_Rook");
+
+            Bounds head = PaletteTools.BoneBounds(body, bone => bone.EndsWith("Head") || bone.Contains("HeadTop"));
+            float r = Mathf.Max(head.extents.x, head.extents.z);
+            Vector3 c = head.center;
+
+            PaletteMesh hat = new PaletteMesh();
+            hat.Dome(r * 1.04f, 3, 10, c + new Vector3(0f, r * 0.32f, 0f), Vector3.zero, new Vector3(1f, 0.85f, 1f), Band.Red, 0.1f, 0.55f);
+            hat.Box(new Vector3(r * 1.1f, r * 0.08f, r * 0.75f), r * 0.03f, c + new Vector3(0f, r * 0.42f, -r * 1.15f), new Vector3(-8f, 0f, 0f), Band.Red, 0.3f, 0.7f);
+            Attach(body, "Head", "Rook Cap", SaveMesh(hat.Build("Rook_Cap"), "Rook_Cap"));
+
+            Bounds chest = PaletteTools.BoneBounds(body, bone => bone.EndsWith("Spine2") || bone.EndsWith("Spine1"));
+            PaletteMesh hood = new PaletteMesh();
+            hood.Dome(chest.extents.x * 0.85f, 3, 9, new Vector3(chest.center.x, chest.max.y - 0.05f, chest.min.z + 0.04f), new Vector3(-70f, 0f, 0f), new Vector3(1f, 0.7f, 0.8f), Band.Orange, 0.35f, 0.75f);
+            Attach(body, "Spine2", "Rook Hood", SaveMesh(hood.Build("Rook_Hood"), "Rook_Hood"));
+
+            GameObject prefab = PrefabUtility.SaveAsPrefabAsset(instance, graphicsPath);
+            UnityEngine.Object.DestroyImmediate(instance);
+
+            (Sprite portrait, Sprite locked) = RenderPortrait(prefab, "character_5");
+
+            string dataPath = DATA + "/Characters System/Character 5.asset";
+            bool created = Copy(DATA + "/Characters System/Character 3.asset", dataPath);
+            CharacterData character = AssetDatabase.LoadAssetAtPath<CharacterData>(dataPath);
+
+            SerializedObject data = new SerializedObject(character);
+            if (created) data.FindProperty("id").stringValue = Guid.NewGuid().ToString();
+            data.FindProperty("characterName").stringValue = "Rook";
+            data.FindProperty("previewSprite").objectReferenceValue = portrait;
+            data.FindProperty("lockedSprite").objectReferenceValue = locked;
+            SerializedProperty stages = data.FindProperty("stages");
+            for (int i = 0; i < stages.arraySize; i++)
+            {
+                SerializedProperty stage = stages.GetArrayElementAtIndex(i);
+                stage.FindPropertyRelative("prefab").objectReferenceValue = prefab;
+                stage.FindPropertyRelative("previewSprite").objectReferenceValue = portrait;
+                stage.FindPropertyRelative("lockedSprite").objectReferenceValue = locked;
+            }
+            data.ApplyModifiedPropertiesWithoutUndo();
+            EditorUtility.SetDirty(character);
+
+            Register(DATA + "/Characters System/Characters Database.asset", "characters", character, null);
+            return character;
+        }
+
+        private static void Attach(SkinnedMeshRenderer body, string bone, string name, Mesh mesh)
+        {
+            Transform parent = PaletteTools.FindBone(body, bone);
+            PaletteTools.Attach(parent, name, mesh);
+        }
+
+        private static Mesh SaveMesh(Mesh mesh, string name)
+        {
+            return PaletteTools.SaveMesh(mesh, GAME + "/Prefabs/Characters/Player/Graphics/Meshes", name);
+        }
+        #endregion
 
         #region Cryo Blaster
         private static WeaponData BuildCryoBlaster()

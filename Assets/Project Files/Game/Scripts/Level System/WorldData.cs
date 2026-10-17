@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Watermelon.LevelSystem
@@ -14,6 +14,13 @@ namespace Watermelon.LevelSystem
 
         [SerializeField] WorldType worldType;
         public WorldType WorldType => worldType;
+
+        // the world's hero and weapon: unlocked and equipped when the player first reaches the world (WorldHeroes)
+        [SerializeField] Watermelon.SquadShooter.CharacterData featuredCharacter;
+        public Watermelon.SquadShooter.CharacterData FeaturedCharacter => featuredCharacter;
+
+        [SerializeField] Watermelon.SquadShooter.WeaponData featuredWeapon;
+        public Watermelon.SquadShooter.WeaponData FeaturedWeapon => featuredWeapon;
 
         // world rule "frostbite": every hit slows the player (multiplier) for a moment (duration, 0 = off)
         [SerializeField, Range(0.2f, 1f)] float hitSlowMultiplier = 1f;

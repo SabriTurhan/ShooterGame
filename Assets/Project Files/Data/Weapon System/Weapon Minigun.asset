@@ -356,3 +356,4 @@ MonoBehaviour:
       secondValue: 23.4375
     keyUpgradeNumber: -1
   enemyHpScale: 1
+  unlockWorld: 0

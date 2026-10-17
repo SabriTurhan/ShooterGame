@@ -48,6 +48,7 @@ namespace Watermelon.SquadShooter
 
                 SerializedObject serialized = new SerializedObject(weapon);
                 serialized.FindProperty("enemyHpScale").floatValue = (data.dpsFactor > 0f ? data.dpsFactor : 1f) / data.baseStrength;
+                serialized.FindProperty("unlockWorld").intValue = data.cardsToUnlock == 0 && data.unlockLevel > 1 ? (data.unlockLevel - 1) / BalanceData.LEVELS_PER_WORLD + 1 : 0;
 
                 // index 0 is the locked state and index 1 the first owned stage; both cost the unlock cards
                 SerializedProperty upgrades = serialized.FindProperty("upgrades");
@@ -88,6 +89,7 @@ namespace Watermelon.SquadShooter
                 }
 
                 serialized.FindProperty("requiredLevel").intValue = data.requiredLevel;
+                serialized.FindProperty("unlockWorld").intValue = data.worldUnlockLevel > 1 ? (data.worldUnlockLevel - 1) / BalanceData.LEVELS_PER_WORLD + 1 : 0;
 
                 SerializedProperty upgrades = serialized.FindProperty("upgrades");
                 Resize(upgrades, data.stages.Length);

@@ -15,6 +15,8 @@ MonoBehaviour:
   previewSprite: {fileID: 21300000, guid: 3d1b94860d7ba4844a3165d230e3b9bb, type: 3}
   uniqueWorldMusicClip: {fileID: 0}
   worldType: 2
+  featuredCharacter: {fileID: 11400000, guid: c32edd5e2332a9d448a79fe795224c75, type: 2}
+  featuredWeapon: {fileID: 11400000, guid: ff1fa97e16ae77547982733673644e8a, type: 2}
   hitSlowMultiplier: 1
   hitSlowDuration: 0
   levels:
@@ -796,9 +798,9 @@ MonoBehaviour:
     xpAmount: 165
     requiredUpg: 11
     enemiesLevel: 21
-    enemyHealthMult: 2.936
-    enemyDamageMult: 1.629
-    recommendedPower: 46
+    enemyHealthMult: 3.866
+    enemyDamageMult: 1.768
+    recommendedPower: 56
     hasCharacterSuggestion: 0
     healSpawnPercent: 0.5
     dropData:
@@ -806,12 +808,6 @@ MonoBehaviour:
       CurrencyType: 0
       Weapon: {fileID: 0}
       Amount: 150
-      Character: {fileID: 0}
-      Level: 0
-    - DropType: 1
-      CurrencyType: 0
-      Weapon: {fileID: 11400000, guid: ff1fa97e16ae77547982733673644e8a, type: 2}
-      Amount: 2
       Character: {fileID: 0}
       Level: 0
     specialBehaviours: []
@@ -1585,9 +1581,9 @@ MonoBehaviour:
     xpAmount: 165
     requiredUpg: 12
     enemiesLevel: 22
-    enemyHealthMult: 3.065
-    enemyDamageMult: 1.7
-    recommendedPower: 48
+    enemyHealthMult: 4.035
+    enemyDamageMult: 1.845
+    recommendedPower: 59
     hasCharacterSuggestion: 1
     healSpawnPercent: 0.5
     dropData:
@@ -1595,12 +1591,6 @@ MonoBehaviour:
       CurrencyType: 0
       Weapon: {fileID: 0}
       Amount: 155
-      Character: {fileID: 0}
-      Level: 0
-    - DropType: 1
-      CurrencyType: 0
-      Weapon: {fileID: 11400000, guid: ff1fa97e16ae77547982733673644e8a, type: 2}
-      Amount: 2
       Character: {fileID: 0}
       Level: 0
     specialBehaviours: []
@@ -2414,9 +2404,9 @@ MonoBehaviour:
     xpAmount: 170
     requiredUpg: 12
     enemiesLevel: 23
-    enemyHealthMult: 3.412
-    enemyDamageMult: 1.892
-    recommendedPower: 53
+    enemyHealthMult: 4.492
+    enemyDamageMult: 2.054
+    recommendedPower: 65
     hasCharacterSuggestion: 1
     healSpawnPercent: 0.5
     dropData:
@@ -2424,12 +2414,6 @@ MonoBehaviour:
       CurrencyType: 0
       Weapon: {fileID: 0}
       Amount: 160
-      Character: {fileID: 0}
-      Level: 0
-    - DropType: 1
-      CurrencyType: 0
-      Weapon: {fileID: 11400000, guid: ff1fa97e16ae77547982733673644e8a, type: 2}
-      Amount: 2
       Character: {fileID: 0}
       Level: 0
     specialBehaviours: []
@@ -3238,9 +3222,9 @@ MonoBehaviour:
     xpAmount: 170
     requiredUpg: 13
     enemiesLevel: 24
-    enemyHealthMult: 3.54
-    enemyDamageMult: 1.964
-    recommendedPower: 55
+    enemyHealthMult: 5.22
+    enemyDamageMult: 2.132
+    recommendedPower: 74
     hasCharacterSuggestion: 1
     healSpawnPercent: 0.5
     dropData:
@@ -3248,12 +3232,6 @@ MonoBehaviour:
       CurrencyType: 0
       Weapon: {fileID: 0}
       Amount: 165
-      Character: {fileID: 0}
-      Level: 0
-    - DropType: 1
-      CurrencyType: 0
-      Weapon: {fileID: 11400000, guid: ff1fa97e16ae77547982733673644e8a, type: 2}
-      Amount: 2
       Character: {fileID: 0}
       Level: 0
     specialBehaviours: []
@@ -3990,9 +3968,9 @@ MonoBehaviour:
     xpAmount: 175
     requiredUpg: 13
     enemiesLevel: 25
-    enemyHealthMult: 5.155
-    enemyDamageMult: 2.037
-    recommendedPower: 72
+    enemyHealthMult: 5.415
+    enemyDamageMult: 2.211
+    recommendedPower: 76
     hasCharacterSuggestion: 1
     healSpawnPercent: 0.5
     dropData:
@@ -4960,9 +4938,9 @@ MonoBehaviour:
     xpAmount: 180
     requiredUpg: 14
     enemiesLevel: 26
-    enemyHealthMult: 5.981
-    enemyDamageMult: 2.11
-    recommendedPower: 81
+    enemyHealthMult: 5.609
+    enemyDamageMult: 2.291
+    recommendedPower: 79
     hasCharacterSuggestion: 1
     healSpawnPercent: 0.5
     dropData:
@@ -5730,9 +5708,9 @@ MonoBehaviour:
     xpAmount: 180
     requiredUpg: 15
     enemiesLevel: 27
-    enemyHealthMult: 6.188
-    enemyDamageMult: 2.358
-    recommendedPower: 85
+    enemyHealthMult: 6.5
+    enemyDamageMult: 2.559
+    recommendedPower: 91
     hasCharacterSuggestion: 0
     healSpawnPercent: 0.5
     dropData:
@@ -6569,9 +6547,9 @@ MonoBehaviour:
     xpAmount: 185
     requiredUpg: 15
     enemiesLevel: 28
-    enemyHealthMult: 6.396
-    enemyDamageMult: 2.437
-    recommendedPower: 88
+    enemyHealthMult: 6.718
+    enemyDamageMult: 2.645
+    recommendedPower: 94
     hasCharacterSuggestion: 1
     healSpawnPercent: 0.5
     dropData:
@@ -7136,9 +7114,9 @@ MonoBehaviour:
     xpAmount: 185
     requiredUpg: 15
     enemiesLevel: 29
-    enemyHealthMult: 7.394
-    enemyDamageMult: 2.516
-    recommendedPower: 99
+    enemyHealthMult: 6.936
+    enemyDamageMult: 2.731
+    recommendedPower: 97
     hasCharacterSuggestion: 0
     healSpawnPercent: 0.5
     dropData:
@@ -7369,9 +7347,9 @@ MonoBehaviour:
     xpAmount: 285
     requiredUpg: 16
     enemiesLevel: 30
-    enemyHealthMult: 6.704
-    enemyDamageMult: 2.556
-    recommendedPower: 93
+    enemyHealthMult: 7.043
+    enemyDamageMult: 2.476
+    recommendedPower: 95
     hasCharacterSuggestion: 0
     healSpawnPercent: 0.5
     dropData:
@@ -7936,9 +7914,9 @@ MonoBehaviour:
     xpAmount: 195
     requiredUpg: 0
     enemiesLevel: 31
-    enemyHealthMult: 5.628
-    enemyDamageMult: 2.146
-    recommendedPower: 78
+    enemyHealthMult: 5.913
+    enemyDamageMult: 2.079
+    recommendedPower: 80
     hasCharacterSuggestion: 0
     healSpawnPercent: 0.4
     dropData:
@@ -8579,9 +8557,9 @@ MonoBehaviour:
     xpAmount: 195
     requiredUpg: 0
     enemiesLevel: 32
-    enemyHealthMult: 6.564
-    enemyDamageMult: 2.234
-    recommendedPower: 88
+    enemyHealthMult: 6.157
+    enemyDamageMult: 2.164
+    recommendedPower: 83
     hasCharacterSuggestion: 0
     healSpawnPercent: 0.4
     dropData:
@@ -9190,9 +9168,9 @@ MonoBehaviour:
     xpAmount: 200
     requiredUpg: 0
     enemiesLevel: 33
-    enemyHealthMult: 6.824
-    enemyDamageMult: 2.323
-    recommendedPower: 91
+    enemyHealthMult: 7.168
+    enemyDamageMult: 2.25
+    recommendedPower: 94
     hasCharacterSuggestion: 0
     healSpawnPercent: 0.4
     dropData:
@@ -9903,9 +9881,9 @@ MonoBehaviour:
     xpAmount: 200
     requiredUpg: 0
     enemiesLevel: 34
-    enemyHealthMult: 7.085
-    enemyDamageMult: 2.412
-    recommendedPower: 95
+    enemyHealthMult: 7.442
+    enemyDamageMult: 2.336
+    recommendedPower: 98
     hasCharacterSuggestion: 0
     healSpawnPercent: 0.4
     dropData:
@@ -10584,9 +10562,9 @@ MonoBehaviour:
     xpAmount: 205
     requiredUpg: 0
     enemiesLevel: 35
-    enemyHealthMult: 8.233
-    enemyDamageMult: 2.702
-    recommendedPower: 109
+    enemyHealthMult: 7.722
+    enemyDamageMult: 2.424
+    recommendedPower: 101
     hasCharacterSuggestion: 0
     healSpawnPercent: 0.4
     dropData:
@@ -11203,9 +11181,9 @@ MonoBehaviour:
     xpAmount: 210
     requiredUpg: 0
     enemiesLevel: 36
-    enemyHealthMult: 8.525
-    enemyDamageMult: 2.798
-    recommendedPower: 113
+    enemyHealthMult: 7.995
+    enemyDamageMult: 2.711
+    recommendedPower: 107
     hasCharacterSuggestion: 1
     healSpawnPercent: 0.4
     dropData:
@@ -11834,9 +11812,9 @@ MonoBehaviour:
     xpAmount: 210
     requiredUpg: 0
     enemiesLevel: 37
-    enemyHealthMult: 8.816
-    enemyDamageMult: 2.893
-    recommendedPower: 117
+    enemyHealthMult: 9.261
+    enemyDamageMult: 2.804
+    recommendedPower: 121
     hasCharacterSuggestion: 0
     healSpawnPercent: 0.4
     dropData:
@@ -12461,9 +12439,9 @@ MonoBehaviour:
     xpAmount: 215
     requiredUpg: 0
     enemiesLevel: 38
-    enemyHealthMult: 9.115
-    enemyDamageMult: 2.992
-    recommendedPower: 121
+    enemyHealthMult: 9.575
+    enemyDamageMult: 2.899
+    recommendedPower: 125
     hasCharacterSuggestion: 0
     healSpawnPercent: 0.4
     dropData:
@@ -13002,9 +12980,9 @@ MonoBehaviour:
     xpAmount: 215
     requiredUpg: 0
     enemiesLevel: 39
-    enemyHealthMult: 10.544
-    enemyDamageMult: 3.09
-    recommendedPower: 136
+    enemyHealthMult: 9.889
+    enemyDamageMult: 2.994
+    recommendedPower: 129
     hasCharacterSuggestion: 0
     healSpawnPercent: 0.4
     dropData:
@@ -13012,12 +12990,6 @@ MonoBehaviour:
       CurrencyType: 0
       Weapon: {fileID: 0}
       Amount: 265
-      Character: {fileID: 0}
-      Level: 0
-    - DropType: 1
-      CurrencyType: 0
-      Weapon: {fileID: 11400000, guid: 0faf6eca453f34922994547e77da5bac, type: 2}
-      Amount: 2
       Character: {fileID: 0}
       Level: 0
     specialBehaviours: []
@@ -13153,9 +13125,9 @@ MonoBehaviour:
     xpAmount: 330
     requiredUpg: 0
     enemiesLevel: 40
-    enemyHealthMult: 9.556
-    enemyDamageMult: 2.8
-    recommendedPower: 124
+    enemyHealthMult: 8.963
+    enemyDamageMult: 2.713
+    recommendedPower: 117
     hasCharacterSuggestion: 0
     healSpawnPercent: 0.4
     dropData:

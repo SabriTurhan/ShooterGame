@@ -115,11 +115,20 @@ namespace Watermelon.SquadShooter
             lockedStateObject.SetActive(true);
             upgradeStateObject.SetActive(false);
 
-            int currentAmount = Data.CardsAmount;
-            int target = Data.GetNextUpgrade().Price;
+            if (Data.UnlockWorld > 0)
+            {
+                // world weapons come with their world
+                cardsFillImage.fillAmount = 0f;
+                cardsAmountText.text = "WORLD " + Data.UnlockWorld;
+            }
+            else
+            {
+                int currentAmount = Data.CardsAmount;
+                int target = Data.GetNextUpgrade().Price;
 
-            cardsFillImage.fillAmount = (float)currentAmount / target;
-            cardsAmountText.text = currentAmount + "/" + target;
+                cardsFillImage.fillAmount = (float)currentAmount / target;
+                cardsAmountText.text = currentAmount + "/" + target;
+            }
 
             powerObject.SetActive(false);
             powerText.gameObject.SetActive(false);

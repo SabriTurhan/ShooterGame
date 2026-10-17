@@ -15,6 +15,7 @@ MonoBehaviour:
   id: dcfe788c-6676-4f15-8911-50ecb9f62550
   characterName: Mike
   requiredLevel: 3
+  unlockWorld: 0
   previewSprite: {fileID: 21300000, guid: 02200322b8cad0f4ab1c5d3c0eb9a128, type: 3}
   lockedSprite: {fileID: 21300000, guid: d4321a8adb26e7c479f9dbaf87594f69, type: 3}
   dropPrefab: {fileID: 7838959996987145679, guid: 9fb3656f1044b8c46aa62c6db7b3dba6,
@@ -29,90 +30,90 @@ MonoBehaviour:
   - currencyType: 0
     price: 0
     stats:
-      health: 165
+      health: 152
       bulletDamageMultiplier: 1
-      power: 16
+      power: 15
       keyUpgradeNumber: -1
     changeStage: 0
     stageIndex: -1
   - currencyType: 0
     price: 260
     stats:
-      health: 178
+      health: 164
       bulletDamageMultiplier: 1
-      power: 18
+      power: 16
       keyUpgradeNumber: -1
     changeStage: 0
     stageIndex: -1
   - currencyType: 0
     price: 315
     stats:
-      health: 192
+      health: 177
       bulletDamageMultiplier: 1
-      power: 19
+      power: 18
       keyUpgradeNumber: -1
     changeStage: 0
     stageIndex: -1
   - currencyType: 0
     price: 385
     stats:
-      health: 208
+      health: 191
       bulletDamageMultiplier: 1
-      power: 21
+      power: 19
       keyUpgradeNumber: -1
     changeStage: 0
     stageIndex: -1
   - currencyType: 0
     price: 470
     stats:
-      health: 224
+      health: 207
       bulletDamageMultiplier: 1
-      power: 22
+      power: 21
       keyUpgradeNumber: -1
     changeStage: 0
     stageIndex: -1
   - currencyType: 0
     price: 575
     stats:
-      health: 242
+      health: 223
       bulletDamageMultiplier: 1
-      power: 24
+      power: 22
       keyUpgradeNumber: -1
     changeStage: 0
     stageIndex: -1
   - currencyType: 0
     price: 705
     stats:
-      health: 262
+      health: 241
       bulletDamageMultiplier: 1
-      power: 26
+      power: 24
       keyUpgradeNumber: -1
     changeStage: 0
     stageIndex: -1
   - currencyType: 0
     price: 855
     stats:
-      health: 283
+      health: 261
       bulletDamageMultiplier: 1
-      power: 28
+      power: 26
       keyUpgradeNumber: -1
     changeStage: 0
     stageIndex: -1
   - currencyType: 0
     price: 1045
     stats:
-      health: 305
+      health: 281
       bulletDamageMultiplier: 1
-      power: 31
+      power: 28
       keyUpgradeNumber: -1
     changeStage: 0
     stageIndex: -1
   - currencyType: 0
     price: 1275
     stats:
-      health: 330
+      health: 304
       bulletDamageMultiplier: 1
-      power: 33
+      power: 30
       keyUpgradeNumber: -1
     changeStage: 0
     stageIndex: -1

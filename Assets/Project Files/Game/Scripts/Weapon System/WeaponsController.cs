@@ -86,7 +86,7 @@ namespace Watermelon.SquadShooter
             {
                 WeaponData weapon = weapons[i];
 
-                if (weapon.UpgradeLevel == 0 && weapons[i].CardsAmount >= weapon.GetNextUpgrade().Price)
+                if (weapon.UpgradeLevel == 0 && weapon.UnlockWorld == 0 && weapons[i].CardsAmount >= weapon.GetNextUpgrade().Price)
                 {
                     weapon.Upgrade();
 

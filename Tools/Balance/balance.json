@@ -360,21 +360,21 @@
   {
    "name": "LAVA GUN",
    "rarity": 1,
-   "baseStrength": 4.35,
+   "baseStrength": 4.08,
    "dpsFactor": 0.55,
-   "cardsToUnlock": 10,
-   "unlockLevel": 24,
+   "cardsToUnlock": 0,
+   "unlockLevel": 21,
    "stages": [
     {
      "stage": 1,
-     "price": 10,
+     "price": 0,
      "damage": [
       20,
       35
      ],
      "fireRate": 1.0,
-     "strength": 4.35,
-     "power": 44
+     "strength": 4.08,
+     "power": 41
     },
     {
      "stage": 2,
@@ -384,8 +384,8 @@
       38
      ],
      "fireRate": 1.03,
-     "strength": 4.872,
-     "power": 49
+     "strength": 4.57,
+     "power": 46
     },
     {
      "stage": 3,
@@ -395,8 +395,8 @@
       41
      ],
      "fireRate": 1.06,
-     "strength": 5.457,
-     "power": 55
+     "strength": 5.118,
+     "power": 51
     },
     {
      "stage": 4,
@@ -406,8 +406,8 @@
       45
      ],
      "fireRate": 1.09,
-     "strength": 6.111,
-     "power": 61
+     "strength": 5.732,
+     "power": 57
     },
     {
      "stage": 5,
@@ -417,8 +417,8 @@
       49
      ],
      "fireRate": 1.12,
-     "strength": 6.845,
-     "power": 68
+     "strength": 6.42,
+     "power": 64
     },
     {
      "stage": 6,
@@ -428,8 +428,8 @@
       54
      ],
      "fireRate": 1.15,
-     "strength": 7.666,
-     "power": 77
+     "strength": 7.19,
+     "power": 72
     },
     {
      "stage": 7,
@@ -439,8 +439,8 @@
       58
      ],
      "fireRate": 1.19,
-     "strength": 8.586,
-     "power": 86
+     "strength": 8.053,
+     "power": 81
     },
     {
      "stage": 8,
@@ -450,8 +450,8 @@
       63
      ],
      "fireRate": 1.22,
-     "strength": 9.616,
-     "power": 96
+     "strength": 9.02,
+     "power": 90
     },
     {
      "stage": 9,
@@ -461,8 +461,8 @@
       69
      ],
      "fireRate": 1.25,
-     "strength": 10.77,
-     "power": 108
+     "strength": 10.102,
+     "power": 101
     },
     {
      "stage": 10,
@@ -472,8 +472,8 @@
       75
      ],
      "fireRate": 1.29,
-     "strength": 12.063,
-     "power": 121
+     "strength": 11.314,
+     "power": 113
     },
     {
      "stage": 11,
@@ -483,8 +483,8 @@
       82
      ],
      "fireRate": 1.33,
-     "strength": 13.51,
-     "power": 135
+     "strength": 12.672,
+     "power": 127
     },
     {
      "stage": 12,
@@ -494,8 +494,8 @@
       89
      ],
      "fireRate": 1.37,
-     "strength": 15.132,
-     "power": 151
+     "strength": 14.192,
+     "power": 142
     },
     {
      "stage": 13,
@@ -505,8 +505,8 @@
       97
      ],
      "fireRate": 1.4,
-     "strength": 16.947,
-     "power": 169
+     "strength": 15.896,
+     "power": 159
     },
     {
      "stage": 14,
@@ -516,8 +516,8 @@
       106
      ],
      "fireRate": 1.45,
-     "strength": 18.981,
-     "power": 190
+     "strength": 17.803,
+     "power": 178
     },
     {
      "stage": 15,
@@ -527,29 +527,29 @@
       115
      ],
      "fireRate": 1.49,
-     "strength": 21.259,
-     "power": 213
+     "strength": 19.939,
+     "power": 199
     }
    ]
   },
   {
    "name": "CRYO GUN",
    "rarity": 2,
-   "baseStrength": 10.77,
+   "baseStrength": 10.61,
    "dpsFactor": 1.265,
-   "cardsToUnlock": 10,
-   "unlockLevel": 44,
+   "cardsToUnlock": 0,
+   "unlockLevel": 41,
    "stages": [
     {
      "stage": 1,
-     "price": 10,
+     "price": 0,
      "damage": [
       18,
       26
      ],
      "fireRate": 5.0,
-     "strength": 10.77,
-     "power": 108
+     "strength": 10.61,
+     "power": 106
     },
     {
      "stage": 2,
@@ -559,8 +559,8 @@
       28
      ],
      "fireRate": 5.14,
-     "strength": 12.062,
-     "power": 121
+     "strength": 11.883,
+     "power": 119
     },
     {
      "stage": 3,
@@ -570,8 +570,8 @@
       31
      ],
      "fireRate": 5.29,
-     "strength": 13.51,
-     "power": 135
+     "strength": 13.309,
+     "power": 133
     },
     {
      "stage": 4,
@@ -581,8 +581,8 @@
       34
      ],
      "fireRate": 5.44,
-     "strength": 15.131,
-     "power": 151
+     "strength": 14.906,
+     "power": 149
     },
     {
      "stage": 5,
@@ -592,8 +592,8 @@
       37
      ],
      "fireRate": 5.6,
-     "strength": 16.947,
-     "power": 169
+     "strength": 16.695,
+     "power": 167
     },
     {
      "stage": 6,
@@ -603,8 +603,8 @@
       40
      ],
      "fireRate": 5.76,
-     "strength": 18.98,
-     "power": 190
+     "strength": 18.698,
+     "power": 187
     },
     {
      "stage": 7,
@@ -614,8 +614,8 @@
       43
      ],
      "fireRate": 5.93,
-     "strength": 21.258,
-     "power": 213
+     "strength": 20.942,
+     "power": 209
     },
     {
      "stage": 8,
@@ -625,8 +625,8 @@
       47
      ],
      "fireRate": 6.1,
-     "strength": 23.809,
-     "power": 238
+     "strength": 23.455,
+     "power": 235
     },
     {
      "stage": 9,
@@ -636,8 +636,8 @@
       51
      ],
      "fireRate": 6.27,
-     "strength": 26.666,
-     "power": 267
+     "strength": 26.27,
+     "power": 263
     },
     {
      "stage": 10,
@@ -647,8 +647,8 @@
       56
      ],
      "fireRate": 6.45,
-     "strength": 29.866,
-     "power": 299
+     "strength": 29.422,
+     "power": 294
     },
     {
      "stage": 11,
@@ -658,8 +658,8 @@
       61
      ],
      "fireRate": 6.64,
-     "strength": 33.45,
-     "power": 334
+     "strength": 32.953,
+     "power": 330
     },
     {
      "stage": 12,
@@ -669,8 +669,8 @@
       66
      ],
      "fireRate": 6.83,
-     "strength": 37.464,
-     "power": 375
+     "strength": 36.907,
+     "power": 369
     },
     {
      "stage": 13,
@@ -680,8 +680,8 @@
       72
      ],
      "fireRate": 7.02,
-     "strength": 41.96,
-     "power": 420
+     "strength": 41.336,
+     "power": 413
     },
     {
      "stage": 14,
@@ -691,8 +691,8 @@
       78
      ],
      "fireRate": 7.23,
-     "strength": 46.995,
-     "power": 470
+     "strength": 46.297,
+     "power": 463
     },
     {
      "stage": 15,
@@ -702,18 +702,368 @@
       85
      ],
      "fireRate": 7.43,
-     "strength": 52.634,
-     "power": 526
+     "strength": 51.852,
+     "power": 519
+    }
+   ]
+  },
+  {
+   "name": "FLASH GUN",
+   "rarity": 3,
+   "baseStrength": 24.63,
+   "dpsFactor": 1.05,
+   "cardsToUnlock": 0,
+   "unlockLevel": 61,
+   "stages": [
+    {
+     "stage": 1,
+     "price": 0,
+     "damage": [
+      30,
+      45
+     ],
+     "fireRate": 1.4,
+     "strength": 24.63,
+     "power": 246
+    },
+    {
+     "stage": 2,
+     "price": 1000,
+     "damage": [
+      33,
+      49
+     ],
+     "fireRate": 1.44,
+     "strength": 27.586,
+     "power": 276
+    },
+    {
+     "stage": 3,
+     "price": 1200,
+     "damage": [
+      36,
+      53
+     ],
+     "fireRate": 1.48,
+     "strength": 30.896,
+     "power": 309
+    },
+    {
+     "stage": 4,
+     "price": 1440,
+     "damage": [
+      39,
+      58
+     ],
+     "fireRate": 1.52,
+     "strength": 34.603,
+     "power": 346
+    },
+    {
+     "stage": 5,
+     "price": 1730,
+     "damage": [
+      42,
+      63
+     ],
+     "fireRate": 1.57,
+     "strength": 38.756,
+     "power": 388
+    },
+    {
+     "stage": 6,
+     "price": 2075,
+     "damage": [
+      46,
+      69
+     ],
+     "fireRate": 1.61,
+     "strength": 43.406,
+     "power": 434
+    },
+    {
+     "stage": 7,
+     "price": 2490,
+     "damage": [
+      50,
+      75
+     ],
+     "fireRate": 1.66,
+     "strength": 48.615,
+     "power": 486
+    },
+    {
+     "stage": 8,
+     "price": 2985,
+     "damage": [
+      54,
+      82
+     ],
+     "fireRate": 1.71,
+     "strength": 54.449,
+     "power": 544
+    },
+    {
+     "stage": 9,
+     "price": 3585,
+     "damage": [
+      59,
+      89
+     ],
+     "fireRate": 1.76,
+     "strength": 60.983,
+     "power": 610
+    },
+    {
+     "stage": 10,
+     "price": 4300,
+     "damage": [
+      64,
+      97
+     ],
+     "fireRate": 1.81,
+     "strength": 68.301,
+     "power": 683
+    },
+    {
+     "stage": 11,
+     "price": 5160,
+     "damage": [
+      70,
+      105
+     ],
+     "fireRate": 1.86,
+     "strength": 76.497,
+     "power": 765
+    },
+    {
+     "stage": 12,
+     "price": 6190,
+     "damage": [
+      76,
+      115
+     ],
+     "fireRate": 1.91,
+     "strength": 85.677,
+     "power": 857
+    },
+    {
+     "stage": 13,
+     "price": 7430,
+     "damage": [
+      83,
+      125
+     ],
+     "fireRate": 1.97,
+     "strength": 95.958,
+     "power": 960
+    },
+    {
+     "stage": 14,
+     "price": 8915,
+     "damage": [
+      91,
+      136
+     ],
+     "fireRate": 2.02,
+     "strength": 107.473,
+     "power": 1075
+    },
+    {
+     "stage": 15,
+     "price": 10700,
+     "damage": [
+      99,
+      148
+     ],
+     "fireRate": 2.08,
+     "strength": 120.37,
+     "power": 1204
+    }
+   ]
+  },
+  {
+   "name": "ROCKET LAUNCHER",
+   "rarity": 3,
+   "baseStrength": 57.17,
+   "dpsFactor": 0.98,
+   "cardsToUnlock": 0,
+   "unlockLevel": 81,
+   "stages": [
+    {
+     "stage": 1,
+     "price": 0,
+     "damage": [
+      60,
+      80
+     ],
+     "fireRate": 0.7,
+     "strength": 57.17,
+     "power": 572
+    },
+    {
+     "stage": 2,
+     "price": 1900,
+     "damage": [
+      65,
+      87
+     ],
+     "fireRate": 0.72,
+     "strength": 64.03,
+     "power": 640
+    },
+    {
+     "stage": 3,
+     "price": 2280,
+     "damage": [
+      71,
+      95
+     ],
+     "fireRate": 0.74,
+     "strength": 71.714,
+     "power": 717
+    },
+    {
+     "stage": 4,
+     "price": 2735,
+     "damage": [
+      77,
+      103
+     ],
+     "fireRate": 0.76,
+     "strength": 80.32,
+     "power": 803
+    },
+    {
+     "stage": 5,
+     "price": 3285,
+     "damage": [
+      84,
+      112
+     ],
+     "fireRate": 0.78,
+     "strength": 89.958,
+     "power": 900
+    },
+    {
+     "stage": 6,
+     "price": 3940,
+     "damage": [
+      92,
+      122
+     ],
+     "fireRate": 0.81,
+     "strength": 100.753,
+     "power": 1008
+    },
+    {
+     "stage": 7,
+     "price": 4730,
+     "damage": [
+      100,
+      133
+     ],
+     "fireRate": 0.83,
+     "strength": 112.843,
+     "power": 1128
+    },
+    {
+     "stage": 8,
+     "price": 5675,
+     "damage": [
+      109,
+      145
+     ],
+     "fireRate": 0.85,
+     "strength": 126.385,
+     "power": 1264
+    },
+    {
+     "stage": 9,
+     "price": 6810,
+     "damage": [
+      118,
+      158
+     ],
+     "fireRate": 0.88,
+     "strength": 141.551,
+     "power": 1416
+    },
+    {
+     "stage": 10,
+     "price": 8170,
+     "damage": [
+      129,
+      172
+     ],
+     "fireRate": 0.9,
+     "strength": 158.537,
+     "power": 1585
+    },
+    {
+     "stage": 11,
+     "price": 9805,
+     "damage": [
+      140,
+      187
+     ],
+     "fireRate": 0.93,
+     "strength": 177.561,
+     "power": 1776
+    },
+    {
+     "stage": 12,
+     "price": 11765,
+     "damage": [
+      153,
+      204
+     ],
+     "fireRate": 0.96,
+     "strength": 198.869,
+     "power": 1989
+    },
+    {
+     "stage": 13,
+     "price": 14115,
+     "damage": [
+      166,
+      222
+     ],
+     "fireRate": 0.98,
+     "strength": 222.733,
+     "power": 2227
+    },
+    {
+     "stage": 14,
+     "price": 16940,
+     "damage": [
+      181,
+      242
+     ],
+     "fireRate": 1.01,
+     "strength": 249.461,
+     "power": 2495
+    },
+    {
+     "stage": 15,
+     "price": 20330,
+     "damage": [
+      197,
+      263
+     ],
+     "fireRate": 1.04,
+     "strength": 279.396,
+     "power": 2794
     }
    ]
   },
   {
    "name": "TESLA GUN",
    "rarity": 4,
-   "baseStrength": 26.67,
+   "baseStrength": 95.72,
    "dpsFactor": 0.604,
    "cardsToUnlock": 12,
-   "unlockLevel": 66,
+   "unlockLevel": 100,
    "stages": [
     {
      "stage": 1,
@@ -723,337 +1073,162 @@
       15
      ],
      "fireRate": 2.1,
-     "strength": 26.67,
-     "power": 267
+     "strength": 95.72,
+     "power": 957
     },
     {
      "stage": 2,
-     "price": 950,
+     "price": 1400,
      "damage": [
       9,
       16
      ],
      "fireRate": 2.16,
-     "strength": 29.87,
-     "power": 299
+     "strength": 107.206,
+     "power": 1072
     },
     {
      "stage": 3,
-     "price": 1140,
+     "price": 1680,
      "damage": [
       9,
       18
      ],
      "fireRate": 2.22,
-     "strength": 33.455,
-     "power": 335
+     "strength": 120.071,
+     "power": 1201
     },
     {
      "stage": 4,
-     "price": 1370,
+     "price": 2015,
      "damage": [
       10,
       19
      ],
      "fireRate": 2.29,
-     "strength": 37.469,
-     "power": 375
+     "strength": 134.48,
+     "power": 1345
     },
     {
      "stage": 5,
-     "price": 1640,
+     "price": 2420,
      "damage": [
       11,
       21
      ],
      "fireRate": 2.35,
-     "strength": 41.966,
-     "power": 420
+     "strength": 150.617,
+     "power": 1506
     },
     {
      "stage": 6,
-     "price": 1970,
+     "price": 2905,
      "damage": [
       12,
       23
      ],
      "fireRate": 2.42,
-     "strength": 47.002,
-     "power": 470
+     "strength": 168.691,
+     "power": 1687
     },
     {
      "stage": 7,
-     "price": 2365,
+     "price": 3485,
      "damage": [
       13,
       25
      ],
      "fireRate": 2.49,
-     "strength": 52.642,
-     "power": 526
+     "strength": 188.934,
+     "power": 1889
     },
     {
      "stage": 8,
-     "price": 2835,
+     "price": 4180,
      "damage": [
       15,
       27
      ],
      "fireRate": 2.56,
-     "strength": 58.959,
-     "power": 590
+     "strength": 211.606,
+     "power": 2116
     },
     {
      "stage": 9,
-     "price": 3405,
+     "price": 5015,
      "damage": [
       16,
       30
      ],
      "fireRate": 2.63,
-     "strength": 66.034,
-     "power": 660
+     "strength": 236.999,
+     "power": 2370
     },
     {
      "stage": 10,
-     "price": 4085,
+     "price": 6020,
      "damage": [
       17,
       32
      ],
      "fireRate": 2.71,
-     "strength": 73.958,
-     "power": 740
+     "strength": 265.439,
+     "power": 2654
     },
     {
      "stage": 11,
-     "price": 4900,
+     "price": 7225,
      "damage": [
       19,
       35
      ],
      "fireRate": 2.79,
-     "strength": 82.833,
-     "power": 828
+     "strength": 297.292,
+     "power": 2973
     },
     {
      "stage": 12,
-     "price": 5880,
+     "price": 8670,
      "damage": [
       20,
       38
      ],
      "fireRate": 2.87,
-     "strength": 92.773,
-     "power": 928
+     "strength": 332.967,
+     "power": 3330
     },
     {
      "stage": 13,
-     "price": 7060,
+     "price": 10400,
      "damage": [
       22,
       42
      ],
      "fireRate": 2.95,
-     "strength": 103.906,
-     "power": 1039
+     "strength": 372.923,
+     "power": 3729
     },
     {
      "stage": 14,
-     "price": 8470,
+     "price": 12485,
      "damage": [
       24,
       45
      ],
      "fireRate": 3.04,
-     "strength": 116.374,
-     "power": 1164
+     "strength": 417.674,
+     "power": 4177
     },
     {
      "stage": 15,
-     "price": 10165,
+     "price": 14980,
      "damage": [
       26,
       49
      ],
      "fireRate": 3.12,
-     "strength": 130.339,
-     "power": 1303
-    }
-   ]
-  },
-  {
-   "name": "ROCKET LAUNCHER",
-   "rarity": 3,
-   "baseStrength": 58.96,
-   "dpsFactor": 0.98,
-   "cardsToUnlock": 12,
-   "unlockLevel": 84,
-   "stages": [
-    {
-     "stage": 1,
-     "price": 12,
-     "damage": [
-      60,
-      80
-     ],
-     "fireRate": 0.7,
-     "strength": 58.96,
-     "power": 590
-    },
-    {
-     "stage": 2,
-     "price": 1700,
-     "damage": [
-      65,
-      87
-     ],
-     "fireRate": 0.72,
-     "strength": 66.035,
-     "power": 660
-    },
-    {
-     "stage": 3,
-     "price": 2040,
-     "damage": [
-      71,
-      95
-     ],
-     "fireRate": 0.74,
-     "strength": 73.959,
-     "power": 740
-    },
-    {
-     "stage": 4,
-     "price": 2450,
-     "damage": [
-      77,
-      103
-     ],
-     "fireRate": 0.76,
-     "strength": 82.835,
-     "power": 828
-    },
-    {
-     "stage": 5,
-     "price": 2940,
-     "damage": [
-      84,
-      112
-     ],
-     "fireRate": 0.78,
-     "strength": 92.775,
-     "power": 928
-    },
-    {
-     "stage": 6,
-     "price": 3525,
-     "damage": [
-      92,
-      122
-     ],
-     "fireRate": 0.81,
-     "strength": 103.908,
-     "power": 1039
-    },
-    {
-     "stage": 7,
-     "price": 4230,
-     "damage": [
-      100,
-      133
-     ],
-     "fireRate": 0.83,
-     "strength": 116.377,
-     "power": 1164
-    },
-    {
-     "stage": 8,
-     "price": 5075,
-     "damage": [
-      109,
-      145
-     ],
-     "fireRate": 0.85,
-     "strength": 130.342,
-     "power": 1303
-    },
-    {
-     "stage": 9,
-     "price": 6090,
-     "damage": [
-      118,
-      158
-     ],
-     "fireRate": 0.88,
-     "strength": 145.983,
-     "power": 1460
-    },
-    {
-     "stage": 10,
-     "price": 7310,
-     "damage": [
-      129,
-      172
-     ],
-     "fireRate": 0.9,
-     "strength": 163.501,
-     "power": 1635
-    },
-    {
-     "stage": 11,
-     "price": 8770,
-     "damage": [
-      140,
-      187
-     ],
-     "fireRate": 0.93,
-     "strength": 183.121,
-     "power": 1831
-    },
-    {
-     "stage": 12,
-     "price": 10525,
-     "damage": [
-      153,
-      204
-     ],
-     "fireRate": 0.96,
-     "strength": 205.095,
-     "power": 2051
-    },
-    {
-     "stage": 13,
-     "price": 12630,
-     "damage": [
-      166,
-      222
-     ],
-     "fireRate": 0.98,
-     "strength": 229.707,
-     "power": 2297
-    },
-    {
-     "stage": 14,
-     "price": 15155,
-     "damage": [
-      181,
-      242
-     ],
-     "fireRate": 1.01,
-     "strength": 257.272,
-     "power": 2573
-    },
-    {
-     "stage": 15,
-     "price": 18190,
-     "damage": [
-      197,
-      263
-     ],
-     "fireRate": 1.04,
-     "strength": 288.144,
-     "power": 2881
+     "strength": 467.794,
+     "power": 4678
     }
    ]
   }
@@ -1063,6 +1238,7 @@
    "name": "JIM",
    "baseStrength": 1.0,
    "requiredLevel": 1,
+   "worldUnlockLevel": 1,
    "stages": [
     {
      "stage": 1,
@@ -1138,309 +1314,391 @@
   },
   {
    "name": "MIKE",
-   "baseStrength": 1.65,
+   "baseStrength": 1.52,
    "requiredLevel": 3,
+   "worldUnlockLevel": 0,
    "stages": [
     {
      "stage": 1,
      "price": 0,
-     "health": 165,
-     "strength": 1.65,
-     "power": 16
+     "health": 152,
+     "strength": 1.52,
+     "power": 15
     },
     {
      "stage": 2,
      "price": 260,
-     "health": 178,
-     "strength": 1.782,
-     "power": 18
+     "health": 164,
+     "strength": 1.642,
+     "power": 16
     },
     {
      "stage": 3,
      "price": 315,
-     "health": 192,
-     "strength": 1.925,
-     "power": 19
+     "health": 177,
+     "strength": 1.773,
+     "power": 18
     },
     {
      "stage": 4,
      "price": 385,
-     "health": 208,
-     "strength": 2.079,
-     "power": 21
+     "health": 191,
+     "strength": 1.915,
+     "power": 19
     },
     {
      "stage": 5,
      "price": 470,
-     "health": 224,
-     "strength": 2.245,
-     "power": 22
+     "health": 207,
+     "strength": 2.068,
+     "power": 21
     },
     {
      "stage": 6,
      "price": 575,
-     "health": 242,
-     "strength": 2.424,
-     "power": 24
+     "health": 223,
+     "strength": 2.233,
+     "power": 22
     },
     {
      "stage": 7,
      "price": 705,
-     "health": 262,
-     "strength": 2.618,
-     "power": 26
+     "health": 241,
+     "strength": 2.412,
+     "power": 24
     },
     {
      "stage": 8,
      "price": 855,
-     "health": 283,
-     "strength": 2.828,
-     "power": 28
+     "health": 261,
+     "strength": 2.605,
+     "power": 26
     },
     {
      "stage": 9,
      "price": 1045,
-     "health": 305,
-     "strength": 3.054,
-     "power": 31
+     "health": 281,
+     "strength": 2.813,
+     "power": 28
     },
     {
      "stage": 10,
      "price": 1275,
-     "health": 330,
-     "strength": 3.298,
-     "power": 33
+     "health": 304,
+     "strength": 3.038,
+     "power": 30
     }
    ]
   },
   {
    "name": "DUSTIN",
-   "baseStrength": 2.33,
-   "requiredLevel": 6,
+   "baseStrength": 2.09,
+   "requiredLevel": 5,
+   "worldUnlockLevel": 21,
    "stages": [
     {
      "stage": 1,
      "price": 0,
-     "health": 233,
-     "strength": 2.33,
-     "power": 23
+     "health": 209,
+     "strength": 2.09,
+     "power": 21
     },
     {
      "stage": 2,
      "price": 650,
-     "health": 252,
-     "strength": 2.516,
-     "power": 25
+     "health": 226,
+     "strength": 2.257,
+     "power": 23
     },
     {
      "stage": 3,
      "price": 795,
-     "health": 272,
-     "strength": 2.718,
-     "power": 27
+     "health": 244,
+     "strength": 2.438,
+     "power": 24
     },
     {
      "stage": 4,
      "price": 965,
-     "health": 294,
-     "strength": 2.935,
-     "power": 29
+     "health": 263,
+     "strength": 2.633,
+     "power": 26
     },
     {
      "stage": 5,
      "price": 1180,
-     "health": 317,
-     "strength": 3.17,
-     "power": 32
+     "health": 284,
+     "strength": 2.843,
+     "power": 28
     },
     {
      "stage": 6,
      "price": 1440,
-     "health": 342,
-     "strength": 3.424,
-     "power": 34
+     "health": 307,
+     "strength": 3.071,
+     "power": 31
     },
     {
      "stage": 7,
      "price": 1755,
-     "health": 370,
-     "strength": 3.697,
-     "power": 37
+     "health": 332,
+     "strength": 3.317,
+     "power": 33
     },
     {
      "stage": 8,
      "price": 2145,
-     "health": 399,
-     "strength": 3.993,
-     "power": 40
+     "health": 358,
+     "strength": 3.582,
+     "power": 36
     },
     {
      "stage": 9,
      "price": 2615,
-     "health": 431,
-     "strength": 4.313,
-     "power": 43
+     "health": 387,
+     "strength": 3.868,
+     "power": 39
     },
     {
      "stage": 10,
      "price": 3190,
-     "health": 466,
-     "strength": 4.658,
-     "power": 47
+     "health": 418,
+     "strength": 4.178,
+     "power": 42
     }
    ]
   },
   {
    "name": "FROST",
-   "baseStrength": 3.29,
-   "requiredLevel": 10,
+   "baseStrength": 2.87,
+   "requiredLevel": 8,
+   "worldUnlockLevel": 41,
    "stages": [
     {
      "stage": 1,
      "price": 0,
-     "health": 329,
-     "strength": 3.29,
-     "power": 33
+     "health": 287,
+     "strength": 2.87,
+     "power": 29
     },
     {
      "stage": 2,
      "price": 1400,
-     "health": 355,
-     "strength": 3.553,
-     "power": 36
+     "health": 310,
+     "strength": 3.1,
+     "power": 31
     },
     {
      "stage": 3,
      "price": 1710,
-     "health": 384,
-     "strength": 3.837,
-     "power": 38
+     "health": 335,
+     "strength": 3.348,
+     "power": 33
     },
     {
      "stage": 4,
      "price": 2085,
-     "health": 414,
-     "strength": 4.144,
-     "power": 41
+     "health": 362,
+     "strength": 3.615,
+     "power": 36
     },
     {
      "stage": 5,
      "price": 2540,
-     "health": 448,
-     "strength": 4.476,
-     "power": 45
+     "health": 390,
+     "strength": 3.905,
+     "power": 39
     },
     {
      "stage": 6,
      "price": 3100,
-     "health": 483,
-     "strength": 4.834,
-     "power": 48
+     "health": 422,
+     "strength": 4.217,
+     "power": 42
     },
     {
      "stage": 7,
      "price": 3785,
-     "health": 522,
-     "strength": 5.221,
-     "power": 52
+     "health": 455,
+     "strength": 4.554,
+     "power": 46
     },
     {
      "stage": 8,
      "price": 4615,
-     "health": 564,
-     "strength": 5.638,
-     "power": 56
+     "health": 492,
+     "strength": 4.919,
+     "power": 49
     },
     {
      "stage": 9,
      "price": 5630,
-     "health": 609,
-     "strength": 6.09,
-     "power": 61
+     "health": 531,
+     "strength": 5.312,
+     "power": 53
     },
     {
      "stage": 10,
      "price": 6870,
-     "health": 658,
-     "strength": 6.577,
-     "power": 66
+     "health": 574,
+     "strength": 5.737,
+     "power": 57
+    }
+   ]
+  },
+  {
+   "name": "ROOK",
+   "baseStrength": 3.94,
+   "requiredLevel": 11,
+   "worldUnlockLevel": 61,
+   "stages": [
+    {
+     "stage": 1,
+     "price": 0,
+     "health": 394,
+     "strength": 3.94,
+     "power": 39
+    },
+    {
+     "stage": 2,
+     "price": 2100,
+     "health": 426,
+     "strength": 4.255,
+     "power": 43
+    },
+    {
+     "stage": 3,
+     "price": 2560,
+     "health": 460,
+     "strength": 4.596,
+     "power": 46
+    },
+    {
+     "stage": 4,
+     "price": 3125,
+     "health": 496,
+     "strength": 4.963,
+     "power": 50
+    },
+    {
+     "stage": 5,
+     "price": 3815,
+     "health": 536,
+     "strength": 5.36,
+     "power": 54
+    },
+    {
+     "stage": 6,
+     "price": 4650,
+     "health": 579,
+     "strength": 5.789,
+     "power": 58
+    },
+    {
+     "stage": 7,
+     "price": 5675,
+     "health": 625,
+     "strength": 6.252,
+     "power": 63
+    },
+    {
+     "stage": 8,
+     "price": 6925,
+     "health": 675,
+     "strength": 6.752,
+     "power": 68
+    },
+    {
+     "stage": 9,
+     "price": 8450,
+     "health": 729,
+     "strength": 7.293,
+     "power": 73
+    },
+    {
+     "stage": 10,
+     "price": 10305,
+     "health": 788,
+     "strength": 7.876,
+     "power": 79
     }
    ]
   },
   {
    "name": "BLAZE",
-   "baseStrength": 5.01,
-   "requiredLevel": 15,
+   "baseStrength": 5.4,
+   "requiredLevel": 14,
+   "worldUnlockLevel": 81,
    "stages": [
     {
      "stage": 1,
      "price": 0,
-     "health": 501,
-     "strength": 5.01,
-     "power": 50
+     "health": 540,
+     "strength": 5.4,
+     "power": 54
     },
     {
      "stage": 2,
      "price": 2800,
-     "health": 541,
-     "strength": 5.411,
-     "power": 54
+     "health": 583,
+     "strength": 5.832,
+     "power": 58
     },
     {
      "stage": 3,
      "price": 3415,
-     "health": 584,
-     "strength": 5.844,
-     "power": 58
+     "health": 630,
+     "strength": 6.299,
+     "power": 63
     },
     {
      "stage": 4,
      "price": 4170,
-     "health": 631,
-     "strength": 6.311,
-     "power": 63
+     "health": 680,
+     "strength": 6.802,
+     "power": 68
     },
     {
      "stage": 5,
      "price": 5085,
-     "health": 682,
-     "strength": 6.816,
-     "power": 68
+     "health": 735,
+     "strength": 7.347,
+     "power": 73
     },
     {
      "stage": 6,
      "price": 6205,
-     "health": 736,
-     "strength": 7.361,
-     "power": 74
+     "health": 793,
+     "strength": 7.934,
+     "power": 79
     },
     {
      "stage": 7,
      "price": 7570,
-     "health": 795,
-     "strength": 7.95,
-     "power": 80
+     "health": 857,
+     "strength": 8.569,
+     "power": 86
     },
     {
      "stage": 8,
      "price": 9230,
-     "health": 859,
-     "strength": 8.586,
-     "power": 86
+     "health": 925,
+     "strength": 9.255,
+     "power": 93
     },
     {
      "stage": 9,
      "price": 11265,
-     "health": 927,
-     "strength": 9.273,
-     "power": 93
+     "health": 1000,
+     "strength": 9.995,
+     "power": 100
     },
     {
      "stage": 10,
      "price": 13740,
-     "health": 1002,
-     "strength": 10.015,
-     "power": 100
+     "health": 1079,
+     "strength": 10.795,
+     "power": 108
     }
    ]
   }
@@ -1449,22 +1707,22 @@
   0,
   680,
   1360,
-  2360,
-  3360,
-  4350,
-  5490,
-  6640,
-  7780,
-  8920,
-  10770,
-  12620,
-  14460,
-  16300,
-  18150,
-  20080,
-  22010,
-  23940,
-  25870,
+  2070,
+  2780,
+  4120,
+  5460,
+  6810,
+  8580,
+  10340,
+  12100,
+  14290,
+  16480,
+  18660,
+  20180,
+  21710,
+  23230,
+  24750,
+  26280,
   27800
  ],
  "levels": [
@@ -1680,10 +1938,10 @@
    "cards": [],
    "pressure": 0.931,
    "expectedWeaponStrength": 2.206,
-   "expectedCharacterStrength": 1.65,
+   "expectedCharacterStrength": 1.52,
    "enemyHpMult": 2.054,
-   "enemyDmgMult": 1.536,
-   "recommendedPower": 36
+   "enemyDmgMult": 1.415,
+   "recommendedPower": 35
   },
   {
    "n": 13,
@@ -1696,10 +1954,10 @@
    "cards": [],
    "pressure": 0.969,
    "expectedWeaponStrength": 2.47,
-   "expectedCharacterStrength": 1.65,
+   "expectedCharacterStrength": 1.52,
    "enemyHpMult": 2.393,
-   "enemyDmgMult": 1.599,
-   "recommendedPower": 40
+   "enemyDmgMult": 1.473,
+   "recommendedPower": 39
   },
   {
    "n": 14,
@@ -1712,10 +1970,10 @@
    "cards": [],
    "pressure": 1.006,
    "expectedWeaponStrength": 2.47,
-   "expectedCharacterStrength": 1.65,
+   "expectedCharacterStrength": 1.52,
    "enemyHpMult": 2.485,
-   "enemyDmgMult": 1.66,
-   "recommendedPower": 41
+   "enemyDmgMult": 1.529,
+   "recommendedPower": 40
   },
   {
    "n": 15,
@@ -1728,10 +1986,10 @@
    "cards": [],
    "pressure": 1.043,
    "expectedWeaponStrength": 2.47,
-   "expectedCharacterStrength": 1.65,
+   "expectedCharacterStrength": 1.52,
    "enemyHpMult": 2.576,
-   "enemyDmgMult": 1.721,
-   "recommendedPower": 43
+   "enemyDmgMult": 1.585,
+   "recommendedPower": 42
   },
   {
    "n": 16,
@@ -1744,10 +2002,10 @@
    "cards": [],
    "pressure": 1.08,
    "expectedWeaponStrength": 2.767,
-   "expectedCharacterStrength": 1.782,
+   "expectedCharacterStrength": 1.642,
    "enemyHpMult": 2.988,
-   "enemyDmgMult": 1.925,
-   "recommendedPower": 49
+   "enemyDmgMult": 1.773,
+   "recommendedPower": 48
   },
   {
    "n": 17,
@@ -1760,10 +2018,10 @@
    "cards": [],
    "pressure": 1.118,
    "expectedWeaponStrength": 2.767,
-   "expectedCharacterStrength": 1.782,
+   "expectedCharacterStrength": 1.642,
    "enemyHpMult": 3.094,
-   "enemyDmgMult": 1.992,
-   "recommendedPower": 51
+   "enemyDmgMult": 1.836,
+   "recommendedPower": 49
   },
   {
    "n": 18,
@@ -1776,10 +2034,10 @@
    "cards": [],
    "pressure": 1.155,
    "expectedWeaponStrength": 2.767,
-   "expectedCharacterStrength": 1.782,
+   "expectedCharacterStrength": 1.642,
    "enemyHpMult": 3.196,
-   "enemyDmgMult": 2.058,
-   "recommendedPower": 53
+   "enemyDmgMult": 1.897,
+   "recommendedPower": 51
   },
   {
    "n": 19,
@@ -1789,18 +2047,13 @@
    "rooms": 3,
    "coins": 140,
    "xp": 155,
-   "cards": [
-    {
-     "weapon": "LAVA GUN",
-     "amount": 2
-    }
-   ],
+   "cards": [],
    "pressure": 1.193,
    "expectedWeaponStrength": 3.099,
-   "expectedCharacterStrength": 1.782,
+   "expectedCharacterStrength": 1.642,
    "enemyHpMult": 3.697,
-   "enemyDmgMult": 2.126,
-   "recommendedPower": 58
+   "enemyDmgMult": 1.959,
+   "recommendedPower": 57
   },
   {
    "n": 20,
@@ -1813,10 +2066,10 @@
    "cards": [],
    "pressure": 1.082,
    "expectedWeaponStrength": 3.099,
-   "expectedCharacterStrength": 1.782,
+   "expectedCharacterStrength": 1.642,
    "enemyHpMult": 3.353,
-   "enemyDmgMult": 1.928,
-   "recommendedPower": 53
+   "enemyDmgMult": 1.777,
+   "recommendedPower": 51
   },
   {
    "n": 21,
@@ -1826,18 +2079,13 @@
    "rooms": 3,
    "coins": 150,
    "xp": 165,
-   "cards": [
-    {
-     "weapon": "LAVA GUN",
-     "amount": 2
-    }
-   ],
+   "cards": [],
    "pressure": 0.846,
-   "expectedWeaponStrength": 3.471,
-   "expectedCharacterStrength": 1.925,
-   "enemyHpMult": 2.936,
-   "enemyDmgMult": 1.629,
-   "recommendedPower": 46
+   "expectedWeaponStrength": 4.57,
+   "expectedCharacterStrength": 2.09,
+   "enemyHpMult": 3.866,
+   "enemyDmgMult": 1.768,
+   "recommendedPower": 56
   },
   {
    "n": 22,
@@ -1847,18 +2095,13 @@
    "rooms": 3,
    "coins": 155,
    "xp": 165,
-   "cards": [
-    {
-     "weapon": "LAVA GUN",
-     "amount": 2
-    }
-   ],
+   "cards": [],
    "pressure": 0.883,
-   "expectedWeaponStrength": 3.471,
-   "expectedCharacterStrength": 1.925,
-   "enemyHpMult": 3.065,
-   "enemyDmgMult": 1.7,
-   "recommendedPower": 48
+   "expectedWeaponStrength": 4.57,
+   "expectedCharacterStrength": 2.09,
+   "enemyHpMult": 4.035,
+   "enemyDmgMult": 1.845,
+   "recommendedPower": 59
   },
   {
    "n": 23,
@@ -1868,18 +2111,13 @@
    "rooms": 3,
    "coins": 160,
    "xp": 170,
-   "cards": [
-    {
-     "weapon": "LAVA GUN",
-     "amount": 2
-    }
-   ],
+   "cards": [],
    "pressure": 0.983,
-   "expectedWeaponStrength": 3.471,
-   "expectedCharacterStrength": 1.925,
-   "enemyHpMult": 3.412,
-   "enemyDmgMult": 1.892,
-   "recommendedPower": 53
+   "expectedWeaponStrength": 4.57,
+   "expectedCharacterStrength": 2.09,
+   "enemyHpMult": 4.492,
+   "enemyDmgMult": 2.054,
+   "recommendedPower": 65
   },
   {
    "n": 24,
@@ -1889,18 +2127,13 @@
    "rooms": 3,
    "coins": 165,
    "xp": 170,
-   "cards": [
-    {
-     "weapon": "LAVA GUN",
-     "amount": 2
-    }
-   ],
+   "cards": [],
    "pressure": 1.02,
-   "expectedWeaponStrength": 3.471,
-   "expectedCharacterStrength": 1.925,
-   "enemyHpMult": 3.54,
-   "enemyDmgMult": 1.964,
-   "recommendedPower": 55
+   "expectedWeaponStrength": 5.118,
+   "expectedCharacterStrength": 2.09,
+   "enemyHpMult": 5.22,
+   "enemyDmgMult": 2.132,
+   "recommendedPower": 74
   },
   {
    "n": 25,
@@ -1912,11 +2145,11 @@
    "xp": 175,
    "cards": [],
    "pressure": 1.058,
-   "expectedWeaponStrength": 4.872,
-   "expectedCharacterStrength": 1.925,
-   "enemyHpMult": 5.155,
-   "enemyDmgMult": 2.037,
-   "recommendedPower": 72
+   "expectedWeaponStrength": 5.118,
+   "expectedCharacterStrength": 2.09,
+   "enemyHpMult": 5.415,
+   "enemyDmgMult": 2.211,
+   "recommendedPower": 76
   },
   {
    "n": 26,
@@ -1928,11 +2161,11 @@
    "xp": 180,
    "cards": [],
    "pressure": 1.096,
-   "expectedWeaponStrength": 5.457,
-   "expectedCharacterStrength": 1.925,
-   "enemyHpMult": 5.981,
-   "enemyDmgMult": 2.11,
-   "recommendedPower": 81
+   "expectedWeaponStrength": 5.118,
+   "expectedCharacterStrength": 2.09,
+   "enemyHpMult": 5.609,
+   "enemyDmgMult": 2.291,
+   "recommendedPower": 79
   },
   {
    "n": 27,
@@ -1944,11 +2177,11 @@
    "xp": 180,
    "cards": [],
    "pressure": 1.134,
-   "expectedWeaponStrength": 5.457,
-   "expectedCharacterStrength": 2.079,
-   "enemyHpMult": 6.188,
-   "enemyDmgMult": 2.358,
-   "recommendedPower": 85
+   "expectedWeaponStrength": 5.732,
+   "expectedCharacterStrength": 2.257,
+   "enemyHpMult": 6.5,
+   "enemyDmgMult": 2.559,
+   "recommendedPower": 91
   },
   {
    "n": 28,
@@ -1960,11 +2193,11 @@
    "xp": 185,
    "cards": [],
    "pressure": 1.172,
-   "expectedWeaponStrength": 5.457,
-   "expectedCharacterStrength": 2.079,
-   "enemyHpMult": 6.396,
-   "enemyDmgMult": 2.437,
-   "recommendedPower": 88
+   "expectedWeaponStrength": 5.732,
+   "expectedCharacterStrength": 2.257,
+   "enemyHpMult": 6.718,
+   "enemyDmgMult": 2.645,
+   "recommendedPower": 94
   },
   {
    "n": 29,
@@ -1976,11 +2209,11 @@
    "xp": 185,
    "cards": [],
    "pressure": 1.21,
-   "expectedWeaponStrength": 6.111,
-   "expectedCharacterStrength": 2.079,
-   "enemyHpMult": 7.394,
-   "enemyDmgMult": 2.516,
-   "recommendedPower": 99
+   "expectedWeaponStrength": 5.732,
+   "expectedCharacterStrength": 2.257,
+   "enemyHpMult": 6.936,
+   "enemyDmgMult": 2.731,
+   "recommendedPower": 97
   },
   {
    "n": 30,
@@ -1992,11 +2225,11 @@
    "xp": 285,
    "cards": [],
    "pressure": 1.097,
-   "expectedWeaponStrength": 6.111,
-   "expectedCharacterStrength": 2.33,
-   "enemyHpMult": 6.704,
-   "enemyDmgMult": 2.556,
-   "recommendedPower": 93
+   "expectedWeaponStrength": 6.42,
+   "expectedCharacterStrength": 2.257,
+   "enemyHpMult": 7.043,
+   "enemyDmgMult": 2.476,
+   "recommendedPower": 95
   },
   {
    "n": 31,
@@ -2008,11 +2241,11 @@
    "xp": 195,
    "cards": [],
    "pressure": 0.921,
-   "expectedWeaponStrength": 6.111,
-   "expectedCharacterStrength": 2.33,
-   "enemyHpMult": 5.628,
-   "enemyDmgMult": 2.146,
-   "recommendedPower": 78
+   "expectedWeaponStrength": 6.42,
+   "expectedCharacterStrength": 2.257,
+   "enemyHpMult": 5.913,
+   "enemyDmgMult": 2.079,
+   "recommendedPower": 80
   },
   {
    "n": 32,
@@ -2024,11 +2257,11 @@
    "xp": 195,
    "cards": [],
    "pressure": 0.959,
-   "expectedWeaponStrength": 6.845,
-   "expectedCharacterStrength": 2.33,
-   "enemyHpMult": 6.564,
-   "enemyDmgMult": 2.234,
-   "recommendedPower": 88
+   "expectedWeaponStrength": 6.42,
+   "expectedCharacterStrength": 2.257,
+   "enemyHpMult": 6.157,
+   "enemyDmgMult": 2.164,
+   "recommendedPower": 83
   },
   {
    "n": 33,
@@ -2040,11 +2273,11 @@
    "xp": 200,
    "cards": [],
    "pressure": 0.997,
-   "expectedWeaponStrength": 6.845,
-   "expectedCharacterStrength": 2.33,
-   "enemyHpMult": 6.824,
-   "enemyDmgMult": 2.323,
-   "recommendedPower": 91
+   "expectedWeaponStrength": 7.19,
+   "expectedCharacterStrength": 2.257,
+   "enemyHpMult": 7.168,
+   "enemyDmgMult": 2.25,
+   "recommendedPower": 94
   },
   {
    "n": 34,
@@ -2056,11 +2289,11 @@
    "xp": 200,
    "cards": [],
    "pressure": 1.035,
-   "expectedWeaponStrength": 6.845,
-   "expectedCharacterStrength": 2.33,
-   "enemyHpMult": 7.085,
-   "enemyDmgMult": 2.412,
-   "recommendedPower": 95
+   "expectedWeaponStrength": 7.19,
+   "expectedCharacterStrength": 2.257,
+   "enemyHpMult": 7.442,
+   "enemyDmgMult": 2.336,
+   "recommendedPower": 98
   },
   {
    "n": 35,
@@ -2072,11 +2305,11 @@
    "xp": 205,
    "cards": [],
    "pressure": 1.074,
-   "expectedWeaponStrength": 7.666,
-   "expectedCharacterStrength": 2.516,
-   "enemyHpMult": 8.233,
-   "enemyDmgMult": 2.702,
-   "recommendedPower": 109
+   "expectedWeaponStrength": 7.19,
+   "expectedCharacterStrength": 2.257,
+   "enemyHpMult": 7.722,
+   "enemyDmgMult": 2.424,
+   "recommendedPower": 101
   },
   {
    "n": 36,
@@ -2088,11 +2321,11 @@
    "xp": 210,
    "cards": [],
    "pressure": 1.112,
-   "expectedWeaponStrength": 7.666,
-   "expectedCharacterStrength": 2.516,
-   "enemyHpMult": 8.525,
-   "enemyDmgMult": 2.798,
-   "recommendedPower": 113
+   "expectedWeaponStrength": 7.19,
+   "expectedCharacterStrength": 2.438,
+   "enemyHpMult": 7.995,
+   "enemyDmgMult": 2.711,
+   "recommendedPower": 107
   },
   {
    "n": 37,
@@ -2104,11 +2337,11 @@
    "xp": 210,
    "cards": [],
    "pressure": 1.15,
-   "expectedWeaponStrength": 7.666,
-   "expectedCharacterStrength": 2.516,
-   "enemyHpMult": 8.816,
-   "enemyDmgMult": 2.893,
-   "recommendedPower": 117
+   "expectedWeaponStrength": 8.053,
+   "expectedCharacterStrength": 2.438,
+   "enemyHpMult": 9.261,
+   "enemyDmgMult": 2.804,
+   "recommendedPower": 121
   },
   {
    "n": 38,
@@ -2120,11 +2353,11 @@
    "xp": 215,
    "cards": [],
    "pressure": 1.189,
-   "expectedWeaponStrength": 7.666,
-   "expectedCharacterStrength": 2.516,
-   "enemyHpMult": 9.115,
-   "enemyDmgMult": 2.992,
-   "recommendedPower": 121
+   "expectedWeaponStrength": 8.053,
+   "expectedCharacterStrength": 2.438,
+   "enemyHpMult": 9.575,
+   "enemyDmgMult": 2.899,
+   "recommendedPower": 125
   },
   {
    "n": 39,
@@ -2134,18 +2367,13 @@
    "rooms": 3,
    "coins": 265,
    "xp": 215,
-   "cards": [
-    {
-     "weapon": "CRYO GUN",
-     "amount": 2
-    }
-   ],
+   "cards": [],
    "pressure": 1.228,
-   "expectedWeaponStrength": 8.586,
-   "expectedCharacterStrength": 2.516,
-   "enemyHpMult": 10.544,
-   "enemyDmgMult": 3.09,
-   "recommendedPower": 136
+   "expectedWeaponStrength": 8.053,
+   "expectedCharacterStrength": 2.438,
+   "enemyHpMult": 9.889,
+   "enemyDmgMult": 2.994,
+   "recommendedPower": 129
   },
   {
    "n": 40,
@@ -2157,11 +2385,11 @@
    "xp": 330,
    "cards": [],
    "pressure": 1.113,
-   "expectedWeaponStrength": 8.586,
-   "expectedCharacterStrength": 2.516,
-   "enemyHpMult": 9.556,
-   "enemyDmgMult": 2.8,
-   "recommendedPower": 124
+   "expectedWeaponStrength": 8.053,
+   "expectedCharacterStrength": 2.438,
+   "enemyHpMult": 8.963,
+   "enemyDmgMult": 2.713,
+   "recommendedPower": 117
   },
   {
    "n": 41,
@@ -2171,18 +2399,13 @@
    "rooms": 3,
    "coins": 280,
    "xp": 225,
-   "cards": [
-    {
-     "weapon": "CRYO GUN",
-     "amount": 2
-    }
-   ],
+   "cards": [],
    "pressure": 0.87,
-   "expectedWeaponStrength": 8.586,
-   "expectedCharacterStrength": 2.516,
-   "enemyHpMult": 7.47,
-   "enemyDmgMult": 2.189,
-   "recommendedPower": 97
+   "expectedWeaponStrength": 11.883,
+   "expectedCharacterStrength": 2.87,
+   "enemyHpMult": 10.338,
+   "enemyDmgMult": 2.497,
+   "recommendedPower": 128
   },
   {
    "n": 42,
@@ -2192,18 +2415,13 @@
    "rooms": 3,
    "coins": 290,
    "xp": 225,
-   "cards": [
-    {
-     "weapon": "CRYO GUN",
-     "amount": 2
-    }
-   ],
+   "cards": [],
    "pressure": 0.909,
-   "expectedWeaponStrength": 9.616,
-   "expectedCharacterStrength": 2.718,
-   "enemyHpMult": 8.741,
-   "enemyDmgMult": 2.471,
-   "recommendedPower": 112
+   "expectedWeaponStrength": 11.883,
+   "expectedCharacterStrength": 2.87,
+   "enemyHpMult": 10.802,
+   "enemyDmgMult": 2.609,
+   "recommendedPower": 134
   },
   {
    "n": 43,
@@ -2213,18 +2431,13 @@
    "rooms": 3,
    "coins": 300,
    "xp": 230,
-   "cards": [
-    {
-     "weapon": "CRYO GUN",
-     "amount": 2
-    }
-   ],
+   "cards": [],
    "pressure": 1.011,
-   "expectedWeaponStrength": 9.616,
-   "expectedCharacterStrength": 2.718,
-   "enemyHpMult": 9.722,
-   "enemyDmgMult": 2.748,
-   "recommendedPower": 125
+   "expectedWeaponStrength": 13.309,
+   "expectedCharacterStrength": 2.87,
+   "enemyHpMult": 13.455,
+   "enemyDmgMult": 2.902,
+   "recommendedPower": 164
   },
   {
    "n": 44,
@@ -2234,18 +2447,13 @@
    "rooms": 3,
    "coins": 310,
    "xp": 230,
-   "cards": [
-    {
-     "weapon": "CRYO GUN",
-     "amount": 2
-    }
-   ],
+   "cards": [],
    "pressure": 1.05,
-   "expectedWeaponStrength": 9.616,
-   "expectedCharacterStrength": 2.718,
-   "enemyHpMult": 10.097,
-   "enemyDmgMult": 2.854,
-   "recommendedPower": 130
+   "expectedWeaponStrength": 13.309,
+   "expectedCharacterStrength": 2.87,
+   "enemyHpMult": 13.974,
+   "enemyDmgMult": 3.014,
+   "recommendedPower": 170
   },
   {
    "n": 45,
@@ -2257,11 +2465,11 @@
    "xp": 235,
    "cards": [],
    "pressure": 1.089,
-   "expectedWeaponStrength": 12.062,
-   "expectedCharacterStrength": 2.718,
-   "enemyHpMult": 13.136,
-   "enemyDmgMult": 2.96,
-   "recommendedPower": 161
+   "expectedWeaponStrength": 13.309,
+   "expectedCharacterStrength": 2.87,
+   "enemyHpMult": 14.494,
+   "enemyDmgMult": 3.125,
+   "recommendedPower": 176
   },
   {
    "n": 46,
@@ -2273,11 +2481,11 @@
    "xp": 240,
    "cards": [],
    "pressure": 1.128,
-   "expectedWeaponStrength": 12.062,
-   "expectedCharacterStrength": 2.718,
-   "enemyHpMult": 13.606,
-   "enemyDmgMult": 3.066,
-   "recommendedPower": 167
+   "expectedWeaponStrength": 13.309,
+   "expectedCharacterStrength": 2.87,
+   "enemyHpMult": 15.013,
+   "enemyDmgMult": 3.237,
+   "recommendedPower": 182
   },
   {
    "n": 47,
@@ -2289,11 +2497,11 @@
    "xp": 240,
    "cards": [],
    "pressure": 1.167,
-   "expectedWeaponStrength": 12.062,
-   "expectedCharacterStrength": 2.718,
-   "enemyHpMult": 14.076,
-   "enemyDmgMult": 3.172,
-   "recommendedPower": 172
+   "expectedWeaponStrength": 14.906,
+   "expectedCharacterStrength": 2.87,
+   "enemyHpMult": 17.395,
+   "enemyDmgMult": 3.349,
+   "recommendedPower": 207
   },
   {
    "n": 48,
@@ -2305,11 +2513,11 @@
    "xp": 245,
    "cards": [],
    "pressure": 1.206,
-   "expectedWeaponStrength": 13.51,
-   "expectedCharacterStrength": 2.718,
-   "enemyHpMult": 16.293,
-   "enemyDmgMult": 3.278,
-   "recommendedPower": 196
+   "expectedWeaponStrength": 14.906,
+   "expectedCharacterStrength": 3.1,
+   "enemyHpMult": 17.977,
+   "enemyDmgMult": 3.739,
+   "recommendedPower": 217
   },
   {
    "n": 49,
@@ -2321,11 +2529,11 @@
    "xp": 245,
    "cards": [],
    "pressure": 1.245,
-   "expectedWeaponStrength": 13.51,
-   "expectedCharacterStrength": 2.718,
-   "enemyHpMult": 16.82,
-   "enemyDmgMult": 3.384,
-   "recommendedPower": 202
+   "expectedWeaponStrength": 14.906,
+   "expectedCharacterStrength": 3.1,
+   "enemyHpMult": 18.558,
+   "enemyDmgMult": 3.86,
+   "recommendedPower": 224
   },
   {
    "n": 50,
@@ -2337,11 +2545,11 @@
    "xp": 375,
    "cards": [],
    "pressure": 1.129,
-   "expectedWeaponStrength": 13.51,
-   "expectedCharacterStrength": 3.29,
-   "enemyHpMult": 15.253,
-   "enemyDmgMult": 3.714,
-   "recommendedPower": 190
+   "expectedWeaponStrength": 14.906,
+   "expectedCharacterStrength": 3.1,
+   "enemyHpMult": 16.829,
+   "enemyDmgMult": 3.5,
+   "recommendedPower": 203
   },
   {
    "n": 51,
@@ -2353,11 +2561,11 @@
    "xp": 255,
    "cards": [],
    "pressure": 0.947,
-   "expectedWeaponStrength": 15.131,
-   "expectedCharacterStrength": 3.29,
-   "enemyHpMult": 14.329,
-   "enemyDmgMult": 3.116,
-   "recommendedPower": 174
+   "expectedWeaponStrength": 16.695,
+   "expectedCharacterStrength": 3.1,
+   "enemyHpMult": 15.81,
+   "enemyDmgMult": 2.936,
+   "recommendedPower": 187
   },
   {
    "n": 52,
@@ -2369,11 +2577,11 @@
    "xp": 255,
    "cards": [],
    "pressure": 0.986,
-   "expectedWeaponStrength": 15.131,
-   "expectedCharacterStrength": 3.553,
-   "enemyHpMult": 14.919,
-   "enemyDmgMult": 3.503,
-   "recommendedPower": 184
+   "expectedWeaponStrength": 16.695,
+   "expectedCharacterStrength": 3.1,
+   "enemyHpMult": 16.461,
+   "enemyDmgMult": 3.057,
+   "recommendedPower": 195
   },
   {
    "n": 53,
@@ -2385,11 +2593,11 @@
    "xp": 260,
    "cards": [],
    "pressure": 1.026,
-   "expectedWeaponStrength": 15.131,
-   "expectedCharacterStrength": 3.553,
-   "enemyHpMult": 15.524,
-   "enemyDmgMult": 3.645,
-   "recommendedPower": 192
+   "expectedWeaponStrength": 16.695,
+   "expectedCharacterStrength": 3.1,
+   "enemyHpMult": 17.129,
+   "enemyDmgMult": 3.181,
+   "recommendedPower": 203
   },
   {
    "n": 54,
@@ -2401,11 +2609,11 @@
    "xp": 260,
    "cards": [],
    "pressure": 1.065,
-   "expectedWeaponStrength": 16.947,
-   "expectedCharacterStrength": 3.553,
-   "enemyHpMult": 18.049,
-   "enemyDmgMult": 3.784,
-   "recommendedPower": 218
+   "expectedWeaponStrength": 18.698,
+   "expectedCharacterStrength": 3.1,
+   "enemyHpMult": 19.913,
+   "enemyDmgMult": 3.301,
+   "recommendedPower": 232
   },
   {
    "n": 55,
@@ -2417,11 +2625,11 @@
    "xp": 265,
    "cards": [],
    "pressure": 1.104,
-   "expectedWeaponStrength": 16.947,
-   "expectedCharacterStrength": 3.553,
-   "enemyHpMult": 18.709,
-   "enemyDmgMult": 3.923,
-   "recommendedPower": 226
+   "expectedWeaponStrength": 18.698,
+   "expectedCharacterStrength": 3.1,
+   "enemyHpMult": 20.643,
+   "enemyDmgMult": 3.422,
+   "recommendedPower": 241
   },
   {
    "n": 56,
@@ -2433,11 +2641,11 @@
    "xp": 270,
    "cards": [],
    "pressure": 1.144,
-   "expectedWeaponStrength": 16.947,
-   "expectedCharacterStrength": 3.553,
-   "enemyHpMult": 19.387,
-   "enemyDmgMult": 4.065,
-   "recommendedPower": 235
+   "expectedWeaponStrength": 18.698,
+   "expectedCharacterStrength": 3.1,
+   "enemyHpMult": 21.391,
+   "enemyDmgMult": 3.546,
+   "recommendedPower": 249
   },
   {
    "n": 57,
@@ -2449,11 +2657,11 @@
    "xp": 270,
    "cards": [],
    "pressure": 1.183,
-   "expectedWeaponStrength": 16.947,
-   "expectedCharacterStrength": 3.553,
-   "enemyHpMult": 20.048,
-   "enemyDmgMult": 4.203,
-   "recommendedPower": 243
+   "expectedWeaponStrength": 18.698,
+   "expectedCharacterStrength": 3.1,
+   "enemyHpMult": 22.12,
+   "enemyDmgMult": 3.667,
+   "recommendedPower": 258
   },
   {
    "n": 58,
@@ -2465,11 +2673,11 @@
    "xp": 275,
    "cards": [],
    "pressure": 1.223,
-   "expectedWeaponStrength": 18.98,
-   "expectedCharacterStrength": 3.553,
-   "enemyHpMult": 23.213,
-   "enemyDmgMult": 4.345,
-   "recommendedPower": 276
+   "expectedWeaponStrength": 18.698,
+   "expectedCharacterStrength": 3.348,
+   "enemyHpMult": 22.868,
+   "enemyDmgMult": 4.095,
+   "recommendedPower": 270
   },
   {
    "n": 59,
@@ -2481,11 +2689,11 @@
    "xp": 275,
    "cards": [],
    "pressure": 1.263,
-   "expectedWeaponStrength": 18.98,
-   "expectedCharacterStrength": 3.553,
-   "enemyHpMult": 23.972,
-   "enemyDmgMult": 4.487,
-   "recommendedPower": 285
+   "expectedWeaponStrength": 20.942,
+   "expectedCharacterStrength": 3.348,
+   "enemyHpMult": 26.45,
+   "enemyDmgMult": 4.229,
+   "recommendedPower": 307
   },
   {
    "n": 60,
@@ -2497,11 +2705,11 @@
    "xp": 420,
    "cards": [],
    "pressure": 1.145,
-   "expectedWeaponStrength": 18.98,
-   "expectedCharacterStrength": 3.553,
-   "enemyHpMult": 21.732,
-   "enemyDmgMult": 4.068,
-   "recommendedPower": 258
+   "expectedWeaponStrength": 20.942,
+   "expectedCharacterStrength": 3.348,
+   "enemyHpMult": 23.979,
+   "enemyDmgMult": 3.833,
+   "recommendedPower": 278
   },
   {
    "n": 61,
@@ -2513,11 +2721,11 @@
    "xp": 285,
    "cards": [],
    "pressure": 0.895,
-   "expectedWeaponStrength": 21.258,
-   "expectedCharacterStrength": 3.837,
-   "enemyHpMult": 19.026,
-   "enemyDmgMult": 3.434,
-   "recommendedPower": 225
+   "expectedWeaponStrength": 27.586,
+   "expectedCharacterStrength": 3.94,
+   "enemyHpMult": 24.689,
+   "enemyDmgMult": 3.526,
+   "recommendedPower": 282
   },
   {
    "n": 62,
@@ -2527,18 +2735,13 @@
    "rooms": 3,
    "coins": 545,
    "xp": 285,
-   "cards": [
-    {
-     "weapon": "TESLA GUN",
-     "amount": 2
-    }
-   ],
+   "cards": [],
    "pressure": 0.935,
-   "expectedWeaponStrength": 21.258,
-   "expectedCharacterStrength": 3.837,
-   "enemyHpMult": 19.876,
-   "enemyDmgMult": 3.588,
-   "recommendedPower": 235
+   "expectedWeaponStrength": 27.586,
+   "expectedCharacterStrength": 3.94,
+   "enemyHpMult": 25.793,
+   "enemyDmgMult": 3.684,
+   "recommendedPower": 295
   },
   {
    "n": 63,
@@ -2548,18 +2751,13 @@
    "rooms": 4,
    "coins": 565,
    "xp": 290,
-   "cards": [
-    {
-     "weapon": "TESLA GUN",
-     "amount": 2
-    }
-   ],
+   "cards": [],
    "pressure": 1.04,
-   "expectedWeaponStrength": 21.258,
-   "expectedCharacterStrength": 3.837,
-   "enemyHpMult": 22.108,
-   "enemyDmgMult": 3.99,
-   "recommendedPower": 261
+   "expectedWeaponStrength": 27.586,
+   "expectedCharacterStrength": 3.94,
+   "enemyHpMult": 28.689,
+   "enemyDmgMult": 4.098,
+   "recommendedPower": 328
   },
   {
    "n": 64,
@@ -2569,18 +2767,13 @@
    "rooms": 3,
    "coins": 580,
    "xp": 290,
-   "cards": [
-    {
-     "weapon": "TESLA GUN",
-     "amount": 2
-    }
-   ],
+   "cards": [],
    "pressure": 1.08,
-   "expectedWeaponStrength": 21.258,
-   "expectedCharacterStrength": 3.837,
-   "enemyHpMult": 22.959,
-   "enemyDmgMult": 4.144,
-   "recommendedPower": 271
+   "expectedWeaponStrength": 27.586,
+   "expectedCharacterStrength": 3.94,
+   "enemyHpMult": 29.793,
+   "enemyDmgMult": 4.255,
+   "recommendedPower": 340
   },
   {
    "n": 65,
@@ -2590,18 +2783,13 @@
    "rooms": 3,
    "coins": 600,
    "xp": 295,
-   "cards": [
-    {
-     "weapon": "TESLA GUN",
-     "amount": 3
-    }
-   ],
+   "cards": [],
    "pressure": 1.119,
-   "expectedWeaponStrength": 21.258,
-   "expectedCharacterStrength": 3.837,
-   "enemyHpMult": 23.788,
-   "enemyDmgMult": 4.294,
-   "recommendedPower": 281
+   "expectedWeaponStrength": 30.896,
+   "expectedCharacterStrength": 3.94,
+   "enemyHpMult": 34.573,
+   "enemyDmgMult": 4.409,
+   "recommendedPower": 390
   },
   {
    "n": 66,
@@ -2611,18 +2799,13 @@
    "rooms": 4,
    "coins": 620,
    "xp": 300,
-   "cards": [
-    {
-     "weapon": "TESLA GUN",
-     "amount": 3
-    }
-   ],
+   "cards": [],
    "pressure": 1.159,
-   "expectedWeaponStrength": 23.809,
-   "expectedCharacterStrength": 3.837,
-   "enemyHpMult": 27.595,
-   "enemyDmgMult": 4.447,
-   "recommendedPower": 320
+   "expectedWeaponStrength": 30.896,
+   "expectedCharacterStrength": 3.94,
+   "enemyHpMult": 35.808,
+   "enemyDmgMult": 4.566,
+   "recommendedPower": 404
   },
   {
    "n": 67,
@@ -2634,11 +2817,11 @@
    "xp": 300,
    "cards": [],
    "pressure": 1.2,
-   "expectedWeaponStrength": 26.67,
-   "expectedCharacterStrength": 3.837,
-   "enemyHpMult": 32.004,
-   "enemyDmgMult": 4.604,
-   "recommendedPower": 366
+   "expectedWeaponStrength": 30.896,
+   "expectedCharacterStrength": 4.255,
+   "enemyHpMult": 37.075,
+   "enemyDmgMult": 5.106,
+   "recommendedPower": 422
   },
   {
    "n": 68,
@@ -2650,11 +2833,11 @@
    "xp": 305,
    "cards": [],
    "pressure": 1.24,
-   "expectedWeaponStrength": 29.87,
-   "expectedCharacterStrength": 3.837,
-   "enemyHpMult": 37.039,
-   "enemyDmgMult": 4.758,
-   "recommendedPower": 418
+   "expectedWeaponStrength": 30.896,
+   "expectedCharacterStrength": 4.255,
+   "enemyHpMult": 38.311,
+   "enemyDmgMult": 5.276,
+   "recommendedPower": 436
   },
   {
    "n": 69,
@@ -2666,11 +2849,11 @@
    "xp": 305,
    "cards": [],
    "pressure": 1.28,
-   "expectedWeaponStrength": 29.87,
-   "expectedCharacterStrength": 3.837,
-   "enemyHpMult": 38.234,
-   "enemyDmgMult": 4.911,
-   "recommendedPower": 431
+   "expectedWeaponStrength": 34.603,
+   "expectedCharacterStrength": 4.255,
+   "enemyHpMult": 44.292,
+   "enemyDmgMult": 5.446,
+   "recommendedPower": 497
   },
   {
    "n": 70,
@@ -2682,11 +2865,11 @@
    "xp": 465,
    "cards": [],
    "pressure": 1.16,
-   "expectedWeaponStrength": 29.87,
-   "expectedCharacterStrength": 4.144,
-   "enemyHpMult": 34.649,
-   "enemyDmgMult": 4.807,
-   "recommendedPower": 395
+   "expectedWeaponStrength": 34.603,
+   "expectedCharacterStrength": 4.255,
+   "enemyHpMult": 40.139,
+   "enemyDmgMult": 4.936,
+   "recommendedPower": 451
   },
   {
    "n": 71,
@@ -2698,11 +2881,11 @@
    "xp": 315,
    "cards": [],
    "pressure": 0.974,
-   "expectedWeaponStrength": 33.455,
-   "expectedCharacterStrength": 4.144,
-   "enemyHpMult": 32.585,
-   "enemyDmgMult": 4.036,
-   "recommendedPower": 366
+   "expectedWeaponStrength": 34.603,
+   "expectedCharacterStrength": 4.255,
+   "enemyHpMult": 33.703,
+   "enemyDmgMult": 4.144,
+   "recommendedPower": 378
   },
   {
    "n": 72,
@@ -2714,11 +2897,11 @@
    "xp": 315,
    "cards": [],
    "pressure": 1.014,
-   "expectedWeaponStrength": 33.455,
-   "expectedCharacterStrength": 4.144,
-   "enemyHpMult": 33.923,
-   "enemyDmgMult": 4.202,
-   "recommendedPower": 381
+   "expectedWeaponStrength": 38.756,
+   "expectedCharacterStrength": 4.255,
+   "enemyHpMult": 39.299,
+   "enemyDmgMult": 4.315,
+   "recommendedPower": 436
   },
   {
    "n": 73,
@@ -2730,11 +2913,11 @@
    "xp": 320,
    "cards": [],
    "pressure": 1.054,
-   "expectedWeaponStrength": 37.469,
-   "expectedCharacterStrength": 4.144,
-   "enemyHpMult": 39.492,
-   "enemyDmgMult": 4.368,
-   "recommendedPower": 439
+   "expectedWeaponStrength": 38.756,
+   "expectedCharacterStrength": 4.255,
+   "enemyHpMult": 40.849,
+   "enemyDmgMult": 4.485,
+   "recommendedPower": 453
   },
   {
    "n": 74,
@@ -2746,11 +2929,11 @@
    "xp": 320,
    "cards": [],
    "pressure": 1.094,
-   "expectedWeaponStrength": 37.469,
-   "expectedCharacterStrength": 4.144,
-   "enemyHpMult": 40.991,
-   "enemyDmgMult": 4.534,
-   "recommendedPower": 455
+   "expectedWeaponStrength": 38.756,
+   "expectedCharacterStrength": 4.255,
+   "enemyHpMult": 42.399,
+   "enemyDmgMult": 4.655,
+   "recommendedPower": 471
   },
   {
    "n": 75,
@@ -2762,11 +2945,11 @@
    "xp": 325,
    "cards": [],
    "pressure": 1.135,
-   "expectedWeaponStrength": 37.469,
-   "expectedCharacterStrength": 4.144,
-   "enemyHpMult": 42.527,
-   "enemyDmgMult": 4.703,
-   "recommendedPower": 472
+   "expectedWeaponStrength": 38.756,
+   "expectedCharacterStrength": 4.255,
+   "enemyHpMult": 43.988,
+   "enemyDmgMult": 4.829,
+   "recommendedPower": 488
   },
   {
    "n": 76,
@@ -2778,11 +2961,11 @@
    "xp": 330,
    "cards": [],
    "pressure": 1.175,
-   "expectedWeaponStrength": 37.469,
-   "expectedCharacterStrength": 4.144,
-   "enemyHpMult": 44.026,
-   "enemyDmgMult": 4.869,
-   "recommendedPower": 489
+   "expectedWeaponStrength": 38.756,
+   "expectedCharacterStrength": 4.596,
+   "enemyHpMult": 45.538,
+   "enemyDmgMult": 5.4,
+   "recommendedPower": 509
   },
   {
    "n": 77,
@@ -2794,11 +2977,11 @@
    "xp": 330,
    "cards": [],
    "pressure": 1.216,
-   "expectedWeaponStrength": 41.966,
-   "expectedCharacterStrength": 4.144,
-   "enemyHpMult": 51.031,
-   "enemyDmgMult": 5.039,
-   "recommendedPower": 561
+   "expectedWeaponStrength": 43.406,
+   "expectedCharacterStrength": 4.596,
+   "enemyHpMult": 52.782,
+   "enemyDmgMult": 5.589,
+   "recommendedPower": 584
   },
   {
    "n": 78,
@@ -2810,11 +2993,11 @@
    "xp": 335,
    "cards": [],
    "pressure": 1.257,
-   "expectedWeaponStrength": 41.966,
-   "expectedCharacterStrength": 4.476,
-   "enemyHpMult": 52.751,
-   "enemyDmgMult": 5.626,
-   "recommendedPower": 584
+   "expectedWeaponStrength": 43.406,
+   "expectedCharacterStrength": 4.596,
+   "enemyHpMult": 54.561,
+   "enemyDmgMult": 5.777,
+   "recommendedPower": 603
   },
   {
    "n": 79,
@@ -2824,18 +3007,13 @@
    "rooms": 3,
    "coins": 935,
    "xp": 335,
-   "cards": [
-    {
-     "weapon": "ROCKET LAUNCHER",
-     "amount": 2
-    }
-   ],
+   "cards": [],
    "pressure": 1.297,
-   "expectedWeaponStrength": 41.966,
-   "expectedCharacterStrength": 4.476,
-   "enemyHpMult": 54.43,
-   "enemyDmgMult": 5.805,
-   "recommendedPower": 602
+   "expectedWeaponStrength": 43.406,
+   "expectedCharacterStrength": 4.596,
+   "enemyHpMult": 56.298,
+   "enemyDmgMult": 5.961,
+   "recommendedPower": 623
   },
   {
    "n": 80,
@@ -2847,11 +3025,11 @@
    "xp": 510,
    "cards": [],
    "pressure": 1.176,
-   "expectedWeaponStrength": 41.966,
-   "expectedCharacterStrength": 5.01,
-   "enemyHpMult": 49.352,
-   "enemyDmgMult": 5.892,
-   "recommendedPower": 552
+   "expectedWeaponStrength": 43.406,
+   "expectedCharacterStrength": 4.596,
+   "enemyHpMult": 51.045,
+   "enemyDmgMult": 5.405,
+   "recommendedPower": 565
   },
   {
    "n": 81,
@@ -2861,18 +3039,13 @@
    "rooms": 4,
    "coins": 995,
    "xp": 345,
-   "cards": [
-    {
-     "weapon": "ROCKET LAUNCHER",
-     "amount": 2
-    }
-   ],
+   "cards": [],
    "pressure": 0.92,
-   "expectedWeaponStrength": 47.002,
-   "expectedCharacterStrength": 5.01,
-   "enemyHpMult": 43.242,
-   "enemyDmgMult": 4.609,
-   "recommendedPower": 479
+   "expectedWeaponStrength": 64.03,
+   "expectedCharacterStrength": 5.4,
+   "enemyHpMult": 58.908,
+   "enemyDmgMult": 4.968,
+   "recommendedPower": 639
   },
   {
    "n": 82,
@@ -2882,18 +3055,13 @@
    "rooms": 3,
    "coins": 1025,
    "xp": 345,
-   "cards": [
-    {
-     "weapon": "ROCKET LAUNCHER",
-     "amount": 2
-    }
-   ],
+   "cards": [],
    "pressure": 0.96,
-   "expectedWeaponStrength": 47.002,
-   "expectedCharacterStrength": 5.01,
-   "enemyHpMult": 45.122,
-   "enemyDmgMult": 4.81,
-   "recommendedPower": 499
+   "expectedWeaponStrength": 64.03,
+   "expectedCharacterStrength": 5.4,
+   "enemyHpMult": 61.469,
+   "enemyDmgMult": 5.184,
+   "recommendedPower": 667
   },
   {
    "n": 83,
@@ -2903,18 +3071,13 @@
    "rooms": 3,
    "coins": 1060,
    "xp": 350,
-   "cards": [
-    {
-     "weapon": "ROCKET LAUNCHER",
-     "amount": 3
-    }
-   ],
+   "cards": [],
    "pressure": 1.068,
-   "expectedWeaponStrength": 47.002,
-   "expectedCharacterStrength": 5.01,
-   "enemyHpMult": 50.198,
-   "enemyDmgMult": 5.351,
-   "recommendedPower": 555
+   "expectedWeaponStrength": 64.03,
+   "expectedCharacterStrength": 5.832,
+   "enemyHpMult": 68.384,
+   "enemyDmgMult": 6.229,
+   "recommendedPower": 746
   },
   {
    "n": 84,
@@ -2924,18 +3087,13 @@
    "rooms": 4,
    "coins": 1095,
    "xp": 350,
-   "cards": [
-    {
-     "weapon": "ROCKET LAUNCHER",
-     "amount": 3
-    }
-   ],
+   "cards": [],
    "pressure": 1.109,
-   "expectedWeaponStrength": 52.642,
-   "expectedCharacterStrength": 5.411,
-   "enemyHpMult": 58.38,
-   "enemyDmgMult": 6.001,
-   "recommendedPower": 644
+   "expectedWeaponStrength": 71.714,
+   "expectedCharacterStrength": 5.832,
+   "enemyHpMult": 79.531,
+   "enemyDmgMult": 6.468,
+   "recommendedPower": 860
   },
   {
    "n": 85,
@@ -2947,11 +3105,11 @@
    "xp": 355,
    "cards": [],
    "pressure": 1.15,
-   "expectedWeaponStrength": 58.96,
-   "expectedCharacterStrength": 5.411,
-   "enemyHpMult": 67.804,
-   "enemyDmgMult": 6.223,
-   "recommendedPower": 740
+   "expectedWeaponStrength": 71.714,
+   "expectedCharacterStrength": 5.832,
+   "enemyHpMult": 82.471,
+   "enemyDmgMult": 6.707,
+   "recommendedPower": 892
   },
   {
    "n": 86,
@@ -2963,11 +3121,11 @@
    "xp": 360,
    "cards": [],
    "pressure": 1.191,
-   "expectedWeaponStrength": 66.035,
-   "expectedCharacterStrength": 5.411,
-   "enemyHpMult": 78.648,
-   "enemyDmgMult": 6.445,
-   "recommendedPower": 851
+   "expectedWeaponStrength": 71.714,
+   "expectedCharacterStrength": 5.832,
+   "enemyHpMult": 85.411,
+   "enemyDmgMult": 6.946,
+   "recommendedPower": 924
   },
   {
    "n": 87,
@@ -2979,11 +3137,11 @@
    "xp": 360,
    "cards": [],
    "pressure": 1.232,
-   "expectedWeaponStrength": 66.035,
-   "expectedCharacterStrength": 5.411,
-   "enemyHpMult": 81.355,
-   "enemyDmgMult": 6.666,
-   "recommendedPower": 880
+   "expectedWeaponStrength": 71.714,
+   "expectedCharacterStrength": 5.832,
+   "enemyHpMult": 88.352,
+   "enemyDmgMult": 7.185,
+   "recommendedPower": 955
   },
   {
    "n": 88,
@@ -2995,11 +3153,11 @@
    "xp": 365,
    "cards": [],
    "pressure": 1.274,
-   "expectedWeaponStrength": 66.035,
-   "expectedCharacterStrength": 5.411,
-   "enemyHpMult": 84.129,
-   "enemyDmgMult": 6.894,
-   "recommendedPower": 910
+   "expectedWeaponStrength": 80.32,
+   "expectedCharacterStrength": 5.832,
+   "enemyHpMult": 102.328,
+   "enemyDmgMult": 7.43,
+   "recommendedPower": 1098
   },
   {
    "n": 89,
@@ -3011,11 +3169,11 @@
    "xp": 365,
    "cards": [],
    "pressure": 1.315,
-   "expectedWeaponStrength": 73.959,
-   "expectedCharacterStrength": 5.411,
-   "enemyHpMult": 97.256,
-   "enemyDmgMult": 7.115,
-   "recommendedPower": 1044
+   "expectedWeaponStrength": 80.32,
+   "expectedCharacterStrength": 5.832,
+   "enemyHpMult": 105.621,
+   "enemyDmgMult": 7.669,
+   "recommendedPower": 1133
   },
   {
    "n": 90,
@@ -3027,11 +3185,11 @@
    "xp": 555,
    "cards": [],
    "pressure": 1.192,
-   "expectedWeaponStrength": 73.959,
-   "expectedCharacterStrength": 5.411,
-   "enemyHpMult": 88.159,
-   "enemyDmgMult": 6.45,
-   "recommendedPower": 946
+   "expectedWeaponStrength": 80.32,
+   "expectedCharacterStrength": 6.299,
+   "enemyHpMult": 95.741,
+   "enemyDmgMult": 7.508,
+   "recommendedPower": 1032
   },
   {
    "n": 91,
@@ -3043,11 +3201,11 @@
    "xp": 375,
    "cards": [],
    "pressure": 1.0,
-   "expectedWeaponStrength": 73.959,
-   "expectedCharacterStrength": 5.844,
-   "enemyHpMult": 73.959,
-   "enemyDmgMult": 5.844,
-   "recommendedPower": 798
+   "expectedWeaponStrength": 89.958,
+   "expectedCharacterStrength": 6.299,
+   "enemyHpMult": 89.958,
+   "enemyDmgMult": 6.299,
+   "recommendedPower": 963
   },
   {
    "n": 92,
@@ -3059,11 +3217,11 @@
    "xp": 375,
    "cards": [],
    "pressure": 1.041,
-   "expectedWeaponStrength": 82.835,
-   "expectedCharacterStrength": 5.844,
-   "enemyHpMult": 86.231,
-   "enemyDmgMult": 6.084,
-   "recommendedPower": 923
+   "expectedWeaponStrength": 89.958,
+   "expectedCharacterStrength": 6.299,
+   "enemyHpMult": 93.646,
+   "enemyDmgMult": 6.557,
+   "recommendedPower": 1002
   },
   {
    "n": 93,
@@ -3075,11 +3233,11 @@
    "xp": 380,
    "cards": [],
    "pressure": 1.083,
-   "expectedWeaponStrength": 82.835,
-   "expectedCharacterStrength": 5.844,
-   "enemyHpMult": 89.71,
-   "enemyDmgMult": 6.329,
-   "recommendedPower": 960
+   "expectedWeaponStrength": 89.958,
+   "expectedCharacterStrength": 6.299,
+   "enemyHpMult": 97.425,
+   "enemyDmgMult": 6.822,
+   "recommendedPower": 1042
   },
   {
    "n": 94,
@@ -3091,11 +3249,11 @@
    "xp": 380,
    "cards": [],
    "pressure": 1.124,
-   "expectedWeaponStrength": 82.835,
-   "expectedCharacterStrength": 5.844,
-   "enemyHpMult": 93.107,
-   "enemyDmgMult": 6.569,
-   "recommendedPower": 997
+   "expectedWeaponStrength": 89.958,
+   "expectedCharacterStrength": 6.299,
+   "enemyHpMult": 101.113,
+   "enemyDmgMult": 7.08,
+   "recommendedPower": 1082
   },
   {
    "n": 95,
@@ -3105,13 +3263,18 @@
    "rooms": 3,
    "coins": 1545,
    "xp": 385,
-   "cards": [],
+   "cards": [
+    {
+     "weapon": "TESLA GUN",
+     "amount": 2
+    }
+   ],
    "pressure": 1.165,
-   "expectedWeaponStrength": 92.775,
-   "expectedCharacterStrength": 5.844,
-   "enemyHpMult": 108.083,
-   "enemyDmgMult": 6.808,
-   "recommendedPower": 1149
+   "expectedWeaponStrength": 89.958,
+   "expectedCharacterStrength": 6.299,
+   "enemyHpMult": 104.801,
+   "enemyDmgMult": 7.338,
+   "recommendedPower": 1121
   },
   {
    "n": 96,
@@ -3121,13 +3284,18 @@
    "rooms": 4,
    "coins": 1595,
    "xp": 390,
-   "cards": [],
+   "cards": [
+    {
+     "weapon": "TESLA GUN",
+     "amount": 2
+    }
+   ],
    "pressure": 1.207,
-   "expectedWeaponStrength": 92.775,
-   "expectedCharacterStrength": 5.844,
-   "enemyHpMult": 111.979,
-   "enemyDmgMult": 7.054,
-   "recommendedPower": 1190
+   "expectedWeaponStrength": 100.753,
+   "expectedCharacterStrength": 6.299,
+   "enemyHpMult": 121.609,
+   "enemyDmgMult": 7.603,
+   "recommendedPower": 1292
   },
   {
    "n": 97,
@@ -3137,13 +3305,18 @@
    "rooms": 3,
    "coins": 1645,
    "xp": 390,
-   "cards": [],
+   "cards": [
+    {
+     "weapon": "TESLA GUN",
+     "amount": 2
+    }
+   ],
    "pressure": 1.249,
-   "expectedWeaponStrength": 92.775,
-   "expectedCharacterStrength": 5.844,
-   "enemyHpMult": 115.876,
-   "enemyDmgMult": 7.299,
-   "recommendedPower": 1232
+   "expectedWeaponStrength": 100.753,
+   "expectedCharacterStrength": 6.802,
+   "enemyHpMult": 125.84,
+   "enemyDmgMult": 8.496,
+   "recommendedPower": 1343
   },
   {
    "n": 98,
@@ -3153,13 +3326,18 @@
    "rooms": 3,
    "coins": 1700,
    "xp": 395,
-   "cards": [],
+   "cards": [
+    {
+     "weapon": "TESLA GUN",
+     "amount": 3
+    }
+   ],
    "pressure": 1.29,
-   "expectedWeaponStrength": 92.775,
-   "expectedCharacterStrength": 6.311,
-   "enemyHpMult": 119.68,
-   "enemyDmgMult": 8.141,
-   "recommendedPower": 1278
+   "expectedWeaponStrength": 100.753,
+   "expectedCharacterStrength": 6.802,
+   "enemyHpMult": 129.971,
+   "enemyDmgMult": 8.775,
+   "recommendedPower": 1387
   },
   {
    "n": 99,
@@ -3169,13 +3347,18 @@
    "rooms": 4,
    "coins": 1755,
    "xp": 395,
-   "cards": [],
+   "cards": [
+    {
+     "weapon": "TESLA GUN",
+     "amount": 3
+    }
+   ],
    "pressure": 1.332,
-   "expectedWeaponStrength": 103.908,
-   "expectedCharacterStrength": 6.311,
-   "enemyHpMult": 138.405,
-   "enemyDmgMult": 8.406,
-   "recommendedPower": 1468
+   "expectedWeaponStrength": 100.753,
+   "expectedCharacterStrength": 6.802,
+   "enemyHpMult": 134.203,
+   "enemyDmgMult": 9.06,
+   "recommendedPower": 1433
   },
   {
    "n": 100,
@@ -3187,11 +3370,11 @@
    "xp": 600,
    "cards": [],
    "pressure": 1.208,
-   "expectedWeaponStrength": 103.908,
-   "expectedCharacterStrength": 6.311,
-   "enemyHpMult": 125.521,
-   "enemyDmgMult": 7.624,
-   "recommendedPower": 1331
+   "expectedWeaponStrength": 120.071,
+   "expectedCharacterStrength": 6.802,
+   "enemyHpMult": 145.046,
+   "enemyDmgMult": 8.217,
+   "recommendedPower": 1533
   }
  ]
 }

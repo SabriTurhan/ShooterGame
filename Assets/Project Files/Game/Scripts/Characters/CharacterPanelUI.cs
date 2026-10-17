@@ -115,6 +115,7 @@ namespace Watermelon.SquadShooter
                 previewImage.color = lockedPreviewColor;
 
                 SetRequiredLevel(character.RequiredLevel);
+                if (character.UnlockWorld > 0) lockedStateText.text = "W" + character.UnlockWorld;
             }
 
             mainButton.onClick.AddListener(OnSelectButtonClicked);

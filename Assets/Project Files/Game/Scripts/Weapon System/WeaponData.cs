@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Watermelon.SquadShooter
 {
@@ -28,6 +28,10 @@ namespace Watermelon.SquadShooter
         // that unlocks later starts stronger on the shared difficulty curve (written by Tools/Balance/Import Balance)
         [SerializeField] float enemyHpScale = 1f;
         public float EnemyHpScale => enemyHpScale;
+
+        // world weapons (1-based world number) unlock when that world is reached, never with cards
+        [SerializeField] int unlockWorld = 0;
+        public int UnlockWorld => unlockWorld;
 
         public RarityData RarityData => WeaponsController.GetRarityData(rarity);
 

@@ -4,10 +4,16 @@ namespace Watermelon.SquadShooter
 {
     public class LavaBulletBehavior : PlayerBulletBehavior
     {
-        private readonly static int SPLASH_PARTICLE_HASH = "Lava Hit".GetHashCode();
-        private readonly static int WALL_SPLASH_PARTICLE_HASH = "Lava Wall Hit".GetHashCode();
-
         [SerializeField] ParticleSystem trailParticleSystem;
+
+        // variants of the arcing launcher (e.g. the Flash Launcher): explosion particles, armour piercing, stun
+        [Header("Variant")]
+        [SerializeField] string hitParticle = "Lava Hit";
+        [SerializeField] string wallHitParticle = "Lava Wall Hit";
+        [Tooltip("damage arrives from above, so riot shields do not block it")]
+        [SerializeField] bool ignoreFrontalArmor = false;
+        [SerializeField, Range(0.05f, 1f)] float stunMultiplier = 1f;
+        [SerializeField] float stunDuration = 0f;
 
         private float explosionRadius;
         private DuoInt damageValue;
@@ -73,7 +79,11 @@ namespace Watermelon.SquadShooter
                         float explosionDamageMultiplier = 1.0f - Mathf.InverseLerp(0, explosionRadius, Vector3.Distance(transform.position, hitColliders[i].transform.position));
 
                         // Deal damage to enemy
-                        enemy.TakeDamage(damageValue.Lerp(explosionDamageMultiplier), transform.position, (transform.position - prevPosition).normalized);
+                        Vector3 direction = ignoreFrontalArmor ? Vector3.down : (transform.position - prevPosition).normalized;
+                        enemy.TakeDamage(damageValue.Lerp(explosionDamageMultiplier), transform.position, direction);
+
+                        if (stunDuration > 0f)
+                            enemy.ApplySlow(stunMultiplier, stunDuration);
                         
                         VirtualCamera gameCameraCase = CameraController.GetCamera(CameraType.Gameplay);
                         gameCameraCase.Shake(0.04f, 0.04f, 0.3f, 0.8f);
@@ -90,14 +100,14 @@ namespace Watermelon.SquadShooter
             gameObject.SetActive(false);
 
             // Spawn splash particle
-            ParticlesController.PlayParticle(SPLASH_PARTICLE_HASH).SetPosition(transform.position);
+            ParticlesController.PlayParticle(hitParticle.GetHashCode()).SetPosition(transform.position);
         }
 
         protected override void OnObstacleHitted()
         {
             base.OnObstacleHitted();
 
-            ParticlesController.PlayParticle(WALL_SPLASH_PARTICLE_HASH).SetPosition(transform.position);
+            ParticlesController.PlayParticle(wallHitParticle.GetHashCode()).SetPosition(transform.position);
         }
     }
 }

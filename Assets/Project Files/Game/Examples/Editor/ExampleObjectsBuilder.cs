@@ -453,7 +453,7 @@ namespace Watermelon.SquadShooter.Examples
 
         #region Mesh helpers
         // Moves vertices between palette bands of the player atlas (keeps the shade)
-        private static void RemapBands(Mesh mesh, Transform[] bones, Func<int, string, int> remap)
+        public static void RemapBands(Mesh mesh, Transform[] bones, Func<int, string, int> remap)
         {
             Vector2[] uv = mesh.uv;
             BoneWeight[] weights = mesh.boneWeights;

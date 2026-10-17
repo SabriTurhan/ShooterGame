@@ -15,6 +15,10 @@ namespace Watermelon.SquadShooter
         [SerializeField] int requiredLevel;
         public int RequiredLevel => requiredLevel;
 
+        // world heroes (1-based world number) unlock when that world is reached
+        [SerializeField] int unlockWorld = 0;
+        public int UnlockWorld => unlockWorld;
+
         [SerializeField] Sprite previewSprite;
         public Sprite PreviewSprite => previewSprite;
 
@@ -125,7 +129,10 @@ namespace Watermelon.SquadShooter
 
         public bool IsUnlocked()
         {
-            return ExperienceController.CurrentLevel >= requiredLevel;
+            if (save != null && save.UnlockedByWorld) return true;
+
+            // world heroes come with their world, not with XP
+            return unlockWorld == 0 && ExperienceController.CurrentLevel >= requiredLevel;
         }
     }
 }

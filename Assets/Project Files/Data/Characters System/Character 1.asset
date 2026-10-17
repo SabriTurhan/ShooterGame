@@ -15,6 +15,7 @@ MonoBehaviour:
   id: b63d05ad-8b10-43bd-89a0-fd6215d47926
   characterName: Jim
   requiredLevel: 1
+  unlockWorld: 0
   previewSprite: {fileID: 21300000, guid: a842f55cf52485f449e7d48964d1b4e6, type: 3}
   lockedSprite: {fileID: 21300000, guid: 2f3d18b5571311645ae5c0ab7af86963, type: 3}
   dropPrefab: {fileID: 3213684325369510951, guid: 510d82443cfb8f14ba5ea59556c8ac10,

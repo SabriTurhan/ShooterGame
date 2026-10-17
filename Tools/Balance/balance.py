@@ -38,19 +38,22 @@ CHARACTER_STAGES = 10
 # name, rarity (0 common .. 4 legendary), baseStrength, stage-1 damage (min, max), fire rate,
 # first upgrade price, price growth, cards to unlock, unlock level
 WEAPONS = [
-    ("MINIGUN",        0, 1.00, (5, 15),  10.0, 60,  1.20, 0,  1),
-    ("SHOTGUN",        0, 1.45, (35, 40), 0.8,  90,  1.20, 5,  6),
-    ("LAVA GUN",       1, 3.10, (20, 35), 1.0,  220, 1.20, 10, 24),
-    ("CRYO GUN",       2, 5.20, (18, 26), 5.0,  480, 1.20, 10, 44),
-    ("TESLA GUN",      4, 8.40, (8, 15),  2.1,  950, 1.20, 12, 66),
-    ("ROCKET LAUNCHER", 3, 13.0, (60, 80), 0.7, 1700, 1.20, 12, 84),
+    # world weapons (cards 0): unlocked and equipped when their world starts (WorldHeroes in the game)
+    ("MINIGUN",         0, 1.00, (5, 15),  10.0, 60,   1.20, 0,  1),
+    ("SHOTGUN",         0, 1.45, (35, 40), 0.8,  90,   1.20, 5,  6),
+    ("LAVA GUN",        1, 3.10, (20, 35), 1.0,  220,  1.20, 0,  21),
+    ("CRYO GUN",        2, 5.20, (18, 26), 5.0,  480,  1.20, 0,  41),
+    ("FLASH GUN",       3, 9.00, (30, 45), 1.4,  1000, 1.20, 0,  61),
+    ("ROCKET LAUNCHER", 3, 16.0, (60, 80), 0.7,  1900, 1.20, 0,  81),
+    # bonus legendary: its cards drop in the volcano's last levels, the reward for finishing the game
+    ("TESLA GUN",       4, 12.0, (8, 15),  2.1,  1400, 1.20, 12, 100),
 ]
 
 # Raw single-target DPS differs a lot between weapon types (minigun ~100, tesla ~24 at stage 1); enemy HP is scaled
 # by each weapon's stage-1 DPS relative to the minigun, times a bonus for area / chain / slow effects, so equal
 # strength means roughly equal time-to-kill whatever the weapon.
 BULLETS_PER_SHOT = {"SHOTGUN": 3}
-EFFECT_BONUS = {"LAVA GUN": 2.0, "TESLA GUN": 2.5, "ROCKET LAUNCHER": 2.0, "CRYO GUN": 1.15}
+EFFECT_BONUS = {"LAVA GUN": 2.0, "TESLA GUN": 2.5, "ROCKET LAUNCHER": 2.0, "CRYO GUN": 1.15, "FLASH GUN": 2.0}
 
 
 def dps_factor(w):
@@ -62,15 +65,17 @@ def dps_factor(w):
 
 # name, baseStrength (health factor), first upgrade price, price growth, required XP level
 CHARACTERS = [
-    ("JIM",    1.00, 60,   1.22, 1),
-    ("MIKE",   1.40, 260,  1.22, 3),
-    ("DUSTIN", 2.05, 650,  1.22, 6),
-    ("FROST",  2.75, 1400, 1.22, 10),
-    ("BLAZE",  3.70, 2800, 1.22, 15),
+    # name, baseStrength, first upgrade price, price growth, required XP level, world unlock level (0 = XP only)
+    ("JIM",    1.00, 60,   1.22, 1, 1),
+    ("MIKE",   1.40, 260,  1.22, 3, 0),
+    ("DUSTIN", 2.05, 650,  1.22, 5, 21),
+    ("FROST",  2.75, 1400, 1.22, 8, 41),
+    ("ROOK",   3.30, 2100, 1.22, 11, 61),
+    ("BLAZE",  3.70, 2800, 1.22, 14, 81),
 ]
 
 # levels at which a character should unlock (XP level reached) -> drives the XP curve
-CHARACTER_UNLOCK_LEVELS = {3: 12, 6: 30, 10: 50, 15: 80}
+CHARACTER_UNLOCK_LEVELS = {3: 12, 5: 21, 8: 41, 11: 61, 14: 81}
 MAX_XP_LEVEL = 20
 
 
@@ -168,7 +173,7 @@ def weapon_stage(w, s):
 
 
 def character_stage(c, s):
-    name, base, p0, pg, req = c
+    name, base, p0, pg = c[0], c[1], c[2], c[3]
     strength = base * HP_GROWTH ** (s - 1)
     price = 0 if s == 1 else int(round(p0 * pg ** (s - 2) / 5) * 5)
     return {"stage": s, "price": price, "health": int(round(100 * strength)), "strength": round(strength, 3),
@@ -180,7 +185,7 @@ def simulate(levels, thresholds, spend_ratio=0.9):
     coins = 0
     xp = 0
     cards = {w[0]: 0 for w in WEAPONS}
-    w_stage = {w[0]: (1 if w[7] == 0 else 0) for w in WEAPONS}
+    w_stage = {w[0]: (1 if w[7] == 0 and w[8] <= 1 else 0) for w in WEAPONS}
     c_stage = {"JIM": 1}
     wallets = {"w": 0.0, "c": 0.0}
     history = []
@@ -209,10 +214,12 @@ def simulate(levels, thresholds, spend_ratio=0.9):
         for drop in lv["cards"]:
             cards[drop["weapon"]] += drop["amount"]
         for w in WEAPONS:
-            if w_stage[w[0]] == 0 and cards[w[0]] >= w[7]:
+            world_unlock = w[7] == 0 and n + 1 >= w[8]
+            if w_stage[w[0]] == 0 and (world_unlock or (w[7] > 0 and cards[w[0]] >= w[7])):
                 w_stage[w[0]] = 1
         for c in CHARACTERS:
-            if c[0] not in c_stage and xp_level() >= c[4]:
+            unlocked = (c[5] > 0 and n + 1 >= c[5]) or (c[5] == 0 and xp_level() >= c[4])
+            if c[0] not in c_stage and unlocked:
                 c_stage[c[0]] = 1
 
         # shop: the player splits income between weapons and characters
@@ -261,15 +268,18 @@ def calibrate(levels, thresholds, lead=1.12):
             later[2] = 0.001
         history = simulate(levels, thresholds)
         unlock = WEAPONS[i][8]
-        WEAPONS[i][2] = round(history[min(unlock, len(history) - 1)]["wStrength"] * lead, 2)
+        # world weapons lead clearly; late card weapons (Tesla) are side-grades so the world's weapon stays the pick
+        hero_lead = lead * 1.05 if WEAPONS[i][7] == 0 else (0.95 if WEAPONS[i][8] > 20 else lead)
+        WEAPONS[i][2] = round(history[min(unlock - 1, len(history) - 1)]["wStrength"] * hero_lead, 2)
 
-    unlock_at = {lvl: at for lvl, at in CHARACTER_UNLOCK_LEVELS.items()}
     for i in range(1, len(CHARACTERS)):
         for later in CHARACTERS[i:]:
             later[1] = 0.001
         history = simulate(levels, thresholds)
-        unlock = unlock_at[CHARACTERS[i][4]]
-        CHARACTERS[i][1] = round(history[min(unlock, len(history) - 1)]["cStrength"] * lead, 2)
+        unlock = CHARACTERS[i][5] if CHARACTERS[i][5] > 0 else CHARACTER_UNLOCK_LEVELS[CHARACTERS[i][4]]
+        # world heroes start clearly ahead so playing the new world with them feels right
+        hero_lead = lead * 1.05 if CHARACTERS[i][5] > 0 else lead
+        CHARACTERS[i][1] = round(history[min(unlock - 1, len(history) - 1)]["cStrength"] * hero_lead, 2)
 
     WEAPONS = [tuple(w) for w in WEAPONS]
     CHARACTERS = [tuple(c) for c in CHARACTERS]
@@ -304,7 +314,7 @@ def main():
         "worlds": WORLD_NAMES,
         "weapons": [{"name": w[0], "rarity": w[1], "baseStrength": w[2], "dpsFactor": dps_factor(w), "cardsToUnlock": w[7], "unlockLevel": w[8],
                      "stages": [weapon_stage(w, s) for s in range(1, WEAPON_STAGES + 1)]} for w in WEAPONS],
-        "characters": [{"name": c[0], "baseStrength": c[1], "requiredLevel": c[4],
+        "characters": [{"name": c[0], "baseStrength": c[1], "requiredLevel": c[4], "worldUnlockLevel": c[5],
                         "stages": [character_stage(c, s) for s in range(1, CHARACTER_STAGES + 1)]} for c in CHARACTERS],
         "xpThresholds": thresholds,
         "levels": [{k: v for k, v in lv.items() if k != "sim"} for lv in levels],

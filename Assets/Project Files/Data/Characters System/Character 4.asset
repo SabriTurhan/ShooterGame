@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: d63b3611-03bf-43b7-ab87-6c96b04c82b2
   characterName: Frost
-  requiredLevel: 10
+  requiredLevel: 8
+  unlockWorld: 3
   previewSprite: {fileID: 21300000, guid: bbba1d228beed4c67906ee525b1f038d, type: 3}
   lockedSprite: {fileID: 21300000, guid: b0fb4cf5a726c465c8dd6a31231ba028, type: 3}
   dropPrefab: {fileID: 6151500105127784057, guid: ccd21a8693e48ab49a431bbb7751bd6d,
@@ -29,90 +30,90 @@ MonoBehaviour:
   - currencyType: 0
     price: 0
     stats:
-      health: 329
+      health: 287
       bulletDamageMultiplier: 1
-      power: 33
+      power: 29
       keyUpgradeNumber: -1
     changeStage: 0
     stageIndex: -1
   - currencyType: 0
     price: 1400
     stats:
-      health: 355
+      health: 310
       bulletDamageMultiplier: 1
-      power: 36
+      power: 31
       keyUpgradeNumber: -1
     changeStage: 0
     stageIndex: -1
   - currencyType: 0
     price: 1710
     stats:
-      health: 384
+      health: 335
       bulletDamageMultiplier: 1
-      power: 38
+      power: 33
       keyUpgradeNumber: -1
     changeStage: 0
     stageIndex: -1
   - currencyType: 0
     price: 2085
     stats:
-      health: 414
+      health: 362
       bulletDamageMultiplier: 1
-      power: 41
+      power: 36
       keyUpgradeNumber: -1
     changeStage: 0
     stageIndex: -1
   - currencyType: 0
     price: 2540
     stats:
-      health: 448
+      health: 390
       bulletDamageMultiplier: 1
-      power: 45
+      power: 39
       keyUpgradeNumber: -1
     changeStage: 0
     stageIndex: -1
   - currencyType: 0
     price: 3100
     stats:
-      health: 483
+      health: 422
       bulletDamageMultiplier: 1
-      power: 48
+      power: 42
       keyUpgradeNumber: -1
     changeStage: 0
     stageIndex: -1
   - currencyType: 0
     price: 3785
     stats:
-      health: 522
+      health: 455
       bulletDamageMultiplier: 1
-      power: 52
+      power: 46
       keyUpgradeNumber: -1
     changeStage: 0
     stageIndex: -1
   - currencyType: 0
     price: 4615
     stats:
-      health: 564
+      health: 492
       bulletDamageMultiplier: 1
-      power: 56
+      power: 49
       keyUpgradeNumber: -1
     changeStage: 0
     stageIndex: -1
   - currencyType: 0
     price: 5630
     stats:
-      health: 609
+      health: 531
       bulletDamageMultiplier: 1
-      power: 61
+      power: 53
       keyUpgradeNumber: -1
     changeStage: 0
     stageIndex: -1
   - currencyType: 0
     price: 6870
     stats:
-      health: 658
+      health: 574
       bulletDamageMultiplier: 1
-      power: 66
+      power: 57
       keyUpgradeNumber: -1
     changeStage: 0
     stageIndex: -1

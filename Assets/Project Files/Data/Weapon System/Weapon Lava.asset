@@ -19,7 +19,7 @@ MonoBehaviour:
   dropPrefab: {fileID: 4016779527414791621, guid: c07cf8395a6fa4b49a5729980e3fe25b,
     type: 3}
   upgrades:
-  - price: 10
+  - price: 0
     currencyType: 0
     previewSprite: {fileID: 0}
     weaponPrefab: {fileID: 5636405541002295016, guid: 64787e0afa85a8c4184ebff97b6bad1b,
@@ -32,15 +32,15 @@ MonoBehaviour:
     rangeRadius: 6.25
     fireRate: 1
     spread: 0
-    power: 44
+    power: 41
     bulletsPerShot:
       firstValue: 1
       secondValue: 1
     bulletSpeed:
       firstValue: 4
       secondValue: 4
-    keyUpgradeNumber: -1
-  - price: 10
+    keyUpgradeNumber: 0
+  - price: 0
     currencyType: 0
     previewSprite: {fileID: 0}
     weaponPrefab: {fileID: 5636405541002295016, guid: 64787e0afa85a8c4184ebff97b6bad1b,
@@ -53,14 +53,14 @@ MonoBehaviour:
     rangeRadius: 6.25
     fireRate: 1
     spread: 0
-    power: 44
+    power: 41
     bulletsPerShot:
       firstValue: 1
       secondValue: 1
     bulletSpeed:
       firstValue: 4
       secondValue: 4
-    keyUpgradeNumber: -1
+    keyUpgradeNumber: 0
   - price: 220
     currencyType: 0
     previewSprite: {fileID: 0}
@@ -74,7 +74,7 @@ MonoBehaviour:
     rangeRadius: 6.25
     fireRate: 1.03
     spread: 0
-    power: 49
+    power: 46
     bulletsPerShot:
       firstValue: 1
       secondValue: 1
@@ -95,7 +95,7 @@ MonoBehaviour:
     rangeRadius: 6.25
     fireRate: 1.06
     spread: 0
-    power: 55
+    power: 51
     bulletsPerShot:
       firstValue: 1
       secondValue: 1
@@ -116,7 +116,7 @@ MonoBehaviour:
     rangeRadius: 6.25
     fireRate: 1.09
     spread: 0
-    power: 61
+    power: 57
     bulletsPerShot:
       firstValue: 1
       secondValue: 1
@@ -137,7 +137,7 @@ MonoBehaviour:
     rangeRadius: 6.25
     fireRate: 1.12
     spread: 0
-    power: 68
+    power: 64
     bulletsPerShot:
       firstValue: 1
       secondValue: 1
@@ -158,7 +158,7 @@ MonoBehaviour:
     rangeRadius: 6.25
     fireRate: 1.15
     spread: 0
-    power: 77
+    power: 72
     bulletsPerShot:
       firstValue: 1
       secondValue: 1
@@ -179,7 +179,7 @@ MonoBehaviour:
     rangeRadius: 6.25
     fireRate: 1.19
     spread: 0
-    power: 86
+    power: 81
     bulletsPerShot:
       firstValue: 1
       secondValue: 1
@@ -200,7 +200,7 @@ MonoBehaviour:
     rangeRadius: 6.25
     fireRate: 1.22
     spread: 0
-    power: 96
+    power: 90
     bulletsPerShot:
       firstValue: 1
       secondValue: 1
@@ -221,7 +221,7 @@ MonoBehaviour:
     rangeRadius: 6.25
     fireRate: 1.25
     spread: 0
-    power: 108
+    power: 101
     bulletsPerShot:
       firstValue: 1
       secondValue: 1
@@ -242,7 +242,7 @@ MonoBehaviour:
     rangeRadius: 6.25
     fireRate: 1.29
     spread: 0
-    power: 121
+    power: 113
     bulletsPerShot:
       firstValue: 1
       secondValue: 1
@@ -263,7 +263,7 @@ MonoBehaviour:
     rangeRadius: 6.25
     fireRate: 1.33
     spread: 0
-    power: 135
+    power: 127
     bulletsPerShot:
       firstValue: 1
       secondValue: 1
@@ -284,7 +284,7 @@ MonoBehaviour:
     rangeRadius: 6.25
     fireRate: 1.37
     spread: 0
-    power: 151
+    power: 142
     bulletsPerShot:
       firstValue: 1
       secondValue: 1
@@ -305,7 +305,7 @@ MonoBehaviour:
     rangeRadius: 6.25
     fireRate: 1.4
     spread: 0
-    power: 169
+    power: 159
     bulletsPerShot:
       firstValue: 1
       secondValue: 1
@@ -326,7 +326,7 @@ MonoBehaviour:
     rangeRadius: 6.25
     fireRate: 1.45
     spread: 0
-    power: 190
+    power: 178
     bulletsPerShot:
       firstValue: 1
       secondValue: 1
@@ -347,7 +347,7 @@ MonoBehaviour:
     rangeRadius: 6.25
     fireRate: 1.49
     spread: 0
-    power: 213
+    power: 199
     bulletsPerShot:
       firstValue: 1
       secondValue: 1
@@ -355,4 +355,5 @@ MonoBehaviour:
       firstValue: 4
       secondValue: 4
     keyUpgradeNumber: -1
-  enemyHpScale: 0.12643678
+  enemyHpScale: 0.13480392
+  unlockWorld: 2
