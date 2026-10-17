@@ -63,7 +63,9 @@ namespace Watermelon
 
             float minimumFinishTime = realtimeSinceStartup + MINIMUM_LOADING_TIME;
 
-            loadingOperation = SceneManager.LoadSceneAsync(sceneIndex);
+            // the game can pick another first scene (e.g. straight into the tutorial level on the first launch)
+            string firstScene = FirstSceneOverride?.Invoke();
+            loadingOperation = string.IsNullOrEmpty(firstScene) ? SceneManager.LoadSceneAsync(sceneIndex) : SceneManager.LoadSceneAsync(firstScene);
             loadingOperation.allowSceneActivation = false;
 
             while (!loadingOperation.isDone || realtimeSinceStartup < minimumFinishTime)
@@ -128,6 +130,8 @@ namespace Watermelon
 
             OnLoadingFinished?.Invoke();
         }
+
+        public static System.Func<string> FirstSceneOverride;
 
         public static void MarkAsReadyToHide()
         {
