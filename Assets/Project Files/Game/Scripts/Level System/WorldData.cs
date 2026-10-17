@@ -15,6 +15,13 @@ namespace Watermelon.LevelSystem
         [SerializeField] WorldType worldType;
         public WorldType WorldType => worldType;
 
+        // world rule "frostbite": every hit slows the player (multiplier) for a moment (duration, 0 = off)
+        [SerializeField, Range(0.2f, 1f)] float hitSlowMultiplier = 1f;
+        public float HitSlowMultiplier => hitSlowMultiplier;
+
+        [SerializeField] float hitSlowDuration = 0f;
+        public float HitSlowDuration => hitSlowDuration;
+
         [SerializeField, LevelEditorSetting] LevelData[] levels;
         public LevelData[] Levels => levels;
 

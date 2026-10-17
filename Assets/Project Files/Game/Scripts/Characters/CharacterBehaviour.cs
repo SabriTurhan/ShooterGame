@@ -271,6 +271,9 @@ namespace Watermelon.SquadShooter
 
             HitEffect();
 
+            if (currentHealth > 0)
+                ApplyWorldFrostbite();
+
             AudioController.PlaySound(AudioController.AudioClips.characterHit.GetRandomItem());
 
 #if MODULE_HAPTIC
@@ -311,10 +314,53 @@ namespace Watermelon.SquadShooter
             hitShinePropertyBlock.SetColor(SHADER_HIT_SHINE_COLOR_HASH, Color.white);
             characterMeshRenderer.SetPropertyBlock(hitShinePropertyBlock);
 
-            hitShineTweenCase = characterMeshRenderer.DOPropertyBlockColor(SHADER_HIT_SHINE_COLOR_HASH, hitShinePropertyBlock, Color.black, 0.32f);
+            hitShineTweenCase = characterMeshRenderer.DOPropertyBlockColor(SHADER_HIT_SHINE_COLOR_HASH, hitShinePropertyBlock, restEmissionColor, 0.32f);
 
             graphics.PlayHitAnimation();
         }
+
+        #region Frostbite
+        // worlds with frostbite (glacier) slow the player down for a moment after every hit
+        private static readonly Color FROZEN_EMISSION_COLOR = new Color(0.06f, 0.26f, 0.42f, 1f);
+        private float slowMultiplier = 1f;
+        private float slowEndTime;
+        private Color restEmissionColor = Color.black;
+        public bool IsSlowed => slowMultiplier < 1f;
+
+        public void ApplySlow(float multiplier, float duration)
+        {
+            slowEndTime = Mathf.Max(slowEndTime, Time.time + duration);
+            slowMultiplier = Mathf.Min(slowMultiplier, multiplier);
+            SetFrozenLook(true);
+        }
+
+        private void UpdateSlow()
+        {
+            if (IsSlowed && Time.time > slowEndTime)
+            {
+                slowMultiplier = 1f;
+                SetFrozenLook(false);
+            }
+        }
+
+        private void SetFrozenLook(bool frozen)
+        {
+            restEmissionColor = frozen ? FROZEN_EMISSION_COLOR : Color.black;
+
+            hitShineTweenCase.KillActive();
+            characterMeshRenderer.GetPropertyBlock(hitShinePropertyBlock);
+            hitShinePropertyBlock.SetColor(SHADER_HIT_SHINE_COLOR_HASH, restEmissionColor);
+            characterMeshRenderer.SetPropertyBlock(hitShinePropertyBlock);
+        }
+
+        private void ApplyWorldFrostbite()
+        {
+            LevelData level = LevelController.CurrentLevelData;
+            if (level == null || level.World == null || level.World.HitSlowDuration <= 0f) return;
+
+            ApplySlow(level.World.HitSlowMultiplier, level.World.HitSlowDuration);
+        }
+        #endregion
 
         #region Gun
         public void SetGun(WeaponData weapon, WeaponUpgrade weaponUpgrade, bool playBounceAnimation = false, bool playAnimation = false, bool playParticle = false)
@@ -519,6 +565,8 @@ namespace Watermelon.SquadShooter
 
         private void Update()
         {
+            UpdateSlow();
+
             if (gunBehaviour != null)
                 gunBehaviour.UpdateHandRig();
 
@@ -538,7 +586,7 @@ namespace Watermelon.SquadShooter
                     graphics.OnMovingStarted();
                 }
 
-                float maxAlowedSpeed = Mathf.Clamp01(joystick.MovementInput.magnitude) * activeMovementSettings.MoveSpeed;
+                float maxAlowedSpeed = Mathf.Clamp01(joystick.MovementInput.magnitude) * activeMovementSettings.MoveSpeed * slowMultiplier;
 
                 if (speed > maxAlowedSpeed)
                 {

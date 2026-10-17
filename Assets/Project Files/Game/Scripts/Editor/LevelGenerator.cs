@@ -139,7 +139,7 @@ namespace Watermelon.SquadShooter
                 if (!plan.Grid.IsConnected()) continue;
 
                 if (boss)
-                    plan.Enemies.Add(new EnemyPlan(BossFor(levelNumber), new Vector3(0f, 0f, CellZ(8)), levelNumber >= 40));
+                    plan.Enemies.Add(new EnemyPlan(BossFor(levelNumber), new Vector3(0f, 0f, CellZ(8)), levelNumber == 40));
                 else
                     PlaceEnemies(plan, rng, levelNumber, roomIndex, roomCount);
 
@@ -276,22 +276,46 @@ namespace Watermelon.SquadShooter
         #endregion
 
         #region Enemies & chests
-        // enemy type, first level it appears in, spawn weight
-        private static readonly (EnemyType type, int from, float weight)[] ENEMY_POOL =
+        // enemy type, world, first level it appears in (global number), spawn weight;
+        // each world has its own roster, the first level of a type always shows it in the first room
+        private static readonly (EnemyType type, int world, int from, float weight)[] ENEMY_POOL =
         {
-            (EnemyType.Pistol, 1, 3f),
-            (EnemyType.BatMelee, 2, 3f),
-            (EnemyType.Demo, 5, 1.4f),
-            (EnemyType.Rifle, 8, 2f),
-            (EnemyType.Sniper, 12, 1f),
-            (EnemyType.Cowboy, 16, 1.6f),
-            (EnemyType.Grenader, 22, 1.8f),
-            (EnemyType.Shotguner, 26, 1.8f),
+            (EnemyType.Pistol, 0, 1, 3f),
+            (EnemyType.BatMelee, 0, 2, 3f),
+            (EnemyType.Demo, 0, 5, 1.4f),
+            (EnemyType.Rifle, 0, 8, 2f),
+            (EnemyType.Sniper, 0, 12, 1f),
+            (EnemyType.Cowboy, 0, 16, 1.6f),
+
+            (EnemyType.Pistol, 1, 21, 2f),
+            (EnemyType.BatMelee, 1, 21, 2f),
+            (EnemyType.Demo, 1, 21, 1.2f),
+            (EnemyType.Rifle, 1, 21, 1.6f),
+            (EnemyType.Sniper, 1, 21, 1f),
+            (EnemyType.Cowboy, 1, 21, 1.6f),
+            (EnemyType.Grenader, 1, 22, 1.8f),
+            (EnemyType.Shotguner, 1, 26, 1.8f),
+
+            (EnemyType.SnowTrooper, 2, 41, 3f),
+            (EnemyType.Yeti, 2, 42, 2.4f),
+            (EnemyType.IceBomber, 2, 44, 1.3f),
+            (EnemyType.SnowGrenadier, 2, 46, 1.8f),
+            (EnemyType.FrostSniper, 2, 48, 1f),
+        };
+
+        // two bosses per world: level 10 and 20 of the world
+        private static readonly EnemyType[,] BOSSES =
+        {
+            { EnemyType.BossSniper, EnemyType.BossBomber },
+            { EnemyType.BossBomber, EnemyType.BossSniper },
+            { EnemyType.BossYetiKing, EnemyType.BossFrostCommander },
         };
 
         private static EnemyType BossFor(int levelNumber)
         {
-            return (levelNumber / 10) % 2 == 1 || levelNumber == 40 ? EnemyType.BossSniper : EnemyType.BossBomber;
+            int world = Mathf.Clamp((levelNumber - 1) / BalanceData.LEVELS_PER_WORLD, 0, BOSSES.GetLength(0) - 1);
+            int second = ((levelNumber - 1) % BalanceData.LEVELS_PER_WORLD) >= 10 ? 1 : 0;
+            return BOSSES[world, second];
         }
 
         private static void PlaceEnemies(RoomPlan plan, System.Random rng, int levelNumber, int roomIndex, int roomCount)
@@ -300,14 +324,15 @@ namespace Watermelon.SquadShooter
             int count = 2 + levelNumber / 14 + (roomIndex == roomCount - 1 ? 1 : 0) + (blockPosition >= 7 ? 1 : 0) + rng.Next(2);
             count = Mathf.Clamp(count, 2, 9);
 
-            List<(EnemyType type, float weight)> pool = ENEMY_POOL.Where(e => e.from <= levelNumber).Select(e => (e.type, e.weight)).ToList();
+            int world = (levelNumber - 1) / BalanceData.LEVELS_PER_WORLD;
+            List<(EnemyType type, float weight)> pool = ENEMY_POOL.Where(e => e.world == world && e.from <= levelNumber).Select(e => (e.type, e.weight)).ToList();
             float eliteChance = levelNumber < 6 ? 0f : Mathf.Min(0.35f, 0.04f + levelNumber * 0.004f);
 
             List<EnemyType> types = new List<EnemyType>();
 
             // a type that is new on this level shows up in the first room
             if (roomIndex == 0)
-                foreach (var e in ENEMY_POOL.Where(e => e.from == levelNumber)) types.Add(e.type);
+                foreach (var e in ENEMY_POOL.Where(e => e.world == world && e.from == levelNumber)) types.Add(e.type);
 
             while (types.Count < count)
             {
@@ -322,8 +347,10 @@ namespace Watermelon.SquadShooter
             List<Vector2Int> taken = new List<Vector2Int>();
             foreach (EnemyType type in types)
             {
-                int minRow = type == EnemyType.Sniper ? 8 : (type == EnemyType.BatMelee || type == EnemyType.Demo) ? 4 : 5;
-                Vector2Int? cell = BestEnemyCell(plan, rng, minRow, taken, type != EnemyType.BatMelee && type != EnemyType.Demo);
+                bool sniper = type == EnemyType.Sniper || type == EnemyType.FrostSniper;
+                bool melee = type == EnemyType.BatMelee || type == EnemyType.Demo || type == EnemyType.Yeti || type == EnemyType.IceBomber;
+                int minRow = sniper ? 8 : melee ? 4 : 5;
+                Vector2Int? cell = BestEnemyCell(plan, rng, minRow, taken, !melee);
                 if (cell == null) continue;
 
                 taken.Add(cell.Value);

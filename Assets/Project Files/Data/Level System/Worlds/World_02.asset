@@ -15,6 +15,8 @@ MonoBehaviour:
   previewSprite: {fileID: 21300000, guid: 3d1b94860d7ba4844a3165d230e3b9bb, type: 3}
   uniqueWorldMusicClip: {fileID: 0}
   worldType: 2
+  hitSlowMultiplier: 1
+  hitSlowDuration: 0
   levels:
   - type: 0
     rooms:

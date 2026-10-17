@@ -303,3 +303,203 @@ MonoBehaviour:
       hitTextOffsetForward: 0.15625
     icon: {fileID: 2800000, guid: a477e2341de09874996a28d296ab386e, type: 3}
     iconTint: {r: 1, g: 1, b: 1, a: 1}
+  - enemyType: 20
+    prefab: {fileID: 1880052817203547783, guid: 8102b527754464d05976be68b21bd017,
+      type: 3}
+    stats:
+      hp: 210
+      visionRange: 8.59375
+      attackDistance: 7.8125
+      fleeDistance: 1.5625
+      damage:
+        firstValue: 8
+        secondValue: 16
+      aimDuration: 0
+      moveSpeed: 2.65
+      patrollingSpeed: 1.5625
+      patrollingMutliplier: 0.5
+      patrollingIdleDuration: 2
+      angularSpeed: 400
+      preferedDistanceToPlayer: 0.46875
+      level: 1
+      eliteHealthMult: 2.5
+      eliteDamageMult: 1.1
+      healForPlayer:
+        firstValue: 55
+        secondValue: 70
+      targetRingSize: 1.1
+      hitTextOffsetY: 2.65
+      hitTextOffsetForward: 0.15625
+    icon: {fileID: 2800000, guid: 962188e31f7bd41ee8904c17258b9dd1, type: 3}
+    iconTint: {r: 1, g: 1, b: 1, a: 1}
+  - enemyType: 21
+    prefab: {fileID: 730115168513898266, guid: 2717eff3e895b45848fc648cae686914, type: 3}
+    stats:
+      hp: 330
+      visionRange: 8.59375
+      attackDistance: 1.09375
+      fleeDistance: 0
+      damage:
+        firstValue: 18
+        secondValue: 26
+      aimDuration: 0
+      moveSpeed: 5.2
+      patrollingSpeed: 2.1875
+      patrollingMutliplier: 0.4
+      patrollingIdleDuration: 1.5
+      angularSpeed: 400
+      preferedDistanceToPlayer: 0.78125
+      level: 1
+      eliteHealthMult: 2.5
+      eliteDamageMult: 1.1
+      healForPlayer:
+        firstValue: 15
+        secondValue: 30
+      targetRingSize: 1.1
+      hitTextOffsetY: 2.65
+      hitTextOffsetForward: 0.15625
+    icon: {fileID: 2800000, guid: 694e6c2f71e5343dc9e2c0e2433cae83, type: 3}
+    iconTint: {r: 1, g: 1, b: 1, a: 1}
+  - enemyType: 22
+    prefab: {fileID: 8704042975812835442, guid: 57615060753e14279b34ae3f477a02f5,
+      type: 3}
+    stats:
+      hp: 330
+      visionRange: 7.03125
+      attackDistance: 1.5625
+      fleeDistance: 0
+      damage:
+        firstValue: 70
+        secondValue: 90
+      aimDuration: 0
+      moveSpeed: 5.2
+      patrollingSpeed: 1.5625
+      patrollingMutliplier: 0.6
+      patrollingIdleDuration: 2
+      angularSpeed: 1000
+      preferedDistanceToPlayer: 0.78125
+      level: 1
+      eliteHealthMult: 2.5
+      eliteDamageMult: 2
+      healForPlayer:
+        firstValue: 80
+        secondValue: 100
+      targetRingSize: 1.1
+      hitTextOffsetY: 2.65
+      hitTextOffsetForward: 0.15625
+    icon: {fileID: 2800000, guid: f96a6a40430dd4f62a5b974c3736a347, type: 3}
+    iconTint: {r: 1, g: 1, b: 1, a: 1}
+  - enemyType: 23
+    prefab: {fileID: 60666586568621327, guid: 0e0fcb5e9719f4cdfb48baac738e7c6f, type: 3}
+    stats:
+      hp: 240
+      visionRange: 14.0625
+      attackDistance: 6.25
+      fleeDistance: 3.125
+      damage:
+        firstValue: 15
+        secondValue: 30
+      aimDuration: 0
+      moveSpeed: 3.1
+      patrollingSpeed: 1.5625
+      patrollingMutliplier: 0.5
+      patrollingIdleDuration: 2
+      angularSpeed: 400
+      preferedDistanceToPlayer: 0
+      level: 1
+      eliteHealthMult: 2.5
+      eliteDamageMult: 1.1
+      healForPlayer:
+        firstValue: 20
+        secondValue: 35
+      targetRingSize: 1.1
+      hitTextOffsetY: 3.4375
+      hitTextOffsetForward: 0.17089844
+    icon: {fileID: 2800000, guid: fd1ff3581fe2b4fbfb88e3d806227713, type: 3}
+    iconTint: {r: 1, g: 1, b: 1, a: 1}
+  - enemyType: 24
+    prefab: {fileID: 897636142778881438, guid: e3df738da17544ff48680800fc6f5d9b, type: 3}
+    stats:
+      hp: 130
+      visionRange: 12.5
+      attackDistance: 15.625
+      fleeDistance: 1.5625
+      damage:
+        firstValue: 80
+        secondValue: 110
+      aimDuration: 0
+      moveSpeed: 2.65
+      patrollingSpeed: 1.5625
+      patrollingMutliplier: 0.58
+      patrollingIdleDuration: 2
+      angularSpeed: 400
+      preferedDistanceToPlayer: 0.78125
+      level: 1
+      eliteHealthMult: 2.5
+      eliteDamageMult: 1.1
+      healForPlayer:
+        firstValue: 40
+        secondValue: 70
+      targetRingSize: 1.1
+      hitTextOffsetY: 2.65
+      hitTextOffsetForward: 0.15625
+    icon: {fileID: 2800000, guid: 99606aef800fe435d93f6e304cf8791b, type: 3}
+    iconTint: {r: 1, g: 1, b: 1, a: 1}
+  - enemyType: 102
+    prefab: {fileID: 3608158151404689409, guid: 166a83ae897824fcea1ef55235a08f34,
+      type: 3}
+    stats:
+      hp: 2200
+      visionRange: 14.0625
+      attackDistance: 0
+      fleeDistance: 0
+      damage:
+        firstValue: 6
+        secondValue: 15
+      aimDuration: 0
+      moveSpeed: 3.1
+      patrollingSpeed: 0
+      patrollingMutliplier: 0
+      patrollingIdleDuration: 0
+      angularSpeed: 400
+      preferedDistanceToPlayer: 2.34375
+      level: 1
+      eliteHealthMult: 1
+      eliteDamageMult: 1
+      healForPlayer:
+        firstValue: 100
+        secondValue: 100
+      targetRingSize: 2.2
+      hitTextOffsetY: 3.4375
+      hitTextOffsetForward: 1.09375
+    icon: {fileID: 2800000, guid: 2ee0a0f4311ba4cf2a8a6e90f2ed61f8, type: 3}
+    iconTint: {r: 1, g: 1, b: 1, a: 1}
+  - enemyType: 103
+    prefab: {fileID: 8109380259149480658, guid: 97bc614caad3947bdbc7a7d4942d5490,
+      type: 3}
+    stats:
+      hp: 1600
+      visionRange: 12.5
+      attackDistance: 15.625
+      fleeDistance: 0
+      damage:
+        firstValue: 80
+        secondValue: 110
+      aimDuration: 0
+      moveSpeed: 6.25
+      patrollingSpeed: 1.5625
+      patrollingMutliplier: 0.58
+      patrollingIdleDuration: 2
+      angularSpeed: 400
+      preferedDistanceToPlayer: 0.78125
+      level: 1
+      eliteHealthMult: 2.5
+      eliteDamageMult: 1.1
+      healForPlayer:
+        firstValue: 40
+        secondValue: 70
+      targetRingSize: 1.1
+      hitTextOffsetY: 2.65625
+      hitTextOffsetForward: 0.15625
+    icon: {fileID: 2800000, guid: 034a1fcfcffb043f0ac4a8cc80e8256a, type: 3}
+    iconTint: {r: 1, g: 1, b: 1, a: 1}
