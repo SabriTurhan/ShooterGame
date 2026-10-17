@@ -185,6 +185,11 @@ namespace Watermelon.SquadShooter
             {
                 EditorUtility.CopySerialized(mesh, existing);
                 existing.name = name;
+                // CopySerialized leaves the GPU copy stale: previews in this session would still show the old mesh
+                existing.vertices = existing.vertices;
+                existing.uv = existing.uv;
+                existing.MarkModified();
+                EditorUtility.SetDirty(existing);
                 return existing;
             }
 

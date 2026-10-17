@@ -19,6 +19,7 @@ namespace Watermelon.SquadShooter
 
         private static readonly Color ICE_PARTICLE = new Color(0.55f, 0.9f, 1f);
         private static readonly Color GAS_PARTICLE = new Color(0.55f, 0.85f, 0.35f);
+        private static readonly Color FIRE_PARTICLE = new Color(1f, 0.55f, 0.15f);
 
         private static string meshFolder = ENEMIES + "/World 3/Meshes";
         private static Color effectTint = ICE_PARTICLE;
@@ -168,6 +169,142 @@ namespace Watermelon.SquadShooter
                 Accessories = (root, body, head) => { Beret(root, body, head); Goggles(root, body, head, Band.Red); },
                 Hp = 1800f, Damage = new Vector2Int(85, 115), MoveSpeed = 6.25f,
             };
+        }
+        #endregion
+
+        #region Volcano factory
+        [MenuItem("Tools/Content/Build World 5 Enemies (Volcano Factory)")]
+        public static void BuildVolcanoEnemies()
+        {
+            string folder = ENEMIES + "/World 5";
+            PaletteTools.EnsureFolder(folder + "/Meshes");
+            meshFolder = folder + "/Meshes";
+            effectTint = FIRE_PARTICLE;
+
+            string bullets = GAME + "/Prefabs/Weapons/Bullets";
+            Func<PaletteTools.Texel, int> fireRule = t => t.Value > 0.6f ? Band.Yellow : Band.Orange;
+            var projectiles = new Dictionary<string, string>
+            {
+                { "Fire Bullet", ThemedProjectile($"{bullets}/Enemy Bullet.prefab", $"{folder}/Fire Bullet.prefab", folder, null, fireRule, FIRE_PARTICLE) },
+                { "Molotov", ThemedProjectile($"{bullets}/Enemy Grenade.prefab", $"{folder}/Molotov.prefab", folder, Molotov(), fireRule, FIRE_PARTICLE) },
+                { "Molotov Elite", ThemedProjectile($"{bullets}/Enemy Grenade Elite.prefab", $"{folder}/Molotov Elite.prefab", folder, Molotov(), fireRule, FIRE_PARTICLE) },
+                { "Magma Boulder", ThemedProjectile($"{bullets}/Boss Bomb.prefab", $"{folder}/Magma Boulder.prefab", folder, MagmaBoulder(), fireRule, FIRE_PARTICLE) },
+                { "Forge Boss Bullet", ThemedProjectile($"{bullets}/Boss Sniper Buller.prefab", $"{folder}/Forge Boss Bullet.prefab", folder, null, fireRule, FIRE_PARTICLE) },
+            };
+            Material laser = LaserMaterial(folder, "Laser Pointer Fire", new Color(1f, 0.45f, 0.1f));
+
+            foreach (Recipe recipe in VolcanoRecipes(projectiles, laser))
+            {
+                GameObject prefab = BuildEnemy(recipe, folder);
+                Texture2D icon = RenderIcon(prefab, recipe.Name);
+                Register(recipe, prefab, icon);
+            }
+
+            AssetDatabase.SaveAssets();
+            Debug.Log("[EnemyBuilder] volcano enemies built");
+        }
+
+        private static IEnumerable<Recipe> VolcanoRecipes(Dictionary<string, string> projectiles, Material laser)
+        {
+            Func<PaletteTools.Texel, int> hotGun = t => t.IsDark ? Band.Black : t.Value > 0.65f ? Band.Orange : Band.Grey;
+
+            yield return new Recipe
+            {
+                Name = "Enemy Magma Trooper", Source = "Enemy Rifle", Type = EnemyType.MagmaTrooper, SourceType = EnemyType.Rifle,
+                Body = t => t.IsSkin ? -1 : t.IsDark ? Band.Black : t.IsGrey ? Band.Grey : t.OnLegs ? Band.Black : Band.Grey,
+                Weapon = hotGun, IsWeapon = n => n == "Rifle" || n == "Weapon",
+                Accessories = (root, body, head) => WeldingMask(root, body, head, Band.Orange),
+                Projectiles = { { "bulletPrefab", projectiles["Fire Bullet"] } },
+                Hp = 220f, Damage = new Vector2Int(9, 16), MoveSpeed = 2.65f,
+            };
+
+            yield return new Recipe
+            {
+                Name = "Enemy Magma Golem", Source = "Enemy Melee", Type = EnemyType.MagmaGolem, SourceType = EnemyType.BatMelee, Scale = 1.32f,
+                // basalt body (the template outfit is near-black, so split it by brightness), glowing skin
+                Body = t => t.IsSkin || (t.IsGrey && t.Value > 0.8f) ? Band.Brown : t.Value < 0.12f ? Band.Black : Band.Black,
+                Weapon = t => t.Value > 0.55f ? Band.Orange : Band.Black, IsWeapon = n => n.Contains("Weapon"),
+                Accessories = (root, body, head) => { MagmaHead(root, body, head); LavaCracks(root, body); },
+                Hp = 360f, Damage = new Vector2Int(20, 28), MoveSpeed = 4.8f,
+            };
+
+            yield return new Recipe
+            {
+                Name = "Enemy Pyro Bomber", Source = "Enemy Demo", Type = EnemyType.PyroBomber, SourceType = EnemyType.Demo,
+                Body = t => t.OnHead && t.Saturation > 0.3f ? Band.Black : t.IsSkin ? -1 : t.IsDark ? Band.Black : t.OnLegs ? Band.Black : Band.Red,
+                Weapon = t => t.IsDark ? Band.Black : t.IsWarm ? Band.Yellow : Band.Red, IsWeapon = n => n == "Bomb",
+                Accessories = (root, body, head) => { Beanie(root, body, head, Band.Black, Band.Orange); GasMask(root, body, head, Band.Orange); },
+                Hp = 330f, Damage = new Vector2Int(75, 95), MoveSpeed = 5.2f,
+            };
+
+            yield return new Recipe
+            {
+                Name = "Enemy Molotov Thrower", Source = "Enemy Grenader", Type = EnemyType.MolotovThrower, SourceType = EnemyType.Grenader,
+                Body = t => t.IsSkin ? -1 : t.IsDark ? Band.Black : t.IsGrey ? Band.Grey : t.OnLegs ? Band.Brown : Band.Orange,
+                Weapon = t => t.Value > 0.6f ? Band.Yellow : Band.Brown, IsWeapon = n => n.Contains("Gran") || n.Contains("Pin") || n.Contains("Striker"),
+                Accessories = (root, body, head) => { HardHat(root, body, head, Band.Yellow); GasMask(root, body, head, Band.Orange); },
+                Projectiles = { { "grenadePrefab", projectiles["Molotov"] }, { "eliteGrenadePrefab", projectiles["Molotov Elite"] } },
+                Hp = 250f, Damage = new Vector2Int(16, 32), MoveSpeed = 3.1f,
+            };
+
+            yield return new Recipe
+            {
+                Name = "Enemy Flame Shotgunner", Source = "Enemy Shotgun", Type = EnemyType.FlameShotgunner, SourceType = EnemyType.Shotguner,
+                Body = t => t.IsSkin ? -1 : t.IsDark ? Band.Black : t.IsGrey ? Band.Grey : Band.Red,
+                Weapon = hotGun, IsWeapon = n => n == "Shotgun" || n == "Forestock",
+                Accessories = (root, body, head) => WeldingMask(root, body, head, Band.Yellow),
+                Projectiles = { { "bulletPrefab", projectiles["Fire Bullet"] } },
+                Hp = 260f, Damage = new Vector2Int(7, 10), MoveSpeed = 2.9f,
+            };
+
+            yield return new Recipe
+            {
+                Name = "Enemy Lava Sniper", Source = "Enemy Sniper", Type = EnemyType.LavaSniper, SourceType = EnemyType.Sniper,
+                Body = t => t.IsSkin ? -1 : t.IsDark ? Band.Black : t.IsGreen ? Band.Grey : Band.Black,
+                Weapon = hotGun, IsWeapon = n => n.Contains("Rifle"),
+                Accessories = (root, body, head) => { FurHood(root, body, head, Band.Black, Band.Grey); Goggles(root, body, head, Band.Orange); },
+                Projectiles = { { "bulletPrefab", projectiles["Fire Bullet"] } }, Laser = laser,
+                Hp = 140f, Damage = new Vector2Int(85, 115), MoveSpeed = 2.65f,
+            };
+
+            yield return new Recipe
+            {
+                Name = "Boss Forge Master", Source = "Boss Sniper", Type = EnemyType.BossForgeMaster, SourceType = EnemyType.BossSniper, Scale = 1.25f,
+                Body = t => t.IsSkin ? -1 : t.IsDark ? Band.Black : t.IsGrey ? Band.Grey : Band.Brown,
+                Weapon = hotGun, IsWeapon = n => n.Contains("Weapon") || n.Contains("Rifle"),
+                Accessories = (root, body, head) => { WeldingMask(root, body, head, Band.Orange); ChestPlate(root, body); },
+                Projectiles = { { "bulletPrefab", projectiles["Forge Boss Bullet"] } }, Laser = laser,
+                Hp = 1900f, Damage = new Vector2Int(90, 120), MoveSpeed = 6.25f,
+            };
+
+            yield return new Recipe
+            {
+                Name = "Boss Magma Titan", Source = "Boss Bomber", Type = EnemyType.BossMagmaTitan, SourceType = EnemyType.BossBomber, Scale = 1.2f,
+                Body = t => t.IsDark ? Band.Black : t.IsWarm ? Band.Orange : Band.Black,
+                Weapon = t => t.IsDark ? Band.Black : t.Value > 0.6f ? Band.Orange : Band.Grey, IsWeapon = n => n.Contains("Minigun") || n.Contains("Cannon"),
+                Accessories = (root, body, head) => { MagmaHead(root, body, head); FlameCrown(root, body, head); LavaCracks(root, body); },
+                Projectiles = { { "bulletPrefab", projectiles["Magma Boulder"] } },
+                Hp = 3000f, Damage = new Vector2Int(8, 17), MoveSpeed = 3.1f,
+            };
+        }
+
+        private static Mesh Molotov()
+        {
+            PaletteMesh m = new PaletteMesh();
+            m.Cylinder(0.09f, 0.09f, 0.18f, 8, Vector3.zero, Vector3.zero, Band.Green, 0.1f, 0.5f);
+            m.Cylinder(0.09f, 0.04f, 0.08f, 8, new Vector3(0f, 0.13f, 0f), Vector3.zero, Band.Green, 0.1f, 0.5f);
+            m.Cylinder(0.035f, 0.035f, 0.1f, 6, new Vector3(0f, 0.21f, 0f), Vector3.zero, Band.White, 0.1f, 0.4f);
+            m.Cylinder(0.05f, 0f, 0.12f, 5, new Vector3(0f, 0.31f, 0f), Vector3.zero, Band.Orange, 0.72f, 1f);
+            return m.Build("Molotov");
+        }
+
+        private static Mesh MagmaBoulder()
+        {
+            PaletteMesh m = new PaletteMesh();
+            m.Box(new Vector3(0.55f, 0.5f, 0.5f), 0.16f, Vector3.zero, new Vector3(12f, 30f, 8f), Band.Black, 0.1f, 0.5f);
+            m.Box(new Vector3(0.3f, 0.08f, 0.36f), 0.03f, new Vector3(0.05f, 0.24f, 0f), new Vector3(12f, 30f, 8f), Band.Orange, 0.72f, 1f);
+            m.Box(new Vector3(0.08f, 0.3f, 0.3f), 0.03f, new Vector3(0.26f, 0f, -0.05f), new Vector3(12f, 30f, 8f), Band.Yellow, 0.35f, 0.6f);
+            return m.Build("MagmaBoulder");
         }
         #endregion
 
@@ -374,6 +511,8 @@ namespace Watermelon.SquadShooter
             {
                 GameObject instance = renderer.Spawn(prefab);
                 instance.transform.rotation = Quaternion.Euler(0f, 160f, 0f);
+                foreach (Renderer effect in instance.GetComponentsInChildren<Renderer>(true))
+                    if (effect is LineRenderer || effect is TrailRenderer || effect.name.Contains("Laser")) effect.enabled = false;
                 Texture2D shot = renderer.Render(instance, new Vector3(0.2f, -0.15f, 1f), 0.75f, false, 30f);
                 Texture2D icon = UIArtRenderer.Outline(shot, 3, 0, new Color(0.08f, 0.08f, 0.12f), Color.clear);
 
@@ -483,14 +622,16 @@ namespace Watermelon.SquadShooter
             return m.Build("IceBoulder");
         }
 
-        private static Material IceLaserMaterial(string folder)
+        private static Material IceLaserMaterial(string folder) => LaserMaterial(folder, "Laser Pointer Ice", new Color(0.35f, 0.85f, 1f));
+
+        private static Material LaserMaterial(string folder, string name, Color colour)
         {
-            string path = folder + "/Laser Pointer Ice.mat";
+            string path = $"{folder}/{name}.mat";
             if (!File.Exists(path)) AssetDatabase.CopyAsset(GAME + "/Materials/Particles/Laser Pointer.mat", path);
 
             Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
             foreach (string property in new[] { "_Color", "_BaseColor", "_TintColor" })
-                if (material.HasProperty(property)) material.SetColor(property, new Color(0.35f, 0.85f, 1f, material.GetColor(property).a));
+                if (material.HasProperty(property)) material.SetColor(property, new Color(colour.r, colour.g, colour.b, material.GetColor(property).a));
             EditorUtility.SetDirty(material);
             return material;
         }
@@ -652,7 +793,7 @@ namespace Watermelon.SquadShooter
             shield.transform.SetParent(forearm != null ? forearm : root.transform, true);
         }
 
-        private static void GasMask(GameObject root, SkinnedMeshRenderer body, Bounds head)
+        private static void GasMask(GameObject root, SkinnedMeshRenderer body, Bounds head, int filter = Band.Green)
         {
             float r = R(head);
             Vector3 c = head.center;
@@ -661,7 +802,7 @@ namespace Watermelon.SquadShooter
             for (int side = -1; side <= 1; side += 2)
             {
                 m.Cylinder(r * 0.22f, r * 0.22f, r * 0.12f, 8, c + new Vector3(side * r * 0.32f, r * 0.2f, r * 1.0f), new Vector3(90f, 0f, 0f), Band.Sky, 0f, 0.3f);
-                m.Cylinder(r * 0.22f, r * 0.25f, r * 0.4f, 8, c + new Vector3(side * r * 0.45f, -r * 0.55f, r * 0.85f), new Vector3(60f, side * 25f, 0f), Band.Green, 0.1f, 0.5f);
+                m.Cylinder(r * 0.22f, r * 0.25f, r * 0.4f, 8, c + new Vector3(side * r * 0.45f, -r * 0.55f, r * 0.85f), new Vector3(60f, side * 25f, 0f), filter, 0.1f, 0.5f);
             }
             m.Box(new Vector3(r * 2.2f, r * 0.12f, r * 0.12f), r * 0.03f, c + new Vector3(0f, r * 0.2f, 0f), Vector3.zero, Band.Black, 0f, 0.3f);
             Attach(root, body, "Head", "Gas Mask", m);
@@ -706,6 +847,77 @@ namespace Watermelon.SquadShooter
             m.Box(new Vector3(chest.size.x * 0.75f, chest.size.y * 0.55f, chest.size.z * 0.18f), chest.size.x * 0.05f, new Vector3(chest.center.x, chest.center.y + chest.extents.y * 0.15f, chest.max.z), new Vector3(-6f, 0f, 0f), Band.Steel, 0.05f, 0.5f);
             m.Box(new Vector3(chest.size.x * 0.5f, chest.size.y * 0.08f, chest.size.z * 0.2f), chest.size.x * 0.02f, new Vector3(chest.center.x, chest.center.y + chest.extents.y * 0.42f, chest.max.z + chest.size.z * 0.02f), new Vector3(-6f, 0f, 0f), Band.Yellow, 0.3f, 0.6f);
             Attach(root, body, "Spine", "Chest Plate", m);
+        }
+
+        private static void WeldingMask(GameObject root, SkinnedMeshRenderer body, Bounds head, int visor)
+        {
+            float r = R(head);
+            Vector3 c = head.center;
+            PaletteMesh m = new PaletteMesh();
+            m.Dome(r * 1.16f, 3, 10, c + new Vector3(0f, r * 0.02f, -r * 0.05f), Vector3.zero, new Vector3(1f, 1f, 1.05f), Band.Grey, 0.1f, 0.55f);
+            m.Box(new Vector3(r * 1.9f, r * 1.25f, r * 0.3f), r * 0.12f, c + new Vector3(0f, -r * 0.12f, r * 0.95f), new Vector3(-6f, 0f, 0f), Band.Black, 0.05f, 0.4f);
+            m.Box(new Vector3(r * 1.2f, r * 0.32f, r * 0.08f), r * 0.04f, c + new Vector3(0f, r * 0.12f, r * 1.12f), new Vector3(-6f, 0f, 0f), visor, 0f, 0.25f);
+            for (int side = -1; side <= 1; side += 2)
+                m.Cylinder(r * 0.18f, r * 0.18f, r * 0.14f, 8, c + new Vector3(side * r * 1.12f, r * 0.05f, r * 0.2f), new Vector3(0f, 0f, 90f), Band.Grey, 0.4f, 0.85f);
+            Attach(root, body, "Head", "Welding Mask", m);
+        }
+
+        private static void HardHat(GameObject root, SkinnedMeshRenderer body, Bounds head, int colour)
+        {
+            float r = R(head);
+            Vector3 c = head.center;
+            PaletteMesh m = new PaletteMesh();
+            m.Dome(r * 1.1f, 3, 10, c + new Vector3(0f, r * 0.42f, 0f), Vector3.zero, new Vector3(1f, 0.8f, 1.05f), colour, 0.05f, 0.5f);
+            m.Cylinder(r * 1.32f, r * 1.32f, r * 0.08f, 12, c + new Vector3(0f, r * 0.42f, r * 0.08f), Vector3.zero, colour, 0.2f, 0.6f);
+            m.Box(new Vector3(r * 0.22f, r * 0.12f, r * 1.9f), r * 0.04f, c + new Vector3(0f, r * 1.25f, 0f), Vector3.zero, colour, 0.25f, 0.65f);
+            Attach(root, body, "Head", "Hard Hat", m);
+        }
+
+        // rock face for magma creatures: heavy brow, glowing eyes and jaw, horns
+        private static void MagmaHead(GameObject root, SkinnedMeshRenderer body, Bounds head)
+        {
+            float r = R(head);
+            Vector3 c = head.center;
+            PaletteMesh m = new PaletteMesh();
+            m.Box(new Vector3(r * 2.1f, r * 1.9f, r * 2.0f), r * 0.45f, c + new Vector3(0f, r * 0.05f, 0f), new Vector3(0f, 8f, 0f), Band.Black, 0.1f, 0.55f);
+            m.Box(new Vector3(r * 1.8f, r * 0.32f, r * 0.4f), r * 0.1f, c + new Vector3(0f, r * 0.45f, r * 0.9f), new Vector3(12f, 0f, 0f), Band.Black, 0.2f, 0.6f);
+            for (int side = -1; side <= 1; side += 2)
+            {
+                m.Box(new Vector3(r * 0.38f, r * 0.2f, r * 0.12f), r * 0.05f, c + new Vector3(side * r * 0.4f, r * 0.18f, r * 1.02f), new Vector3(0f, 0f, side * -10f), Band.Yellow, 0.35f, 0.6f);
+                m.Cylinder(r * 0.28f, 0f, r * 1.0f, 5, c + new Vector3(side * r * 0.85f, r * 1.05f, -r * 0.1f), new Vector3(-15f, 0f, -side * 30f), Band.Black, 0.15f, 0.55f);
+            }
+            m.Box(new Vector3(r * 1.1f, r * 0.22f, r * 0.14f), r * 0.05f, c + new Vector3(0f, -r * 0.5f, r * 1.0f), Vector3.zero, Band.Orange, 0.72f, 1f);
+            Attach(root, body, "Head", "Magma Head", m);
+        }
+
+        // jagged rock plates with lava seams on the back and shoulders
+        private static void LavaCracks(GameObject root, SkinnedMeshRenderer body)
+        {
+            Bounds chest = PaletteTools.BoneBounds(body, bone => bone.Contains("Spine"));
+            PaletteMesh m = new PaletteMesh();
+            for (int i = -1; i <= 1; i++)
+            {
+                Vector3 p = new Vector3(chest.center.x + i * chest.extents.x * 0.55f, chest.max.y - chest.extents.y * (0.15f + Mathf.Abs(i) * 0.2f), chest.min.z + chest.extents.z * 0.15f);
+                m.Box(new Vector3(chest.extents.x * 0.5f, chest.extents.y * 0.55f, chest.extents.z * 0.4f), chest.extents.x * 0.08f, p, new Vector3(-25f, i * 20f, i * 15f), Band.Black, 0.1f, 0.55f);
+                m.Box(new Vector3(chest.extents.x * 0.08f, chest.extents.y * 0.5f, chest.extents.z * 0.42f), 0.005f, p + new Vector3(chest.extents.x * 0.12f, 0f, -0.01f), new Vector3(-25f, i * 20f, i * 15f + 10f), Band.Orange, 0.72f, 1f);
+            }
+            for (int side = -1; side <= 1; side += 2)
+                m.Box(new Vector3(chest.extents.x * 0.1f, chest.extents.y * 0.7f, chest.extents.z * 0.1f), 0.005f, new Vector3(chest.center.x + side * chest.extents.x * 0.35f, chest.center.y + chest.extents.y * 0.1f, chest.max.z + 0.005f), new Vector3(0f, 0f, side * 18f), Band.Orange, 0.72f, 1f);
+            Attach(root, body, "Spine", "Lava Plates", m);
+        }
+
+        private static void FlameCrown(GameObject root, SkinnedMeshRenderer body, Bounds head)
+        {
+            float r = R(head);
+            Vector3 c = head.center + new Vector3(0f, r * 1.0f, 0f);
+            PaletteMesh m = new PaletteMesh();
+            for (int i = 0; i < 7; i++)
+            {
+                float a = i / 7f * Mathf.PI * 2f;
+                float h = i % 2 == 0 ? 0.9f : 0.6f;
+                m.Cylinder(r * 0.22f, 0f, r * h, 5, c + new Vector3(Mathf.Cos(a) * r * 0.62f, r * h * 0.5f, Mathf.Sin(a) * r * 0.62f), Vector3.zero, i % 2 == 0 ? Band.Orange : Band.Yellow, 0.35f, 0.6f);
+            }
+            Attach(root, body, "Head", "Flame Crown", m);
         }
 
         private static void OfficerCap(GameObject root, SkinnedMeshRenderer body, Bounds head)

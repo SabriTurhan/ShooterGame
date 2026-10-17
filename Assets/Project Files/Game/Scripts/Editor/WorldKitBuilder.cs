@@ -31,6 +31,14 @@ namespace Watermelon.SquadShooter
             BuildWorld(4, "Riot City", CityObstacles());
         }
 
+        [MenuItem("Tools/Worlds/Build World 5 (Volcano Factory)")]
+        public static void BuildVolcano()
+        {
+            BuildWorld(5, "Volcano Factory", VolcanoObstacles());
+            AddLavaPool(5);
+            AssetDatabase.SaveAssets();
+        }
+
         public static void BuildWorld(int number, string theme, Dictionary<string, Func<Mesh>> obstacles)
         {
             string folder = $"{PRESETS}/World_{number:00}";
@@ -587,6 +595,290 @@ namespace Watermelon.SquadShooter
         }
         #endregion
 
+        #region Volcano obstacles
+        private static Dictionary<string, Func<Mesh>> VolcanoObstacles()
+        {
+            return new Dictionary<string, Func<Mesh>>
+            {
+                { "Block 1x1 Big", Furnace },
+                { "Block 1x1 Big Half", OreCart },
+                { "Block 1x1 Medium", BasaltPillar },
+                { "Block 1x1 Medium Half", MagmaRock },
+                { "Block 1x1 Small", SteamValve },
+                { "Block 1x1 Small Half", Brazier },
+                { "Block 1x2 Big", Crucible },
+                { "Block 1x2 Big Half", IngotPallet },
+                { "Block 1x2 Medium", Conveyor },
+                { "Block 1x2 Medium Half", HeatShield },
+                { "Block 1x2 Small", SafetyRail },
+                { "Block 2x2 Big Half", LavaVent },
+                { "Wall 1x1", () => FactoryWall(1.9f) },
+                { "Wall 1x2", () => FactoryWall(3.86f) },
+                { "Wall Corner", GirderPost },
+            };
+        }
+
+        // a smelting furnace with a glowing mouth and a chimney
+        private static Mesh Furnace()
+        {
+            PaletteMesh m = new PaletteMesh();
+            m.Box(new Vector3(1.7f, 1.35f, 1.6f), 0.08f, new Vector3(0f, 0.68f, 0.02f), Vector3.zero, Band.Grey, 0.1f, 0.6f);
+            m.Box(new Vector3(1.76f, 0.16f, 1.66f), 0.03f, new Vector3(0f, 0.12f, 0.02f), Vector3.zero, Band.Black, 0f, 0.35f);
+            m.Box(new Vector3(0.8f, 0.6f, 0.08f), 0.06f, new Vector3(0f, 0.6f, -0.78f), Vector3.zero, Band.Black, 0f, 0.3f);
+            m.Box(new Vector3(0.62f, 0.44f, 0.06f), 0.05f, new Vector3(0f, 0.58f, -0.81f), Vector3.zero, Band.Orange, 0.72f, 1f);
+            m.Box(new Vector3(0.44f, 0.16f, 0.05f), 0.03f, new Vector3(0f, 0.48f, -0.84f), Vector3.zero, Band.Yellow, 0.35f, 0.6f);
+            m.Box(new Vector3(1.8f, 0.14f, 1.7f), 0.04f, new Vector3(0f, 1.4f, 0.02f), Vector3.zero, Band.Grey, 0.4f, 0.85f);
+            m.Cylinder(0.26f, 0.22f, 0.9f, 8, new Vector3(0.45f, 1.9f, 0.35f), Vector3.zero, Band.Black, 0.1f, 0.45f);
+            m.Cylinder(0.28f, 0.28f, 0.1f, 8, new Vector3(0.45f, 2.35f, 0.35f), Vector3.zero, Band.Grey, 0.4f, 0.85f);
+            for (int side = -1; side <= 1; side += 2)
+                m.Box(new Vector3(0.12f, 0.12f, 0.06f), 0.02f, new Vector3(side * 0.62f, 1.1f, -0.79f), Vector3.zero, Band.Grey, 0.4f, 0.85f);
+            return m.Build("Furnace");
+        }
+
+        // a mine cart heaped with glowing ore
+        private static Mesh OreCart()
+        {
+            PaletteMesh m = new PaletteMesh();
+            m.Box(new Vector3(1.6f, 0.5f, 1.3f), 0.05f, new Vector3(0f, 0.42f, 0f), Vector3.zero, Band.Grey, 0.4f, 0.85f);
+            m.Box(new Vector3(1.66f, 0.08f, 1.36f), 0.02f, new Vector3(0f, 0.66f, 0f), Vector3.zero, Band.Grey, 0.2f, 0.55f);
+            foreach (float x in new[] { -0.55f, 0.55f })
+                foreach (float z in new[] { -0.68f, 0.68f })
+                    m.Cylinder(0.18f, 0.18f, 0.08f, 8, new Vector3(x, 0.18f, z), new Vector3(90f, 0f, 0f), Band.Black, 0f, 0.4f);
+            m.Dome(0.62f, 2, 8, new Vector3(-0.15f, 0.66f, 0f), Vector3.zero, new Vector3(1.15f, 0.5f, 0.95f), Band.Black, 0.1f, 0.5f);
+            m.Box(new Vector3(0.24f, 0.22f, 0.22f), 0.06f, new Vector3(0.25f, 0.86f, -0.15f), new Vector3(20f, 30f, 10f), Band.Orange, 0.72f, 1f);
+            m.Box(new Vector3(0.18f, 0.16f, 0.16f), 0.05f, new Vector3(-0.35f, 0.88f, 0.2f), new Vector3(-15f, 10f, 25f), Band.Yellow, 0.35f, 0.6f);
+            m.Box(new Vector3(0.2f, 0.18f, 0.18f), 0.05f, new Vector3(0.45f, 0.8f, 0.3f), new Vector3(5f, 45f, -10f), Band.Orange, 0.72f, 1f);
+            return m.Build("OreCart");
+        }
+
+        // a dark basalt column with glowing cracks
+        private static Mesh BasaltPillar()
+        {
+            PaletteMesh m = new PaletteMesh();
+            m.Cylinder(0.85f, 0.7f, 1.55f, 6, new Vector3(0f, 0.78f, 0f), new Vector3(0f, 10f, 0f), Band.Black, 0.15f, 0.55f);
+            m.Cylinder(0.6f, 0.45f, 0.45f, 6, new Vector3(0.12f, 1.75f, 0.05f), new Vector3(4f, 40f, -5f), Band.Black, 0.1f, 0.5f);
+            m.Box(new Vector3(0.08f, 0.9f, 0.06f), 0.02f, new Vector3(-0.32f, 0.75f, -0.72f), new Vector3(0f, 10f, 12f), Band.Orange, 0.72f, 1f);
+            m.Box(new Vector3(0.07f, 0.55f, 0.06f), 0.02f, new Vector3(0.38f, 0.95f, -0.68f), new Vector3(0f, -20f, -18f), Band.Orange, 0.72f, 1f);
+            m.Box(new Vector3(0.06f, 0.6f, 0.06f), 0.02f, new Vector3(0.78f, 0.6f, 0.1f), new Vector3(0f, 0f, 8f), Band.Yellow, 0.35f, 0.6f);
+            return m.Build("BasaltPillar");
+        }
+
+        // a cooling magma boulder: black crust, orange core showing through
+        private static Mesh MagmaRock()
+        {
+            PaletteMesh m = new PaletteMesh();
+            m.Box(new Vector3(0.95f, 0.75f, 0.85f), 0.22f, new Vector3(0.1f, 0.36f, 0.05f), new Vector3(6f, 25f, 4f), Band.Black, 0.1f, 0.55f);
+            m.Box(new Vector3(0.55f, 0.45f, 0.5f), 0.14f, new Vector3(-0.45f, 0.22f, -0.3f), new Vector3(-8f, -15f, 10f), Band.Black, 0.15f, 0.55f);
+            m.Box(new Vector3(0.5f, 0.12f, 0.5f), 0.04f, new Vector3(0.12f, 0.76f, 0f), new Vector3(6f, 25f, 4f), Band.Orange, 0.72f, 1f);
+            m.Box(new Vector3(0.3f, 0.06f, 0.22f), 0.02f, new Vector3(-0.45f, 0.46f, -0.32f), new Vector3(-8f, -15f, 10f), Band.Yellow, 0.35f, 0.6f);
+            return m.Build("MagmaRock");
+        }
+
+        // a pipe stub with a red valve wheel and a steam cap
+        private static Mesh SteamValve()
+        {
+            PaletteMesh m = new PaletteMesh();
+            m.Box(new Vector3(0.7f, 0.12f, 0.7f), 0.03f, new Vector3(0f, 0.06f, 0f), Vector3.zero, Band.Black, 0.1f, 0.45f);
+            m.Cylinder(0.2f, 0.2f, 1.4f, 8, new Vector3(0f, 0.75f, 0f), Vector3.zero, Band.Grey, 0.4f, 0.85f);
+            m.Cylinder(0.26f, 0.26f, 0.1f, 8, new Vector3(0f, 0.45f, 0f), Vector3.zero, Band.Grey, 0.2f, 0.6f);
+            m.Cylinder(0.26f, 0.26f, 0.1f, 8, new Vector3(0f, 1.3f, 0f), Vector3.zero, Band.Grey, 0.2f, 0.6f);
+            m.Cylinder(0.34f, 0.34f, 0.06f, 10, new Vector3(0f, 1.0f, -0.3f), new Vector3(90f, 0f, 0f), Band.Red, 0.15f, 0.5f);
+            m.Cylinder(0.08f, 0.08f, 0.12f, 6, new Vector3(0f, 1.0f, -0.25f), new Vector3(90f, 0f, 0f), Band.Black, 0f, 0.3f);
+            m.Cylinder(0.16f, 0.24f, 0.18f, 8, new Vector3(0f, 1.55f, 0f), Vector3.zero, Band.Yellow, 0.25f, 0.6f);
+            return m.Build("SteamValve");
+        }
+
+        // the world's accent prop: an iron brazier full of embers
+        private static Mesh Brazier()
+        {
+            PaletteMesh m = new PaletteMesh();
+            for (int i = 0; i < 3; i++)
+            {
+                float a = i / 3f * 360f;
+                Vector3 leg = Quaternion.Euler(0f, a, 0f) * new Vector3(0f, 0f, 0.28f);
+                m.Box(new Vector3(0.07f, 0.7f, 0.07f), 0.01f, leg + new Vector3(0f, 0.35f, 0f), new Vector3(0f, a, 0f), Band.Black, 0.1f, 0.4f);
+            }
+            m.Cylinder(0.3f, 0.48f, 0.35f, 8, new Vector3(0f, 0.82f, 0f), Vector3.zero, Band.Black, 0.15f, 0.5f);
+            m.Cylinder(0.42f, 0.42f, 0.06f, 8, new Vector3(0f, 0.98f, 0f), Vector3.zero, Band.Orange, 0.72f, 1f);
+            m.Cylinder(0.26f, 0f, 0.55f, 6, new Vector3(0f, 1.28f, 0f), new Vector3(0f, 20f, 0f), Band.Orange, 0.72f, 1f);
+            m.Cylinder(0.16f, 0f, 0.42f, 5, new Vector3(0.13f, 1.2f, 0.06f), new Vector3(0f, 0f, -18f), Band.Yellow, 0.35f, 0.6f);
+            m.Cylinder(0.14f, 0f, 0.36f, 5, new Vector3(-0.14f, 1.17f, -0.05f), new Vector3(0f, 0f, 20f), Band.Yellow, 0.35f, 0.6f);
+            return m.Build("Brazier");
+        }
+
+        // a big ladle of molten metal on a steel cradle
+        private static Mesh Crucible()
+        {
+            PaletteMesh m = new PaletteMesh();
+            m.Box(new Vector3(3.6f, 0.3f, 1.6f), 0.05f, new Vector3(0f, 0.15f, 0f), Vector3.zero, Band.Black, 0.1f, 0.45f);
+            foreach (float x in new[] { -1.55f, 1.55f })
+                m.Box(new Vector3(0.22f, 1.5f, 0.3f), 0.03f, new Vector3(x, 0.9f, 0f), Vector3.zero, Band.Yellow, 0.25f, 0.6f);
+            m.Cylinder(0.08f, 0.08f, 3.3f, 6, new Vector3(0f, 1.25f, 0f), new Vector3(0f, 0f, 90f), Band.Grey, 0.4f, 0.85f);
+            m.Cylinder(0.62f, 0.8f, 1.05f, 10, new Vector3(0f, 1.0f, 0f), Vector3.zero, Band.Grey, 0.1f, 0.6f);
+            m.Cylinder(0.84f, 0.84f, 0.1f, 10, new Vector3(0f, 1.52f, 0f), Vector3.zero, Band.Black, 0.1f, 0.4f);
+            m.Cylinder(0.74f, 0.74f, 0.06f, 10, new Vector3(0f, 1.55f, 0f), Vector3.zero, Band.Orange, 0.72f, 1f);
+            m.Sphere(0.18f, 2, 6, new Vector3(0.25f, 1.6f, -0.2f), new Vector3(1f, 0.4f, 1f), Band.Yellow, 0.35f, 0.6f);
+            m.Box(new Vector3(0.3f, 0.12f, 0.5f), 0.03f, new Vector3(0f, 1.48f, -0.85f), new Vector3(-20f, 0f, 0f), Band.Grey, 0.15f, 0.5f);
+            m.Box(new Vector3(0.9f, 0.18f, 0.04f), 0.02f, new Vector3(-0.9f, 0.4f, -0.82f), Vector3.zero, Band.Yellow, 0.3f, 0.5f);
+            return m.Build("Crucible");
+        }
+
+        // stacked steel ingots on a pallet, the top row still hot
+        private static Mesh IngotPallet()
+        {
+            PaletteMesh m = new PaletteMesh();
+            m.Box(new Vector3(3.6f, 0.14f, 1.55f), 0.03f, new Vector3(0f, 0.07f, 0f), Vector3.zero, Band.Brown, 0.3f, 0.7f);
+            for (int i = 0; i < 5; i++)
+            {
+                float x = -1.4f + i * 0.7f;
+                m.Box(new Vector3(0.6f, 0.26f, 1.3f), 0.06f, new Vector3(x, 0.28f, 0f), Vector3.zero, Band.Grey, 0.4f, 0.85f);
+            }
+            for (int i = 0; i < 4; i++)
+            {
+                float x = -1.05f + i * 0.7f;
+                m.Box(new Vector3(0.6f, 0.26f, 1.2f), 0.06f, new Vector3(x, 0.54f, 0f), Vector3.zero, i == 1 ? Band.Orange : Band.Grey, i == 1 ? 0.72f : 0.1f, i == 1 ? 1f : 0.55f);
+            }
+            m.Box(new Vector3(0.6f, 0.26f, 1.1f), 0.06f, new Vector3(0.35f, 0.8f, 0f), Vector3.zero, Band.Orange, 0.72f, 1f);
+            return m.Build("IngotPallet");
+        }
+
+        // a conveyor belt carrying ore chunks
+        private static Mesh Conveyor()
+        {
+            PaletteMesh m = new PaletteMesh();
+            foreach (float x in new[] { -1.5f, -0.5f, 0.5f, 1.5f })
+                foreach (float z in new[] { -0.6f, 0.6f })
+                    m.Box(new Vector3(0.12f, 0.75f, 0.12f), 0.02f, new Vector3(x, 0.38f, z), Vector3.zero, Band.Yellow, 0.25f, 0.6f);
+            m.Box(new Vector3(3.7f, 0.3f, 1.5f), 0.08f, new Vector3(0f, 0.9f, 0f), Vector3.zero, Band.Grey, 0.1f, 0.55f);
+            m.Box(new Vector3(3.6f, 0.06f, 1.2f), 0.02f, new Vector3(0f, 1.07f, 0f), Vector3.zero, Band.Black, 0f, 0.3f);
+            for (int i = 0; i < 4; i++)
+                m.Box(new Vector3(0.36f, 0.3f, 0.34f), 0.1f, new Vector3(-1.3f + i * 0.85f, 1.25f, (i % 2) * 0.3f - 0.15f), new Vector3(10f, i * 35f, 15f), i % 2 == 0 ? Band.Black : Band.Orange, 0.72f, 1f);
+            return m.Build("Conveyor");
+        }
+
+        // low steel heat shields with hazard stripes
+        private static Mesh HeatShield()
+        {
+            PaletteMesh m = new PaletteMesh();
+            for (int i = 0; i < 3; i++)
+            {
+                float x = -1.2f + i * 1.2f;
+                m.Box(new Vector3(1.1f, 0.7f, 0.22f), 0.04f, new Vector3(x, 0.35f, 0f), new Vector3(0f, (i - 1) * 6f, 0f), Band.Grey, 0.4f, 0.85f);
+                m.Box(new Vector3(1.12f, 0.16f, 0.24f), 0.02f, new Vector3(x, 0.6f, 0f), new Vector3(0f, (i - 1) * 6f, 0f), Band.Yellow, 0.3f, 0.5f);
+                for (int k = -1; k <= 1; k++)
+                    m.Box(new Vector3(0.1f, 0.18f, 0.26f), 0.01f, new Vector3(x + k * 0.32f, 0.6f, 0f), new Vector3(0f, (i - 1) * 6f, 35f), Band.Black, 0f, 0.3f);
+                m.Box(new Vector3(0.5f, 0.06f, 0.5f), 0.02f, new Vector3(x, 0.03f, 0.18f), Vector3.zero, Band.Black, 0f, 0.4f);
+            }
+            return m.Build("HeatShield");
+        }
+
+        private static Mesh SafetyRail()
+        {
+            PaletteMesh m = new PaletteMesh();
+            foreach (float x in new[] { -0.82f, 0f, 0.82f })
+                m.Cylinder(0.06f, 0.06f, 1.15f, 6, new Vector3(x, 0.58f, 0f), Vector3.zero, Band.Yellow, 0.25f, 0.6f);
+            foreach (float y in new[] { 0.6f, 1.12f })
+                m.Cylinder(0.05f, 0.05f, 1.75f, 6, new Vector3(0f, y, 0f), new Vector3(0f, 0f, 90f), Band.Yellow, 0.2f, 0.55f);
+            m.Box(new Vector3(0.5f, 0.32f, 0.04f), 0.02f, new Vector3(0.4f, 0.86f, -0.05f), Vector3.zero, Band.Red, 0.15f, 0.5f);
+            m.Box(new Vector3(0.12f, 0.12f, 0.03f), 0.01f, new Vector3(0.4f, 0.86f, -0.08f), new Vector3(0f, 0f, 45f), Band.White, 0f, 0.2f);
+            return m.Build("SafetyRail");
+        }
+
+        // a rocky mound with a lava vent: the big centre piece of volcano rooms
+        private static Mesh LavaVent()
+        {
+            PaletteMesh m = new PaletteMesh();
+            m.Cylinder(1.8f, 1.35f, 0.6f, 8, new Vector3(0f, 0.3f, 0f), new Vector3(0f, 12f, 0f), Band.Black, 0.1f, 0.55f);
+            m.Cylinder(1.2f, 0.75f, 0.6f, 8, new Vector3(0f, 0.85f, 0f), new Vector3(0f, 30f, 0f), Band.Black, 0.15f, 0.55f);
+            m.Cylinder(0.62f, 0.62f, 0.08f, 8, new Vector3(0f, 1.16f, 0f), Vector3.zero, Band.Orange, 0.72f, 1f);
+            m.Cylinder(0.32f, 0f, 0.5f, 6, new Vector3(0f, 1.4f, 0f), new Vector3(0f, 15f, 0f), Band.Yellow, 0.35f, 0.6f);
+            m.Box(new Vector3(0.12f, 0.08f, 1.1f), 0.02f, new Vector3(0.9f, 0.45f, -0.5f), new Vector3(0f, -35f, 25f), Band.Orange, 0.72f, 1f);
+            m.Box(new Vector3(0.12f, 0.08f, 0.9f), 0.02f, new Vector3(-0.85f, 0.4f, 0.6f), new Vector3(0f, 50f, -25f), Band.Orange, 0.72f, 1f);
+            m.Box(new Vector3(0.6f, 0.5f, 0.55f), 0.15f, new Vector3(-1.2f, 0.25f, -1.1f), new Vector3(0f, 20f, 8f), Band.Grey, 0.15f, 0.55f);
+            return m.Build("LavaVent");
+        }
+
+        private static Mesh FactoryWall(float width)
+        {
+            PaletteMesh m = new PaletteMesh();
+            m.Box(new Vector3(width, 1.62f, 0.45f), 0.05f, new Vector3(0f, 0.81f, 0.24f), Vector3.zero, Band.Grey, 0.4f, 0.85f);
+            m.Box(new Vector3(width + 0.02f, 0.22f, 0.47f), 0.02f, new Vector3(0f, 0.25f, 0.24f), Vector3.zero, Band.Yellow, 0.3f, 0.5f);
+            for (float x = -width / 2f + 0.2f; x < width / 2f - 0.1f; x += 0.38f)
+                m.Box(new Vector3(0.1f, 0.26f, 0.49f), 0.01f, new Vector3(x, 0.25f, 0.24f), new Vector3(0f, 0f, 35f), Band.Black, 0f, 0.3f);
+            for (float x = -width / 2f + 0.3f; x < width / 2f - 0.2f; x += 0.6f)
+                m.Sphere(0.04f, 2, 6, new Vector3(x, 1.4f, 0f), Vector3.one, Band.Grey, 0.2f, 0.5f);
+            m.Box(new Vector3(width - 0.06f, 0.12f, 0.5f), 0.04f, new Vector3(0f, 1.66f, 0.24f), Vector3.zero, Band.Black, 0.05f, 0.4f);
+            return m.Build("FactoryWall");
+        }
+
+        private static Mesh GirderPost()
+        {
+            PaletteMesh m = new PaletteMesh();
+            m.Box(new Vector3(0.46f, 2.05f, 0.12f), 0.02f, new Vector3(-0.25f, 1.03f, 0.08f), Vector3.zero, Band.Red, 0.15f, 0.55f);
+            m.Box(new Vector3(0.46f, 2.05f, 0.12f), 0.02f, new Vector3(-0.25f, 1.03f, 0.42f), Vector3.zero, Band.Red, 0.15f, 0.55f);
+            m.Box(new Vector3(0.1f, 2.05f, 0.3f), 0.01f, new Vector3(-0.25f, 1.03f, 0.25f), Vector3.zero, Band.Red, 0.3f, 0.7f);
+            m.Box(new Vector3(0.52f, 0.12f, 0.52f), 0.03f, new Vector3(-0.25f, 2.1f, 0.25f), Vector3.zero, Band.Black, 0.1f, 0.4f);
+            return m.Build("GirderPost");
+        }
+
+        // walkable hazard: a flat pool of lava in a rock rim (the trigger burns the player, see LavaPoolBehaviour)
+        private static Mesh LavaPoolMesh()
+        {
+            PaletteMesh m = new PaletteMesh();
+            m.Cylinder(0.92f, 0.86f, 0.08f, 9, new Vector3(0f, 0.04f, 0f), new Vector3(0f, 12f, 0f), Band.Black, 0.1f, 0.5f);
+            m.Cylinder(0.76f, 0.76f, 0.04f, 9, new Vector3(0f, 0.07f, 0f), new Vector3(0f, 12f, 0f), Band.Orange, 0.72f, 1f);
+            m.Cylinder(0.42f, 0.42f, 0.03f, 7, new Vector3(0.12f, 0.09f, -0.08f), new Vector3(0f, 40f, 0f), Band.Yellow, 0.35f, 0.6f);
+            m.Sphere(0.09f, 2, 6, new Vector3(-0.35f, 0.1f, 0.25f), new Vector3(1f, 0.5f, 1f), Band.Yellow, 0.35f, 0.6f);
+            m.Sphere(0.07f, 2, 6, new Vector3(0.38f, 0.1f, 0.3f), new Vector3(1f, 0.5f, 1f), Band.Yellow, 0.35f, 0.6f);
+            foreach (Vector3 p in new[] { new Vector3(0.85f, 0f, 0.2f), new Vector3(-0.7f, 0f, -0.55f), new Vector3(-0.2f, 0f, 0.85f) })
+                m.Box(new Vector3(0.28f, 0.2f, 0.25f), 0.07f, p + new Vector3(0f, 0.08f, 0f), new Vector3(5f, p.x * 60f, 8f), Band.Black, 0.15f, 0.55f);
+            return m.Build("LavaPool");
+        }
+
+        public const string LAVA_POOL = "Lava Pool";
+
+        private static void AddLavaPool(int number)
+        {
+            string folder = $"{PRESETS}/World_{number:00}";
+            EnsureFolder(folder + "/Hazards");
+            string path = $"{folder}/Hazards/{LAVA_POOL}.prefab";
+
+            GameObject root = new GameObject(LAVA_POOL);
+            // "Default" ignores the player in the collision matrix; the enemy-bullet layer only meets the player
+            root.layer = LayerMask.NameToLayer("Enemy Bullet");
+            GameObject model = new GameObject("Model");
+            model.transform.SetParent(root.transform, false);
+            model.AddComponent<MeshFilter>().sharedMesh = SaveMesh(LavaPoolMesh(), $"{folder}/Meshes", $"{number}_Lava_Pool");
+            MeshRenderer renderer = model.AddComponent<MeshRenderer>();
+            renderer.sharedMaterial = AssetDatabase.LoadAssetAtPath<Material>($"{ENV_MATERIALS}/Environment {number} Props.mat");
+            renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+
+            BoxCollider trigger = root.AddComponent<BoxCollider>();
+            trigger.isTrigger = true;
+            trigger.size = new Vector3(1.5f, 0.8f, 1.5f);
+            trigger.center = new Vector3(0f, 0.4f, 0f);
+            root.AddComponent<LavaPoolBehaviour>();
+
+            GameObject prefab = PrefabUtility.SaveAsPrefabAsset(root, path);
+            UnityEngine.Object.DestroyImmediate(root);
+
+            // register as an environment item (not an obstacle: it does not block movement or bullets)
+            WorldData world = AssetDatabase.LoadAssetAtPath<WorldData>($"{WORLDS}/World_{number:00}.asset");
+            SerializedObject serialized = new SerializedObject(world);
+            SerializedProperty items = serialized.FindProperty("items");
+            for (int i = 0; i < items.arraySize; i++)
+                if (items.GetArrayElementAtIndex(i).FindPropertyRelative("prefab").objectReferenceValue == prefab) return;
+
+            items.InsertArrayElementAtIndex(items.arraySize);
+            SerializedProperty item = items.GetArrayElementAtIndex(items.arraySize - 1);
+            item.FindPropertyRelative("prefab").objectReferenceValue = prefab;
+            item.FindPropertyRelative("type").intValue = (int)LevelItemType.Environment;
+            item.FindPropertyRelative("hash").intValue = 0x1A7A0000 + number;
+            serialized.ApplyModifiedPropertiesWithoutUndo();
+            EditorUtility.SetDirty(world);
+        }
+        #endregion
+
         #region Helpers
         private static Mesh SaveMesh(Mesh mesh, string folder, string name)
         {
@@ -597,6 +889,11 @@ namespace Watermelon.SquadShooter
             {
                 EditorUtility.CopySerialized(mesh, existing);
                 existing.name = name;
+                // CopySerialized leaves the GPU copy stale: previews in this session would still show the old mesh
+                existing.vertices = existing.vertices;
+                existing.uv = existing.uv;
+                existing.MarkModified();
+                EditorUtility.SetDirty(existing);
                 return existing;
             }
 

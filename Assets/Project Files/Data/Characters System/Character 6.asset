@@ -1,0 +1,119 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c62de01cc2460429c6915c04e5a9e8, type: 3}
+  m_Name: Character 6
+  m_EditorClassIdentifier: 
+  id: 45520efc-7bf0-41bd-85e6-0673280607aa
+  characterName: Blaze
+  requiredLevel: 14
+  unlockWorld: 5
+  previewSprite: {fileID: 21300000, guid: 8277b4755e2f345508f144c1ba08cfdf, type: 3}
+  lockedSprite: {fileID: 21300000, guid: ded8156403af94fbcbb55b1ee6c5efec, type: 3}
+  dropPrefab: {fileID: 6151500105127784057, guid: ccd21a8693e48ab49a431bbb7751bd6d,
+    type: 3}
+  stages:
+  - previewSprite: {fileID: 21300000, guid: 8277b4755e2f345508f144c1ba08cfdf, type: 3}
+    lockedSprite: {fileID: 21300000, guid: ded8156403af94fbcbb55b1ee6c5efec, type: 3}
+    prefab: {fileID: 4747439419011946600, guid: 991d4ecc283e845e2b515d5c6fa0148c,
+      type: 3}
+    healthBarOffset: {x: 0, y: 2.34375, z: 0}
+  upgrades:
+  - currencyType: 0
+    price: 0
+    stats:
+      health: 540
+      bulletDamageMultiplier: 1
+      power: 54
+      keyUpgradeNumber: -1
+    changeStage: 0
+    stageIndex: -1
+  - currencyType: 0
+    price: 2800
+    stats:
+      health: 583
+      bulletDamageMultiplier: 1
+      power: 58
+      keyUpgradeNumber: -1
+    changeStage: 0
+    stageIndex: -1
+  - currencyType: 0
+    price: 3415
+    stats:
+      health: 630
+      bulletDamageMultiplier: 1
+      power: 63
+      keyUpgradeNumber: -1
+    changeStage: 0
+    stageIndex: -1
+  - currencyType: 0
+    price: 4170
+    stats:
+      health: 680
+      bulletDamageMultiplier: 1
+      power: 68
+      keyUpgradeNumber: -1
+    changeStage: 0
+    stageIndex: -1
+  - currencyType: 0
+    price: 5085
+    stats:
+      health: 735
+      bulletDamageMultiplier: 1
+      power: 73
+      keyUpgradeNumber: -1
+    changeStage: 0
+    stageIndex: -1
+  - currencyType: 0
+    price: 6205
+    stats:
+      health: 793
+      bulletDamageMultiplier: 1
+      power: 79
+      keyUpgradeNumber: -1
+    changeStage: 0
+    stageIndex: -1
+  - currencyType: 0
+    price: 7570
+    stats:
+      health: 857
+      bulletDamageMultiplier: 1
+      power: 86
+      keyUpgradeNumber: -1
+    changeStage: 0
+    stageIndex: -1
+  - currencyType: 0
+    price: 9230
+    stats:
+      health: 925
+      bulletDamageMultiplier: 1
+      power: 93
+      keyUpgradeNumber: -1
+    changeStage: 0
+    stageIndex: -1
+  - currencyType: 0
+    price: 11265
+    stats:
+      health: 1000
+      bulletDamageMultiplier: 1
+      power: 100
+      keyUpgradeNumber: -1
+    changeStage: 0
+    stageIndex: -1
+  - currencyType: 0
+    price: 13740
+    stats:
+      health: 1079
+      bulletDamageMultiplier: 1
+      power: 108
+      keyUpgradeNumber: -1
+    changeStage: 0
+    stageIndex: -1

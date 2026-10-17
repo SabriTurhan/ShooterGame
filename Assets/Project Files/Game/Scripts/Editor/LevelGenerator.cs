@@ -138,8 +138,18 @@ namespace Watermelon.SquadShooter
 
                 if (!plan.Grid.IsConnected()) continue;
 
+                if (HAZARDS.TryGetValue(world.name, out string hazard))
+                    PlaceHazards(plan, rng, hazard, levelNumber, boss);
+
                 if (boss)
+                {
                     plan.Enemies.Add(new EnemyPlan(BossFor(levelNumber), new Vector3(0f, 0f, CellZ(8)), levelNumber == 40));
+
+                    // the final boss fights with two magma troopers at its side
+                    if (levelNumber == BalanceData.LEVELS_PER_WORLD * 5)
+                        foreach (int c in new[] { 1, 6 })
+                            plan.Enemies.Add(new EnemyPlan(EnemyType.MagmaTrooper, new Vector3(CellX(c), 0f, CellZ(9)), false));
+                }
                 else
                     PlaceEnemies(plan, rng, levelNumber, roomIndex, roomCount);
 
@@ -176,6 +186,36 @@ namespace Watermelon.SquadShooter
 
             if (rng.NextDouble() < 0.5 + levelNumber * 0.004)
                 Scatter(plan, rng, 2, 11, mirror, 1);
+        }
+
+        // world hazards: walkable pools that hurt the player; never on the spawn/exit lanes, and a hazard-free
+        // path from the spawn to the exit always remains
+        private static readonly Dictionary<string, string> HAZARDS = new Dictionary<string, string>
+        {
+            { "World_05", WorldKitBuilder.LAVA_POOL },
+        };
+
+        private static void PlaceHazards(RoomPlan plan, System.Random rng, string hazard, int levelNumber, bool boss)
+        {
+            if (boss)
+            {
+                // a mirrored pair in the arena, so kiting the boss means watching your feet
+                int row = 6 + rng.Next(2);
+                int column = 1 + rng.Next(2);
+                plan.PlaceHazard(hazard, column, row);
+                plan.PlaceHazard(hazard, COLS - 1 - column, row);
+                return;
+            }
+
+            int inWorld = (levelNumber - 1) % BalanceData.LEVELS_PER_WORLD + 1;
+            int count = Mathf.Min(4, 1 + (inWorld >= 5 ? 1 : 0) + (inWorld >= 13 ? 1 : 0) + rng.Next(2));
+            for (int attempt = 0; attempt < 40 && plan.Hazards.Count < count; attempt++)
+            {
+                int c = rng.Next(COLS);
+                int r = rng.Next(2, 11);
+                if (plan.Hazards.Any(h => Mathf.Abs(h.Column - c) + Mathf.Abs(h.Row - r) < 3)) continue;
+                plan.PlaceHazard(hazard, c, r);
+            }
         }
 
         private delegate void Pattern(RoomPlan plan, System.Random rng, int rowFrom, int rowTo, bool mirror, int density);
@@ -307,6 +347,13 @@ namespace Watermelon.SquadShooter
             (EnemyType.SwatShotgunner, 3, 64, 2f),
             (EnemyType.GasGrenadier, 3, 66, 1.6f),
             (EnemyType.RooftopSniper, 3, 68, 1f),
+
+            (EnemyType.MagmaTrooper, 4, 81, 3f),
+            (EnemyType.MagmaGolem, 4, 82, 1.8f),
+            (EnemyType.FlameShotgunner, 4, 83, 2f),
+            (EnemyType.MolotovThrower, 4, 85, 1.6f),
+            (EnemyType.PyroBomber, 4, 87, 1.2f),
+            (EnemyType.LavaSniper, 4, 89, 1f),
         };
 
         // two bosses per world: level 10 and 20 of the world
@@ -316,6 +363,7 @@ namespace Watermelon.SquadShooter
             { EnemyType.BossBomber, EnemyType.BossSniper },
             { EnemyType.BossYetiKing, EnemyType.BossFrostCommander },
             { EnemyType.BossJuggernaut, EnemyType.BossSwatChief },
+            { EnemyType.BossForgeMaster, EnemyType.BossMagmaTitan },
         };
 
         private static EnemyType BossFor(int levelNumber)
@@ -354,8 +402,9 @@ namespace Watermelon.SquadShooter
             List<Vector2Int> taken = new List<Vector2Int>();
             foreach (EnemyType type in types)
             {
-                bool sniper = type == EnemyType.Sniper || type == EnemyType.FrostSniper || type == EnemyType.RooftopSniper;
-                bool melee = type == EnemyType.BatMelee || type == EnemyType.Demo || type == EnemyType.Yeti || type == EnemyType.IceBomber || type == EnemyType.RiotBrute;
+                bool sniper = type == EnemyType.Sniper || type == EnemyType.FrostSniper || type == EnemyType.RooftopSniper || type == EnemyType.LavaSniper;
+                bool melee = type == EnemyType.BatMelee || type == EnemyType.Demo || type == EnemyType.Yeti || type == EnemyType.IceBomber || type == EnemyType.RiotBrute
+                    || type == EnemyType.MagmaGolem || type == EnemyType.PyroBomber;
                 int minRow = sniper ? 8 : melee ? 4 : 5;
                 Vector2Int? cell = BestEnemyCell(plan, rng, minRow, taken, !melee);
                 if (cell == null) continue;
@@ -446,7 +495,7 @@ namespace Watermelon.SquadShooter
             room.FindPropertyRelative("spawnPoint").vector3Value = palette.SpawnOf(preset);
 
             List<ItemEntityData> items = new List<ItemEntityData>(palette.ItemsOf(preset));
-            foreach (ItemPlan item in plan.Items)
+            foreach (ItemPlan item in plan.Items.Concat(plan.Hazards))
                 items.Add(new ItemEntityData(palette.Hash(item.Name), palette.WorldPosition(item), Quaternion.Euler(0f, item.Rotation, 0f), Vector3.one));
 
             SerializedProperty itemsProperty = room.FindPropertyRelative("itemEntities");
@@ -704,6 +753,7 @@ namespace Watermelon.SquadShooter
             public readonly int Preset;
             public readonly GridMap Grid = new GridMap();
             public readonly List<ItemPlan> Items = new List<ItemPlan>();
+            public readonly List<ItemPlan> Hazards = new List<ItemPlan>();
             public readonly List<EnemyPlan> Enemies = new List<EnemyPlan>();
             public readonly List<(LevelChestType type, Vector3 position, Quaternion rotation)> Chests = new List<(LevelChestType, Vector3, Quaternion)>();
 
@@ -715,6 +765,7 @@ namespace Watermelon.SquadShooter
             public static readonly Dictionary<string, (string accent, string fallback)> ACCENTS = new Dictionary<string, (string, string)>
             {
                 { "World_03", ("Block 1x1 Small Half", "Block 1x1 Small") },
+                { "World_05", ("Block 1x1 Small Half", "Block 1x1 Small") },
             };
 
             public string WorldName;
@@ -736,6 +787,22 @@ namespace Watermelon.SquadShooter
                         Grid.Block(c, r);
 
                 Items.Add(new ItemPlan(name, column, row, rotation));
+                return true;
+            }
+
+            // a hazard takes a free cell but does not block movement; it is dropped if it would cut the last safe path
+            public bool PlaceHazard(string name, int column, int row)
+            {
+                if (!Grid.IsFree(column, row) || GridMap.IsReserved(column, row) || row <= 1 || row >= ROWS - 2) return false;
+
+                Grid.MarkHazard(column, row, true);
+                if (!Grid.SafePathExists())
+                {
+                    Grid.MarkHazard(column, row, false);
+                    return false;
+                }
+
+                Hazards.Add(new ItemPlan(name, column, row, 0));
                 return true;
             }
 
@@ -764,13 +831,15 @@ namespace Watermelon.SquadShooter
         private class GridMap
         {
             private readonly bool[,] blocked = new bool[COLS, ROWS];
+            private readonly bool[,] hazard = new bool[COLS, ROWS];
             private bool[,] reachable;
 
             // keep the area in front of the spawn and the walk to the exit door open
             public static bool IsReserved(int c, int r) => (r <= 1 && c >= 2 && c <= 5) || (r >= 11 && c >= 3 && c <= 4);
 
             public bool Inside(int c, int r) => c >= 0 && c < COLS && r >= 0 && r < ROWS;
-            public bool IsFree(int c, int r) => Inside(c, r) && !blocked[c, r];
+            public bool IsFree(int c, int r) => Inside(c, r) && !blocked[c, r] && !hazard[c, r];
+            public void MarkHazard(int c, int r, bool on) { if (Inside(c, r)) hazard[c, r] = on; }
             public bool IsBlocked(int c, int r) => Inside(c, r) && blocked[c, r];
             public void Block(int c, int r) { if (Inside(c, r)) blocked[c, r] = true; reachable = null; }
 
@@ -791,9 +860,21 @@ namespace Watermelon.SquadShooter
                 return reachable[3, ROWS - 1] || reachable[4, ROWS - 1];
             }
 
+            // the exit can be reached from the spawn without stepping into a hazard
+            public bool SafePathExists()
+            {
+                bool[,] safe = Flood(true);
+                return safe[3, ROWS - 1] || safe[4, ROWS - 1];
+            }
+
             private void Flood()
             {
-                reachable = new bool[COLS, ROWS];
+                reachable = Flood(false);
+            }
+
+            private bool[,] Flood(bool avoidHazards)
+            {
+                bool[,] reachable = new bool[COLS, ROWS];
                 Queue<Vector2Int> queue = new Queue<Vector2Int>();
                 queue.Enqueue(new Vector2Int(3, 0));
                 reachable[3, 0] = true;
@@ -805,11 +886,14 @@ namespace Watermelon.SquadShooter
                     {
                         Vector2Int next = cell + step;
                         if (!Inside(next.x, next.y) || blocked[next.x, next.y] || reachable[next.x, next.y]) continue;
+                        if (avoidHazards && hazard[next.x, next.y]) continue;
 
                         reachable[next.x, next.y] = true;
                         queue.Enqueue(next);
                     }
                 }
+
+                return reachable;
             }
         }
         #endregion

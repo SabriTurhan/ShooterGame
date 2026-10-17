@@ -40,6 +40,18 @@ namespace Watermelon.SquadShooter
             BalanceImporter.Import();
         }
 
+        [MenuItem("Tools/Content/Build World 5 Content (Blaze, Rocket Launcher, art)")]
+        public static void BuildWorld5Content()
+        {
+            BuildRocketLauncher();
+            BuildBlaze();
+            RenderWorldPreview(5, "World_05");
+            AssignWorldHeroes();
+
+            AssetDatabase.SaveAssets();
+            BalanceImporter.Import();
+        }
+
         // each world's hero and weapon (WorldHeroes unlocks and equips them when the world is reached)
         [MenuItem("Tools/Content/Assign World Heroes")]
         public static void AssignWorldHeroes()
@@ -65,6 +77,205 @@ namespace Watermelon.SquadShooter
                 EditorUtility.SetDirty(world);
             }
         }
+
+        #region Rocket Launcher
+        // shoulder rocket launcher on the lava gun rig (it already sits on the "Rocket Holder"): flat fast shots, big blast
+        private static WeaponData BuildRocketLauncher()
+        {
+            string gunPath = GAME + "/Prefabs/Weapons/Gun Rocket.prefab";
+            Copy(GAME + "/Prefabs/Weapons/Gun Lava.prefab", gunPath);
+            GameObject gun = PrefabUtility.LoadPrefabContents(gunPath);
+
+            Mesh model = SaveMesh(RocketLauncherMesh(), "RocketLauncher_mesh");
+            MeshFilter main = null;
+            foreach (MeshFilter filter in gun.GetComponentsInChildren<MeshFilter>(true))
+                if (filter.GetComponent<MeshRenderer>() != null && (main == null || filter.name == "Rocketlauncher")) main = filter;
+            foreach (MeshFilter filter in gun.GetComponentsInChildren<MeshFilter>(true))
+                if (filter != main && filter.GetComponent<MeshRenderer>() is MeshRenderer extra) extra.enabled = false;
+
+            main.name = "Rocketlauncher";
+            main.sharedMesh = model;
+            main.transform.localRotation = Quaternion.identity;
+            main.transform.localScale = Vector3.one;
+            main.GetComponent<MeshRenderer>().sharedMaterial = AssetDatabase.LoadAssetAtPath<Material>(GAME + "/Materials/Characters/Player.mat");
+
+            SerializedObject gunBehaviour = new SerializedObject(gun.GetComponent<LavaGunBehavior>());
+            // blast 35% wider than the lava gun's (read from the source so rebuilding does not compound)
+            LavaGunBehavior lava = AssetDatabase.LoadAssetAtPath<GameObject>(GAME + "/Prefabs/Weapons/Gun Lava.prefab").GetComponent<LavaGunBehavior>();
+            float lavaRadius = new SerializedObject(lava).FindProperty("explosionRadius").floatValue;
+            gunBehaviour.FindProperty("explosionRadius").floatValue = lavaRadius * 1.35f;
+            gunBehaviour.FindProperty("bulletHeight.firstValue").floatValue = 0.25f;
+            gunBehaviour.FindProperty("bulletHeight.secondValue").floatValue = 0.9f;
+            gunBehaviour.ApplyModifiedPropertiesWithoutUndo();
+
+            foreach (ParticleSystem particle in gun.GetComponentsInChildren<ParticleSystem>(true))
+            {
+                ParticleSystem.MainModule settings = particle.main;
+                settings.startColor = new Color(1f, 0.6f, 0.2f, settings.startColor.color.a);
+            }
+
+            PrefabUtility.SaveAsPrefabAsset(gun, gunPath);
+            PrefabUtility.UnloadPrefabContents(gun);
+
+            string bulletPath = GAME + "/Prefabs/Weapons/Bullets/Rocket Bullet.prefab";
+            Copy(GAME + "/Prefabs/Weapons/Bullets/Lava Bullet.prefab", bulletPath);
+            GameObject bullet = PrefabUtility.LoadPrefabContents(bulletPath);
+
+            SerializedObject behaviour = new SerializedObject(bullet.GetComponent<LavaBulletBehavior>());
+            behaviour.FindProperty("hitParticle").stringValue = "Lava Hit";
+            behaviour.FindProperty("wallHitParticle").stringValue = "Lava Wall Hit";
+            behaviour.FindProperty("faceVelocity").boolValue = true;
+            behaviour.ApplyModifiedPropertiesWithoutUndo();
+
+            Mesh missile = SaveMesh(RocketMesh(), "Rocket_mesh");
+            bool replaced = false;
+            foreach (MeshFilter filter in bullet.GetComponentsInChildren<MeshFilter>(true))
+            {
+                MeshRenderer renderer = filter.GetComponent<MeshRenderer>();
+                if (renderer == null) continue;
+                if (!replaced)
+                {
+                    filter.sharedMesh = missile;
+                    filter.transform.localScale = Vector3.one;
+                    filter.transform.localRotation = Quaternion.identity;
+                    renderer.sharedMaterial = AssetDatabase.LoadAssetAtPath<Material>(GAME + "/Materials/Characters/Player.mat");
+                    replaced = true;
+                }
+                else renderer.enabled = false;
+            }
+            foreach (ParticleSystem particle in bullet.GetComponentsInChildren<ParticleSystem>(true))
+            {
+                ParticleSystem.MainModule settings = particle.main;
+                settings.startColor = new Color(1f, 0.62f, 0.25f, settings.startColor.color.a);
+            }
+
+            PrefabUtility.SaveAsPrefabAsset(bullet, bulletPath);
+            PrefabUtility.UnloadPrefabContents(bullet);
+
+            string dataPath = DATA + "/Weapon System/Weapon Rocket.asset";
+            bool created = Copy(DATA + "/Weapon System/Weapon Lava.asset", dataPath);
+            WeaponData weapon = AssetDatabase.LoadAssetAtPath<WeaponData>(dataPath);
+
+            SerializedObject data = new SerializedObject(weapon);
+            if (created) data.FindProperty("id").stringValue = Guid.NewGuid().ToString();
+            data.FindProperty("weaponName").stringValue = "ROCKET LAUNCHER";
+            data.FindProperty("rarity").intValue = (int)Rarity.Legendary;
+            data.FindProperty("icon").objectReferenceValue = RenderWeaponIcon(AssetDatabase.LoadAssetAtPath<GameObject>(gunPath), "weapon_rocket_launcher");
+
+            SerializedProperty upgrades = data.FindProperty("upgrades");
+            for (int i = 0; i < upgrades.arraySize; i++)
+            {
+                SerializedProperty upgrade = upgrades.GetArrayElementAtIndex(i);
+                upgrade.FindPropertyRelative("weaponPrefab").objectReferenceValue = AssetDatabase.LoadAssetAtPath<GameObject>(gunPath);
+                upgrade.FindPropertyRelative("bulletPrefab").objectReferenceValue = AssetDatabase.LoadAssetAtPath<GameObject>(bulletPath);
+            }
+            data.ApplyModifiedPropertiesWithoutUndo();
+            EditorUtility.SetDirty(weapon);
+
+            Register(DATA + "/Weapon System/Weapon Database.asset", "weapons", weapon, "TESLA");
+            return weapon;
+        }
+
+        private static Mesh RocketLauncherMesh()
+        {
+            PaletteMesh m = new PaletteMesh();
+            m.Cylinder(0.13f, 0.13f, 0.9f, 10, new Vector3(0f, 0.14f, 0.08f), new Vector3(90f, 0f, 0f), Band.Red, 0.15f, 0.6f);
+            m.Cylinder(0.17f, 0.15f, 0.16f, 10, new Vector3(0f, 0.14f, 0.55f), new Vector3(90f, 0f, 0f), Band.Black, 0.05f, 0.4f);
+            m.Cylinder(0.1f, 0.1f, 0.03f, 10, new Vector3(0f, 0.14f, 0.635f), new Vector3(90f, 0f, 0f), Band.Black, 0f, 0.1f);
+            m.Cylinder(0.16f, 0.2f, 0.2f, 10, new Vector3(0f, 0.14f, -0.42f), new Vector3(90f, 0f, 0f), Band.Black, 0.05f, 0.4f);
+            for (int i = -1; i <= 1; i += 2)
+                m.Cylinder(0.135f, 0.135f, 0.06f, 10, new Vector3(0f, 0.14f, 0.08f + i * 0.2f), new Vector3(90f, 0f, 0f), Band.Yellow, 0.25f, 0.6f);
+            m.Box(new Vector3(0.08f, 0.2f, 0.1f), 0.02f, new Vector3(0f, -0.04f, 0.12f), new Vector3(15f, 0f, 0f), Band.Black, 0f, 0.4f);
+            m.Box(new Vector3(0.07f, 0.16f, 0.08f), 0.02f, new Vector3(0f, -0.02f, -0.12f), new Vector3(10f, 0f, 0f), Band.Black, 0f, 0.4f);
+            m.Box(new Vector3(0.1f, 0.12f, 0.22f), 0.02f, new Vector3(-0.17f, 0.24f, 0.1f), Vector3.zero, Band.Grey, 0.15f, 0.5f);
+            m.Box(new Vector3(0.06f, 0.05f, 0.04f), 0.01f, new Vector3(-0.17f, 0.24f, 0.22f), Vector3.zero, Band.Orange, 0.72f, 1f);
+            return m.Build("RocketLauncher_mesh");
+        }
+
+        private static Mesh RocketMesh()
+        {
+            PaletteMesh m = new PaletteMesh();
+            m.Cylinder(0.075f, 0.075f, 0.36f, 8, Vector3.zero, new Vector3(90f, 0f, 0f), Band.White, 0.05f, 0.4f);
+            m.Cylinder(0.075f, 0f, 0.16f, 8, new Vector3(0f, 0f, 0.26f), new Vector3(90f, 0f, 0f), Band.Red, 0.1f, 0.5f);
+            m.Cylinder(0.078f, 0.078f, 0.05f, 8, new Vector3(0f, 0f, 0.08f), new Vector3(90f, 0f, 0f), Band.Red, 0.1f, 0.5f);
+            for (int i = 0; i < 4; i++)
+                m.Box(new Vector3(0.02f, 0.2f, 0.1f), 0.005f, new Vector3(0f, 0f, -0.15f), new Vector3(0f, 0f, i * 90f), Band.Black, 0f, 0.4f);
+            m.Cylinder(0.05f, 0.02f, 0.08f, 6, new Vector3(0f, 0f, -0.22f), new Vector3(90f, 0f, 0f), Band.Orange, 0.72f, 1f);
+            return m.Build("Rocket_mesh");
+        }
+        #endregion
+
+        #region Blaze
+        // volcano firefighter on Jim's rig: black heat-proof coat with yellow scarf, grey trousers, yellow helmet, red air tank
+        private static CharacterData BuildBlaze()
+        {
+            string graphicsPath = GAME + "/Prefabs/Characters/Player/Graphics/Character 6.prefab";
+            GameObject instance = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(GAME + "/Prefabs/Characters/Player/Graphics/Character 1.prefab"));
+            instance.name = "Character 6";
+
+            SkinnedMeshRenderer body = instance.GetComponentInChildren<SkinnedMeshRenderer>();
+            Mesh mesh = UnityEngine.Object.Instantiate(body.sharedMesh);
+            Watermelon.SquadShooter.Examples.ExampleObjectsBuilder.RemapBands(mesh, body.bones, (band, bone) =>
+            {
+                bool feet = bone.Contains("Foot") || bone.Contains("Toe");
+                if (band == Band.Black && feet) return Band.Black;
+                if (band == Band.Red) return Band.Yellow;
+                if (band == Band.Navy) return Band.Grey;
+                return band;
+            });
+            body.sharedMesh = SaveMesh(mesh, "Main_Char_Blaze");
+
+            Bounds head = PaletteTools.BoneBounds(body, bone => bone.EndsWith("Head") || bone.Contains("HeadTop"));
+            float r = Mathf.Max(head.extents.x, head.extents.z);
+            Vector3 c = head.center;
+
+            // firefighter helmet: red dome, wide brim that drops at the back, gold front badge
+            PaletteMesh helmet = new PaletteMesh();
+            helmet.Dome(r * 1.08f, 3, 10, c + new Vector3(0f, r * 0.3f, 0f), Vector3.zero, new Vector3(1f, 0.95f, 1.05f), Band.Yellow, 0.45f, 0.95f);
+            helmet.Cylinder(r * 1.45f, r * 1.4f, r * 0.08f, 12, c + new Vector3(0f, r * 0.28f, -r * 0.2f), new Vector3(-10f, 0f, 0f), Band.Black, 0f, 0.4f);
+            helmet.Box(new Vector3(r * 0.16f, r * 0.12f, r * 1.9f), r * 0.04f, c + new Vector3(0f, r * 1.24f, -r * 0.05f), Vector3.zero, Band.Yellow, 0.6f, 1f);
+            helmet.Box(new Vector3(r * 0.55f, r * 0.6f, r * 0.08f), r * 0.06f, c + new Vector3(0f, r * 0.75f, -r * 1.05f), new Vector3(-15f, 0f, 0f), Band.Red, 0.3f, 0.8f);
+            Attach(body, "Head", "Blaze Helmet", SaveMesh(helmet.Build("Blaze_Helmet"), "Blaze_Helmet"));
+
+            // air tank on the back
+            Bounds chest = PaletteTools.BoneBounds(body, bone => bone.EndsWith("Spine2") || bone.EndsWith("Spine1"));
+            PaletteMesh tank = new PaletteMesh();
+            Vector3 back = new Vector3(chest.center.x, chest.center.y, chest.min.z - chest.extents.z * 0.15f);
+            tank.Cylinder(chest.extents.x * 0.32f, chest.extents.x * 0.32f, chest.size.y * 0.95f, 9, back, Vector3.zero, Band.Red, 0.3f, 0.85f);
+            tank.Dome(chest.extents.x * 0.32f, 2, 9, back + new Vector3(0f, chest.size.y * 0.47f, 0f), Vector3.zero, Vector3.one, Band.Red, 0.3f, 0.8f);
+            tank.Cylinder(chest.extents.x * 0.33f, chest.extents.x * 0.33f, chest.size.y * 0.12f, 9, back + new Vector3(0f, chest.size.y * 0.1f, 0f), Vector3.zero, Band.Yellow, 0.25f, 0.6f);
+            tank.Cylinder(chest.extents.x * 0.1f, chest.extents.x * 0.1f, chest.size.y * 0.16f, 6, back + new Vector3(0f, chest.size.y * 0.62f, 0f), Vector3.zero, Band.Black, 0f, 0.4f);
+            Attach(body, "Spine2", "Blaze Tank", SaveMesh(tank.Build("Blaze_Tank"), "Blaze_Tank"));
+
+            GameObject prefab = PrefabUtility.SaveAsPrefabAsset(instance, graphicsPath);
+            UnityEngine.Object.DestroyImmediate(instance);
+
+            (Sprite portrait, Sprite locked) = RenderPortrait(prefab, "character_6");
+
+            string dataPath = DATA + "/Characters System/Character 6.asset";
+            bool created = Copy(DATA + "/Characters System/Character 3.asset", dataPath);
+            CharacterData character = AssetDatabase.LoadAssetAtPath<CharacterData>(dataPath);
+
+            SerializedObject data = new SerializedObject(character);
+            if (created) data.FindProperty("id").stringValue = Guid.NewGuid().ToString();
+            data.FindProperty("characterName").stringValue = "Blaze";
+            data.FindProperty("previewSprite").objectReferenceValue = portrait;
+            data.FindProperty("lockedSprite").objectReferenceValue = locked;
+            SerializedProperty stages = data.FindProperty("stages");
+            for (int i = 0; i < stages.arraySize; i++)
+            {
+                SerializedProperty stage = stages.GetArrayElementAtIndex(i);
+                stage.FindPropertyRelative("prefab").objectReferenceValue = prefab;
+                stage.FindPropertyRelative("previewSprite").objectReferenceValue = portrait;
+                stage.FindPropertyRelative("lockedSprite").objectReferenceValue = locked;
+            }
+            data.ApplyModifiedPropertiesWithoutUndo();
+            EditorUtility.SetDirty(character);
+
+            Register(DATA + "/Characters System/Characters Database.asset", "characters", character, null);
+            return character;
+        }
+        #endregion
 
         #region Flash Gun
         // arcing flashbang launcher on the lava gun rig: area damage from above (ignores riot shields) + stun

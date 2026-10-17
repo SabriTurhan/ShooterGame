@@ -14,6 +14,8 @@ namespace Watermelon.SquadShooter
         [SerializeField] bool ignoreFrontalArmor = false;
         [SerializeField, Range(0.05f, 1f)] float stunMultiplier = 1f;
         [SerializeField] float stunDuration = 0f;
+        [Tooltip("turn the projectile along its flight path (rockets)")]
+        [SerializeField] bool faceVelocity = false;
 
         private float explosionRadius;
         private DuoInt damageValue;
@@ -56,6 +58,9 @@ namespace Watermelon.SquadShooter
         {
             prevPosition = position;
             position = transform.position;
+
+            if (faceVelocity && (position - prevPosition).sqrMagnitude > 0.0001f)
+                transform.rotation = Quaternion.LookRotation(position - prevPosition);
         }
 
         protected override void FixedUpdate()

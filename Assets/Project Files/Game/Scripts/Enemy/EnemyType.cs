@@ -26,6 +26,13 @@ namespace Watermelon.SquadShooter
         SwatShotgunner = 33,
         RooftopSniper = 34,
 
+        // world 5: volcano factory
+        MagmaTrooper = 40,
+        MagmaGolem = 41,
+        PyroBomber = 42,
+        MolotovThrower = 43,
+        FlameShotgunner = 44,
+        LavaSniper = 45,
 
         BossBomber = 100,
         BossSniper = 101,
@@ -33,5 +40,7 @@ namespace Watermelon.SquadShooter
         BossFrostCommander = 103,
         BossJuggernaut = 104,
         BossSwatChief = 105,
+        BossForgeMaster = 106,
+        BossMagmaTitan = 107,
     }
 }

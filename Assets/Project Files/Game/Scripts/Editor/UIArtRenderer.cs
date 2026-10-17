@@ -114,7 +114,8 @@ namespace Watermelon.SquadShooter
             bool first = true;
             foreach (Renderer renderer in subject.GetComponentsInChildren<Renderer>())
             {
-                if (!renderer.enabled || renderer is ParticleSystemRenderer) continue;
+                // effects (sniper laser lines, trails) would stretch the frame far beyond the model
+                if (!renderer.enabled || renderer is ParticleSystemRenderer || renderer is LineRenderer || renderer is TrailRenderer || renderer.name.Contains("Laser")) continue;
                 if (first) { bounds = renderer.bounds; first = false; }
                 else bounds.Encapsulate(renderer.bounds);
             }
