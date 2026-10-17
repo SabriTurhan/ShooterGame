@@ -27,6 +27,14 @@ namespace Watermelon.SquadShooter
             Debug.Log($"[Content] world 3 content ready: {cryo.WeaponName}, {frost.name}");
         }
 
+        [MenuItem("Tools/Content/Build World 4 Content (world art)")]
+        public static void BuildWorld4Content()
+        {
+            RenderWorldPreview(4, "World_04");
+            AssetDatabase.SaveAssets();
+            BalanceImporter.Import();
+        }
+
         #region Cryo Blaster
         private static WeaponData BuildCryoBlaster()
         {

@@ -301,6 +301,12 @@ namespace Watermelon.SquadShooter
             (EnemyType.IceBomber, 2, 44, 1.3f),
             (EnemyType.SnowGrenadier, 2, 46, 1.8f),
             (EnemyType.FrostSniper, 2, 48, 1f),
+
+            (EnemyType.RiotCop, 3, 61, 3f),
+            (EnemyType.RiotBrute, 3, 62, 1.6f),
+            (EnemyType.SwatShotgunner, 3, 64, 2f),
+            (EnemyType.GasGrenadier, 3, 66, 1.6f),
+            (EnemyType.RooftopSniper, 3, 68, 1f),
         };
 
         // two bosses per world: level 10 and 20 of the world
@@ -309,6 +315,7 @@ namespace Watermelon.SquadShooter
             { EnemyType.BossSniper, EnemyType.BossBomber },
             { EnemyType.BossBomber, EnemyType.BossSniper },
             { EnemyType.BossYetiKing, EnemyType.BossFrostCommander },
+            { EnemyType.BossJuggernaut, EnemyType.BossSwatChief },
         };
 
         private static EnemyType BossFor(int levelNumber)
@@ -347,8 +354,8 @@ namespace Watermelon.SquadShooter
             List<Vector2Int> taken = new List<Vector2Int>();
             foreach (EnemyType type in types)
             {
-                bool sniper = type == EnemyType.Sniper || type == EnemyType.FrostSniper;
-                bool melee = type == EnemyType.BatMelee || type == EnemyType.Demo || type == EnemyType.Yeti || type == EnemyType.IceBomber;
+                bool sniper = type == EnemyType.Sniper || type == EnemyType.FrostSniper || type == EnemyType.RooftopSniper;
+                bool melee = type == EnemyType.BatMelee || type == EnemyType.Demo || type == EnemyType.Yeti || type == EnemyType.IceBomber || type == EnemyType.RiotBrute;
                 int minRow = sniper ? 8 : melee ? 4 : 5;
                 Vector2Int? cell = BestEnemyCell(plan, rng, minRow, taken, !melee);
                 if (cell == null) continue;

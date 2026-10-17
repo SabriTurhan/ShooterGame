@@ -21,11 +21,17 @@ namespace Watermelon.SquadShooter
 
         // world 4: riot city
         RiotBrute = 30,
+        RiotCop = 31,
+        GasGrenadier = 32,
+        SwatShotgunner = 33,
+        RooftopSniper = 34,
 
 
         BossBomber = 100,
         BossSniper = 101,
         BossYetiKing = 102,
         BossFrostCommander = 103,
+        BossJuggernaut = 104,
+        BossSwatChief = 105,
     }
 }

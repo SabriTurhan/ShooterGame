@@ -357,10 +357,36 @@ namespace Watermelon.SquadShooter
             OnReloadFinished?.Invoke();
         }
 
+        // frontal armour (riot shields): hits coming from the front lose this share of their damage
+        [Header("Frontal Armour")]
+        [SerializeField, Range(0f, 1f)] float frontalArmor = 0f;
+        [SerializeField] float frontalArmorAngle = 120f;
+        private static readonly int PARTICLE_SHIELD_HIT_HASH = "Minigun Wall Hit".GetHashCode();
+        private float lastShieldSparkTime;
+
+        public bool IsShielded(Vector3 projectileDirection)
+        {
+            if (frontalArmor <= 0f) return false;
+
+            Vector3 incoming = new Vector3(-projectileDirection.x, 0f, -projectileDirection.z);
+            return incoming.sqrMagnitude > 1e-4f && Vector3.Angle(transform.forward, incoming) < frontalArmorAngle * 0.5f;
+        }
+
         public virtual void TakeDamage(float damage, Vector3 projectilePosition, Vector3 projectileDirection)
         {
             if (isDead) return;
             if (damage <= 0) return;
+
+            if (IsShielded(projectileDirection))
+            {
+                damage *= 1f - frontalArmor;
+
+                if (lastShieldSparkTime + 0.1f < Time.time)
+                {
+                    lastShieldSparkTime = Time.time;
+                    ParticlesController.PlayParticle(PARTICLE_SHIELD_HIT_HASH).SetPosition(projectilePosition);
+                }
+            }
 
             currentHealth = Mathf.Clamp(currentHealth - damage, 0, MaxHealth);
 

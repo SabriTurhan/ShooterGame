@@ -18,6 +18,10 @@ namespace Watermelon.SquadShooter
         private const string DATABASE = "Assets/Project Files/Data/Enemies/Enemies Database.asset";
 
         private static readonly Color ICE_PARTICLE = new Color(0.55f, 0.9f, 1f);
+        private static readonly Color GAS_PARTICLE = new Color(0.55f, 0.85f, 0.35f);
+
+        private static string meshFolder = ENEMIES + "/World 3/Meshes";
+        private static Color effectTint = ICE_PARTICLE;
 
         public class Recipe
         {
@@ -33,6 +37,7 @@ namespace Watermelon.SquadShooter
             public Dictionary<string, string> Projectiles = new Dictionary<string, string>();
             public Material Laser;
             public float Hp, MoveSpeed;
+            public float FrontalArmor;
             public Vector2Int Damage;
         }
 
@@ -41,6 +46,8 @@ namespace Watermelon.SquadShooter
         {
             string folder = ENEMIES + "/World 3";
             PaletteTools.EnsureFolder(folder + "/Meshes");
+            meshFolder = folder + "/Meshes";
+            effectTint = ICE_PARTICLE;
 
             Dictionary<string, string> projectiles = BuildIceProjectiles(folder);
             Material iceLaser = IceLaserMaterial(folder);
@@ -63,6 +70,106 @@ namespace Watermelon.SquadShooter
             AssetDatabase.SaveAssets();
             Debug.Log("[EnemyBuilder] glacier enemies built");
         }
+
+        #region Riot city
+        [MenuItem("Tools/Content/Build World 4 Enemies (Riot City)")]
+        public static void BuildRiotEnemies()
+        {
+            string folder = ENEMIES + "/World 4";
+            PaletteTools.EnsureFolder(folder + "/Meshes");
+            meshFolder = folder + "/Meshes";
+            effectTint = new Color(1f, 0.85f, 0.45f);
+
+            string bullets = GAME + "/Prefabs/Weapons/Bullets";
+            Func<PaletteTools.Texel, int> gasRule = t => t.Value > 0.6f ? Band.Green : Band.Grey;
+            var projectiles = new Dictionary<string, string>
+            {
+                { "Gas Canister", ThemedProjectile($"{bullets}/Enemy Grenade.prefab", $"{folder}/Gas Canister.prefab", folder, GasCanister(), gasRule, GAS_PARTICLE) },
+                { "Gas Canister Elite", ThemedProjectile($"{bullets}/Enemy Grenade Elite.prefab", $"{folder}/Gas Canister Elite.prefab", folder, GasCanister(), gasRule, GAS_PARTICLE) },
+            };
+
+            foreach (Recipe recipe in RiotRecipes(projectiles))
+            {
+                GameObject prefab = BuildEnemy(recipe, folder);
+                Texture2D icon = RenderIcon(prefab, recipe.Name);
+                Register(recipe, prefab, icon);
+            }
+
+            AssetDatabase.SaveAssets();
+            Debug.Log("[EnemyBuilder] riot city enemies built");
+        }
+
+        private static IEnumerable<Recipe> RiotRecipes(Dictionary<string, string> projectiles)
+        {
+            Func<PaletteTools.Texel, int> darkGun = t => t.Value > 0.65f ? Band.Grey : Band.Black;
+
+            yield return new Recipe
+            {
+                Name = "Enemy Riot Cop", Source = "Enemy Rifle", Type = EnemyType.RiotCop, SourceType = EnemyType.Rifle,
+                Body = t => t.IsSkin ? -1 : t.IsDark ? Band.Black : t.IsGrey ? Band.Steel : t.IsWarm ? Band.Yellow : Band.Navy,
+                Weapon = darkGun, IsWeapon = n => n == "Rifle" || n == "Weapon",
+                Accessories = (root, body, head) => RiotHelmet(root, body, head),
+                Hp = 210f, Damage = new Vector2Int(8, 15), MoveSpeed = 2.65f,
+            };
+
+            yield return new Recipe
+            {
+                Name = "Enemy Riot Brute", Source = "Enemy Melee", Type = EnemyType.RiotBrute, SourceType = EnemyType.BatMelee, Scale = 1.15f,
+                Body = t => t.IsGreen && (t.OnHead || t.OnArms) ? Band.Yellow : t.IsDark ? Band.Black : t.IsGrey ? Band.Steel : t.IsSkin ? (t.OnTorso ? Band.Steel : -1) : Band.Navy,
+                Weapon = t => t.Value > 0.55f ? Band.Yellow : Band.Black, IsWeapon = n => n.Contains("Weapon"),
+                Accessories = (root, body, head) => { RiotHelmet(root, body, head); RiotShield(root, body); },
+                FrontalArmor = 0.8f,
+                Hp = 380f, Damage = new Vector2Int(22, 30), MoveSpeed = 3.8f,
+            };
+
+            yield return new Recipe
+            {
+                Name = "Enemy Gas Grenadier", Source = "Enemy Grenader", Type = EnemyType.GasGrenadier, SourceType = EnemyType.Grenader,
+                Body = t => t.IsSkin ? -1 : t.IsDark ? Band.Black : t.IsGrey ? Band.Grey : t.OnLegs ? Band.Navy : Band.Yellow,
+                Weapon = t => t.Value > 0.6f ? Band.Green : Band.Grey, IsWeapon = n => n.Contains("Gran") || n.Contains("Pin") || n.Contains("Striker"),
+                Accessories = (root, body, head) => GasMask(root, body, head),
+                Projectiles = { { "grenadePrefab", projectiles["Gas Canister"] }, { "eliteGrenadePrefab", projectiles["Gas Canister Elite"] } },
+                Hp = 240f, Damage = new Vector2Int(15, 30), MoveSpeed = 3.1f,
+            };
+
+            yield return new Recipe
+            {
+                Name = "Enemy SWAT", Source = "Enemy Shotgun", Type = EnemyType.SwatShotgunner, SourceType = EnemyType.Shotguner,
+                Body = t => t.IsSkin ? -1 : t.IsDark ? Band.Black : t.IsGrey ? Band.Grey : Band.Black,
+                Weapon = darkGun, IsWeapon = n => n == "Shotgun" || n == "Forestock",
+                Accessories = (root, body, head) => { TacticalHelmet(root, body, head); Goggles(root, body, head, Band.Yellow); },
+                Hp = 250f, Damage = new Vector2Int(6, 9), MoveSpeed = 2.9f,
+            };
+
+            yield return new Recipe
+            {
+                Name = "Enemy Rooftop Sniper", Source = "Enemy Sniper", Type = EnemyType.RooftopSniper, SourceType = EnemyType.Sniper,
+                Body = t => t.IsSkin ? -1 : t.IsDark ? Band.Black : t.IsGreen ? Band.Grey : Band.Grey,
+                Weapon = darkGun, IsWeapon = n => n.Contains("Rifle"),
+                Accessories = (root, body, head) => Beanie(root, body, head, Band.Black, Band.Red),
+                Hp = 130f, Damage = new Vector2Int(80, 110), MoveSpeed = 2.65f,
+            };
+
+            yield return new Recipe
+            {
+                Name = "Boss Juggernaut", Source = "Boss Bomber", Type = EnemyType.BossJuggernaut, SourceType = EnemyType.BossBomber, Scale = 1.08f,
+                Body = t => t.IsDark ? Band.Black : t.IsWarm ? Band.Yellow : t.IsGrey ? Band.Steel : Band.Navy,
+                Weapon = t => t.IsDark ? Band.Black : t.Value > 0.6f ? Band.Grey : Band.Yellow, IsWeapon = n => n.Contains("Minigun") || n.Contains("Cannon"),
+                Accessories = (root, body, head) => { BombSuitHelmet(root, body, head); ChestPlate(root, body); },
+                FrontalArmor = 0.5f,
+                Hp = 2600f, Damage = new Vector2Int(7, 16), MoveSpeed = 3.1f,
+            };
+
+            yield return new Recipe
+            {
+                Name = "Boss SWAT Chief", Source = "Boss Sniper", Type = EnemyType.BossSwatChief, SourceType = EnemyType.BossSniper, Scale = 1.25f,
+                Body = t => t.IsSkin ? -1 : t.IsDark ? Band.Black : t.IsGrey ? Band.Grey : Band.Black,
+                Weapon = darkGun, IsWeapon = n => n.Contains("Weapon") || n.Contains("Rifle"),
+                Accessories = (root, body, head) => { Beret(root, body, head); Goggles(root, body, head, Band.Red); },
+                Hp = 1800f, Damage = new Vector2Int(85, 115), MoveSpeed = 6.25f,
+            };
+        }
+        #endregion
 
         #region Glacier recipes
         private static IEnumerable<Recipe> GlacierRecipes(Dictionary<string, string> projectiles, Material laser)
@@ -196,11 +303,12 @@ namespace Watermelon.SquadShooter
             {
                 if (!particle.name.Contains("Fire") && !particle.name.Contains("Muzzle") && !particle.name.Contains("Aura") && !particle.name.Contains("Smoke")) continue;
                 ParticleSystem.MainModule main = particle.main;
-                main.startColor = new Color(ICE_PARTICLE.r, ICE_PARTICLE.g, ICE_PARTICLE.b, main.startColor.color.a);
+                main.startColor = new Color(effectTint.r, effectTint.g, effectTint.b, main.startColor.color.a);
             }
 
             BaseEnemyBehavior behaviour = instance.GetComponent<BaseEnemyBehavior>();
             SerializedObject serialized = new SerializedObject(behaviour);
+            serialized.FindProperty("frontalArmor").floatValue = recipe.FrontalArmor;
             foreach (var projectile in recipe.Projectiles)
             {
                 SerializedProperty property = serialized.FindProperty(projectile.Key);
@@ -295,6 +403,11 @@ namespace Watermelon.SquadShooter
         // copies a projectile, re-dyes its meshes icy (or swaps in `replacement` for the main mesh) and tints effects
         private static string IceProjectile(string source, string target, string folder, Mesh replacement)
         {
+            return ThemedProjectile(source, target, folder, replacement, t => t.Value > 0.6f ? Band.White : Band.Sky, ICE_PARTICLE);
+        }
+
+        private static string ThemedProjectile(string source, string target, string folder, Mesh replacement, Func<PaletteTools.Texel, int> rule, Color tint)
+        {
             if (!File.Exists(target)) AssetDatabase.CopyAsset(source, target);
             GameObject root = PrefabUtility.LoadPrefabContents(target);
             int index = 0;
@@ -304,7 +417,7 @@ namespace Watermelon.SquadShooter
             {
                 if (renderer is TrailRenderer trail)
                 {
-                    trail.startColor = new Color(ICE_PARTICLE.r, ICE_PARTICLE.g, ICE_PARTICLE.b, trail.startColor.a);
+                    trail.startColor = new Color(tint.r, tint.g, tint.b, trail.startColor.a);
                     trail.endColor = new Color(1f, 1f, 1f, 0f);
                     continue;
                 }
@@ -326,7 +439,7 @@ namespace Watermelon.SquadShooter
                 }
                 else if (renderer.sharedMaterial != null && renderer.sharedMaterial.mainTexture != null)
                 {
-                    filter.sharedMesh = PaletteTools.SaveMesh(PaletteTools.Repaint(filter.sharedMesh, null, renderer.sharedMaterial.mainTexture, t => t.Value > 0.6f ? Band.White : Band.Sky, meshName), folder + "/Meshes", meshName);
+                    filter.sharedMesh = PaletteTools.SaveMesh(PaletteTools.Repaint(filter.sharedMesh, null, renderer.sharedMaterial.mainTexture, rule, meshName), folder + "/Meshes", meshName);
                 }
 
                 Material[] materials = renderer.sharedMaterials;
@@ -337,12 +450,21 @@ namespace Watermelon.SquadShooter
             foreach (ParticleSystem particle in root.GetComponentsInChildren<ParticleSystem>(true))
             {
                 ParticleSystem.MainModule main = particle.main;
-                main.startColor = new Color(ICE_PARTICLE.r, ICE_PARTICLE.g, ICE_PARTICLE.b, main.startColor.color.a);
+                main.startColor = new Color(tint.r, tint.g, tint.b, main.startColor.color.a);
             }
 
             PrefabUtility.SaveAsPrefabAsset(root, target);
             PrefabUtility.UnloadPrefabContents(root);
             return target;
+        }
+
+        private static Mesh GasCanister()
+        {
+            PaletteMesh m = new PaletteMesh();
+            m.Cylinder(0.09f, 0.09f, 0.3f, 8, Vector3.zero, new Vector3(90f, 0f, 0f), Band.Grey, 0.1f, 0.5f);
+            m.Cylinder(0.095f, 0.095f, 0.07f, 8, Vector3.zero, new Vector3(90f, 0f, 0f), Band.Green, 0.1f, 0.4f);
+            m.Cylinder(0.05f, 0.05f, 0.06f, 6, new Vector3(0f, 0f, 0.17f), new Vector3(90f, 0f, 0f), Band.Black, 0f, 0.4f);
+            return m.Build("GasCanister");
         }
 
         private static Mesh Snowball()
@@ -377,8 +499,9 @@ namespace Watermelon.SquadShooter
         #region Accessories
         private static float R(Bounds head) => Mathf.Max(head.extents.x, head.extents.z);
 
-        private static void Attach(GameObject root, SkinnedMeshRenderer body, string bone, string name, PaletteMesh mesh, string folder = ENEMIES + "/World 3/Meshes")
+        private static void Attach(GameObject root, SkinnedMeshRenderer body, string bone, string name, PaletteMesh mesh)
         {
+            string folder = meshFolder;
             Transform parent = FindBoneContains(body, bone) ?? root.transform;
             string meshName = root.name.Replace(' ', '_') + "_" + name.Replace(' ', '_');
             PaletteTools.Attach(parent, "Accessory " + name, PaletteTools.SaveMesh(mesh.Build(meshName), folder, meshName));
@@ -472,6 +595,117 @@ namespace Watermelon.SquadShooter
                 m.Cylinder(r * 0.16f, 0f, r * 0.5f, 5, c + new Vector3(Mathf.Cos(a) * r * 0.7f, r * 0.38f, Mathf.Sin(a) * r * 0.7f), Vector3.zero, Band.Sky, 0f, 0.4f);
             }
             Attach(root, body, "Head", "Crown", m);
+        }
+
+        private static void RiotHelmet(GameObject root, SkinnedMeshRenderer body, Bounds head)
+        {
+            float r = R(head);
+            Vector3 c = head.center;
+            PaletteMesh m = new PaletteMesh();
+            m.Dome(r * 1.18f, 3, 10, c + new Vector3(0f, -r * 0.05f, 0f), Vector3.zero, new Vector3(1f, 1.05f, 1.05f), Band.Navy, 0.05f, 0.55f);
+            m.Cylinder(r * 1.22f, r * 1.22f, r * 0.12f, 10, c + new Vector3(0f, -r * 0.05f, 0f), Vector3.zero, Band.Yellow, 0.35f, 0.75f);
+            m.Box(new Vector3(r * 1.7f, r * 0.62f, r * 0.22f), r * 0.08f, c + new Vector3(0f, -r * 0.32f, r * 1.0f), new Vector3(-8f, 0f, 0f), Band.Black, 0f, 0.35f);
+            m.Box(new Vector3(r * 1.5f, r * 0.1f, r * 0.08f), r * 0.03f, c + new Vector3(0f, -r * 0.12f, r * 1.13f), new Vector3(-8f, 0f, 0f), Band.Sky, 0f, 0.2f);
+            for (int side = -1; side <= 1; side += 2)
+                m.Cylinder(r * 0.3f, r * 0.3f, r * 0.16f, 8, c + new Vector3(side * r * 1.15f, -r * 0.2f, 0f), new Vector3(0f, 0f, 90f), Band.Steel, 0.2f, 0.6f);
+            Attach(root, body, "Head", "Riot Helmet", m);
+        }
+
+        // riot shield on the forearm that does not hold the weapon, placed in the idle pose
+        private static void RiotShield(GameObject root, SkinnedMeshRenderer body)
+        {
+            Animator animator = root.GetComponentInChildren<Animator>();
+            if (animator != null && animator.runtimeAnimatorController != null)
+                foreach (AnimationClip clip in animator.runtimeAnimatorController.animationClips)
+                    if (clip.name.Contains("Idle")) { clip.SampleAnimation(animator.gameObject, 0f); break; }
+
+            const float W = 0.24f, H = 0.95f, T = 0.055f;
+            PaletteMesh m = new PaletteMesh();
+            for (int i = -1; i <= 1; i++)
+                m.Box(new Vector3(W, H, T), 0.02f, new Vector3(i * W * 0.96f, 0f, -Mathf.Abs(i) * 0.05f), new Vector3(0f, i * 14f, 0f), Band.Steel, 0.05f, 0.45f);
+            m.Box(new Vector3(W * 1.5f, 0.11f, 0.03f), 0.01f, new Vector3(0f, H * 0.3f, T * 0.5f), Vector3.zero, Band.Black, 0f, 0.3f);
+            m.Box(new Vector3(W * 0.98f, 0.16f, T + 0.012f), 0.01f, new Vector3(0f, -H * 0.38f, 0f), Vector3.zero, Band.Yellow, 0.3f, 0.6f);
+            for (int i = -2; i <= 2; i++)
+                m.Box(new Vector3(0.04f, 0.14f, T + 0.02f), 0.005f, new Vector3(i * 0.065f, -H * 0.38f, 0f), new Vector3(0f, 0f, 40f), Band.Black, 0f, 0.3f);
+            m.Box(new Vector3(0.28f, 0.11f, 0.03f), 0.01f, new Vector3(0f, H * 0.12f, T * 0.5f + 0.005f), Vector3.zero, Band.White, 0f, 0.2f);
+            m.Box(new Vector3(0.08f, 0.3f, 0.1f), 0.02f, new Vector3(0f, 0f, -T - 0.04f), Vector3.zero, Band.Black, 0f, 0.4f);
+            string meshName = root.name.Replace(' ', '_') + "_Shield";
+            Mesh mesh = PaletteTools.SaveMesh(m.Build(meshName), meshFolder, meshName);
+
+            Transform leftArm = PaletteTools.FindBone(body, "LeftForeArm"), rightArm = PaletteTools.FindBone(body, "RightForeArm");
+            Renderer weapon = null;
+            foreach (MeshRenderer renderer in root.GetComponentsInChildren<MeshRenderer>(true))
+                if (renderer.name.Contains("Weapon")) weapon = renderer;
+            Transform forearm = leftArm;
+            if (weapon != null && leftArm != null && rightArm != null)
+                forearm = Vector3.Distance(weapon.bounds.center, leftArm.position) < Vector3.Distance(weapon.bounds.center, rightArm.position) ? rightArm : leftArm;
+
+            Bounds all = PaletteTools.BoneBounds(body, bone => true);
+            float side = forearm != null ? Mathf.Sign(forearm.position.x - all.center.x) : 1f;
+            float armX = forearm != null ? forearm.position.x : all.center.x + all.extents.x * 0.5f;
+
+            GameObject shield = new GameObject("Accessory Riot Shield");
+            shield.transform.position = new Vector3(Mathf.Lerp(all.center.x, armX, 0.85f), all.center.y - all.extents.y * 0.12f, all.max.z + 0.08f);
+            shield.transform.rotation = Quaternion.Euler(0f, side * 28f, 0f);
+            shield.AddComponent<MeshFilter>().sharedMesh = mesh;
+            shield.AddComponent<MeshRenderer>().sharedMaterial = PaletteTools.PlayerMaterial;
+            shield.transform.SetParent(forearm != null ? forearm : root.transform, true);
+        }
+
+        private static void GasMask(GameObject root, SkinnedMeshRenderer body, Bounds head)
+        {
+            float r = R(head);
+            Vector3 c = head.center;
+            PaletteMesh m = new PaletteMesh();
+            m.Sphere(r * 0.62f, 3, 9, c + new Vector3(0f, -r * 0.1f, r * 0.62f), new Vector3(1.25f, 1.1f, 0.7f), Band.Black, 0f, 0.4f);
+            for (int side = -1; side <= 1; side += 2)
+            {
+                m.Cylinder(r * 0.22f, r * 0.22f, r * 0.12f, 8, c + new Vector3(side * r * 0.32f, r * 0.2f, r * 1.0f), new Vector3(90f, 0f, 0f), Band.Sky, 0f, 0.3f);
+                m.Cylinder(r * 0.22f, r * 0.25f, r * 0.4f, 8, c + new Vector3(side * r * 0.45f, -r * 0.55f, r * 0.85f), new Vector3(60f, side * 25f, 0f), Band.Green, 0.1f, 0.5f);
+            }
+            m.Box(new Vector3(r * 2.2f, r * 0.12f, r * 0.12f), r * 0.03f, c + new Vector3(0f, r * 0.2f, 0f), Vector3.zero, Band.Black, 0f, 0.3f);
+            Attach(root, body, "Head", "Gas Mask", m);
+        }
+
+        private static void TacticalHelmet(GameObject root, SkinnedMeshRenderer body, Bounds head)
+        {
+            float r = R(head);
+            Vector3 c = head.center;
+            PaletteMesh m = new PaletteMesh();
+            m.Dome(r * 1.14f, 3, 10, c + new Vector3(0f, r * 0.05f, 0f), Vector3.zero, new Vector3(1f, 0.95f, 1.05f), Band.Black, 0.1f, 0.5f);
+            m.Box(new Vector3(r * 0.35f, r * 0.3f, r * 0.3f), r * 0.05f, c + new Vector3(0f, r * 0.85f, r * 0.85f), Vector3.zero, Band.Grey, 0.2f, 0.5f);
+            Attach(root, body, "Head", "Tactical Helmet", m);
+        }
+
+        private static void Beret(GameObject root, SkinnedMeshRenderer body, Bounds head)
+        {
+            float r = R(head);
+            Vector3 c = head.center;
+            PaletteMesh m = new PaletteMesh();
+            m.Cylinder(r * 1.02f, r * 1.02f, r * 0.14f, 10, c + new Vector3(0f, r * 0.62f, 0f), Vector3.zero, Band.Black, 0.1f, 0.4f);
+            m.Dome(r * 1.1f, 2, 10, c + new Vector3(r * 0.15f, r * 0.68f, 0f), new Vector3(0f, 0f, -12f), new Vector3(1.05f, 0.35f, 1f), Band.Red, 0.1f, 0.55f);
+            m.Sphere(r * 0.14f, 2, 6, c + new Vector3(-r * 0.45f, r * 0.75f, r * 0.9f), Vector3.one, Band.Gold, 0.1f, 0.4f);
+            Attach(root, body, "Head", "Beret", m);
+        }
+
+        private static void BombSuitHelmet(GameObject root, SkinnedMeshRenderer body, Bounds head)
+        {
+            float r = R(head);
+            Vector3 c = head.center;
+            PaletteMesh m = new PaletteMesh();
+            m.Sphere(r * 1.25f, 4, 10, c + new Vector3(0f, r * 0.05f, 0f), new Vector3(1f, 1.05f, 1f), Band.Navy, 0.1f, 0.55f);
+            m.Box(new Vector3(r * 1.6f, r * 0.7f, r * 0.2f), r * 0.1f, c + new Vector3(0f, r * 0.1f, r * 1.15f), new Vector3(-6f, 0f, 0f), Band.Sky, 0f, 0.35f);
+            m.Cylinder(r * 1.3f, r * 1.4f, r * 0.35f, 10, c + new Vector3(0f, -r * 1.05f, 0f), Vector3.zero, Band.Yellow, 0.3f, 0.7f);
+            Attach(root, body, "Head", "Bomb Suit Helmet", m);
+        }
+
+        private static void ChestPlate(GameObject root, SkinnedMeshRenderer body)
+        {
+            Bounds chest = PaletteTools.BoneBounds(body, bone => bone.Contains("Spine"));
+            PaletteMesh m = new PaletteMesh();
+            m.Box(new Vector3(chest.size.x * 0.75f, chest.size.y * 0.55f, chest.size.z * 0.18f), chest.size.x * 0.05f, new Vector3(chest.center.x, chest.center.y + chest.extents.y * 0.15f, chest.max.z), new Vector3(-6f, 0f, 0f), Band.Steel, 0.05f, 0.5f);
+            m.Box(new Vector3(chest.size.x * 0.5f, chest.size.y * 0.08f, chest.size.z * 0.2f), chest.size.x * 0.02f, new Vector3(chest.center.x, chest.center.y + chest.extents.y * 0.42f, chest.max.z + chest.size.z * 0.02f), new Vector3(-6f, 0f, 0f), Band.Yellow, 0.3f, 0.6f);
+            Attach(root, body, "Spine", "Chest Plate", m);
         }
 
         private static void OfficerCap(GameObject root, SkinnedMeshRenderer body, Bounds head)
