@@ -96,8 +96,8 @@ MonoBehaviour:
     m_Bits: 768
   explosionRadius: 4.21875
   bulletHeight:
-    firstValue: 0.25
-    secondValue: 0.9
+    firstValue: 0.5
+    secondValue: 1.4
 --- !u!1 &6673586396895899561
 GameObject:
   m_ObjectHideFlags: 0

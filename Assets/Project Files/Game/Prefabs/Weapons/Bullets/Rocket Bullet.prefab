@@ -9643,6 +9643,7 @@ MonoBehaviour:
   stunMultiplier: 1
   stunDuration: 0
   faceVelocity: 1
+  explodeOnObstacle: 1
 --- !u!65 &3489831812173736447
 BoxCollider:
   m_ObjectHideFlags: 0

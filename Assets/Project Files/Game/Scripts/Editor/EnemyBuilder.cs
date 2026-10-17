@@ -397,6 +397,7 @@ namespace Watermelon.SquadShooter
             Material material = PaletteTools.PlayerMaterial;
             SkinnedMeshRenderer mainBody = null;
             int index = 0;
+            var dyed = new Dictionary<Renderer, (Texture texture, Func<PaletteTools.Texel, int> rule, string name)>();
 
             foreach (Renderer renderer in instance.GetComponentsInChildren<Renderer>(true))
             {
@@ -413,6 +414,7 @@ namespace Watermelon.SquadShooter
                 if (texture == null || rule == null) continue;
 
                 string meshName = $"{recipe.Type}_{index++}_{renderer.name.Replace(' ', '_')}";
+                dyed[renderer] = (texture, rule, meshName);
                 if (renderer is SkinnedMeshRenderer skinned)
                 {
                     Mesh source0 = OriginalMesh(skinned.sharedMesh);
@@ -429,6 +431,8 @@ namespace Watermelon.SquadShooter
                 for (int i = 0; i < materials.Length; i++) materials[i] = material;
                 renderer.sharedMaterials = materials;
             }
+
+            DyeEliteMeshes(instance, dyed, folder);
 
             if (mainBody != null && recipe.Accessories != null)
             {
@@ -459,6 +463,37 @@ namespace Watermelon.SquadShooter
             GameObject prefab = PrefabUtility.SaveAsPrefabAsset(instance, path);
             UnityEngine.Object.DestroyImmediate(instance);
             return prefab;
+        }
+
+        // enemies swap their meshes when spawned (EliteCase: regular / elite look), so both sets must be re-dyed too,
+        // otherwise the spawned enemy shows the template mesh through the palette material
+        private static void DyeEliteMeshes(GameObject instance, Dictionary<Renderer, (Texture texture, Func<PaletteTools.Texel, int> rule, string name)> dyed, string folder)
+        {
+            SerializedObject behaviour = new SerializedObject(instance.GetComponent<BaseEnemyBehavior>());
+            foreach ((string list, string field) in new[] { ("eliteCase.pairs", "renderer"), ("eliteCase.simplePairs", "filter") })
+            {
+                SerializedProperty pairs = behaviour.FindProperty(list);
+                if (pairs == null) continue;
+
+                for (int i = 0; i < pairs.arraySize; i++)
+                {
+                    SerializedProperty pair = pairs.GetArrayElementAtIndex(i);
+                    UnityEngine.Object owner = pair.FindPropertyRelative(field).objectReferenceValue;
+                    Renderer renderer = owner is MeshFilter filter ? filter.GetComponent<Renderer>() : owner as Renderer;
+                    if (renderer == null || !dyed.TryGetValue(renderer, out var info)) continue;
+
+                    SkinnedMeshRenderer skinned = renderer as SkinnedMeshRenderer;
+                    Mesh current = skinned != null ? skinned.sharedMesh : renderer.GetComponent<MeshFilter>().sharedMesh;
+                    pair.FindPropertyRelative("simpleMesh").objectReferenceValue = current;
+
+                    Mesh elite = pair.FindPropertyRelative("eliteMesh").objectReferenceValue as Mesh;
+                    if (elite == null) continue;
+                    string name = info.name + "_Elite";
+                    Mesh painted = PaletteTools.Repaint(elite, skinned != null ? skinned.bones : null, info.texture, info.rule, name);
+                    pair.FindPropertyRelative("eliteMesh").objectReferenceValue = PaletteTools.SaveMesh(painted, folder + "/Meshes", name);
+                }
+            }
+            behaviour.ApplyModifiedPropertiesWithoutUndo();
         }
 
         // re-running a build must start from the template mesh, not from an already re-dyed copy

@@ -178,6 +178,46 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy Ice Bomber
       objectReference: {fileID: 0}
+    - target: {fileID: 3386239135707741167, guid: 5ee640a386a50804a82c6db1aaa55c3c,
+        type: 3}
+      propertyPath: eliteCase.pairs.Array.data[0].eliteMesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 8b0f0aacf9b364bb2b29f30912ee1ce9, type: 2}
+    - target: {fileID: 3386239135707741167, guid: 5ee640a386a50804a82c6db1aaa55c3c,
+        type: 3}
+      propertyPath: eliteCase.pairs.Array.data[1].eliteMesh
+      value: 
+      objectReference: {fileID: 4300000, guid: d8f3444398c974d49bfeb534589a8a29, type: 2}
+    - target: {fileID: 3386239135707741167, guid: 5ee640a386a50804a82c6db1aaa55c3c,
+        type: 3}
+      propertyPath: eliteCase.pairs.Array.data[2].eliteMesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 99b028ce40afa4b4880b5fc9a5863f2c, type: 2}
+    - target: {fileID: 3386239135707741167, guid: 5ee640a386a50804a82c6db1aaa55c3c,
+        type: 3}
+      propertyPath: eliteCase.pairs.Array.data[0].simpleMesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 6f598fe3626f9431e8cf0861ee4a25d6, type: 2}
+    - target: {fileID: 3386239135707741167, guid: 5ee640a386a50804a82c6db1aaa55c3c,
+        type: 3}
+      propertyPath: eliteCase.pairs.Array.data[1].simpleMesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 4896a3d75ec2f45668282b696c282166, type: 2}
+    - target: {fileID: 3386239135707741167, guid: 5ee640a386a50804a82c6db1aaa55c3c,
+        type: 3}
+      propertyPath: eliteCase.pairs.Array.data[2].simpleMesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 59f8bca5006c645aa91221d611cf9aca, type: 2}
+    - target: {fileID: 3386239135707741167, guid: 5ee640a386a50804a82c6db1aaa55c3c,
+        type: 3}
+      propertyPath: eliteCase.simplePairs.Array.data[0].eliteMesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 028ee2e4755cb4fbe8d15b05aa8bfdd6, type: 2}
+    - target: {fileID: 3386239135707741167, guid: 5ee640a386a50804a82c6db1aaa55c3c,
+        type: 3}
+      propertyPath: eliteCase.simplePairs.Array.data[0].simpleMesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 38cc8afdba76d49b18c71ed57873d8dc, type: 2}
     - target: {fileID: 3712732860465269765, guid: 5ee640a386a50804a82c6db1aaa55c3c,
         type: 3}
       propertyPath: m_Mesh

@@ -209,6 +209,36 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1865428060180637695, guid: 9028a528cd47d4a5d8547e697eb065fa,
         type: 3}
+    - target: {fileID: 2543554493610201070, guid: 7d94978edd36fa143bd1c392740860ab,
+        type: 3}
+      propertyPath: eliteCase.pairs.Array.data[0].eliteMesh
+      value: 
+      objectReference: {fileID: 4300000, guid: c6c264d56b0e94908a56a9cf7ea47b30, type: 2}
+    - target: {fileID: 2543554493610201070, guid: 7d94978edd36fa143bd1c392740860ab,
+        type: 3}
+      propertyPath: eliteCase.pairs.Array.data[1].eliteMesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 43cca12c39f254534ae8782a4e13fcc7, type: 2}
+    - target: {fileID: 2543554493610201070, guid: 7d94978edd36fa143bd1c392740860ab,
+        type: 3}
+      propertyPath: eliteCase.pairs.Array.data[0].simpleMesh
+      value: 
+      objectReference: {fileID: 4300000, guid: aa4bb3f37d87644dc839763ed6224fe0, type: 2}
+    - target: {fileID: 2543554493610201070, guid: 7d94978edd36fa143bd1c392740860ab,
+        type: 3}
+      propertyPath: eliteCase.pairs.Array.data[1].simpleMesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 716c05422e50743be8a15c0885db9453, type: 2}
+    - target: {fileID: 2543554493610201070, guid: 7d94978edd36fa143bd1c392740860ab,
+        type: 3}
+      propertyPath: eliteCase.simplePairs.Array.data[0].eliteMesh
+      value: 
+      objectReference: {fileID: 4300000, guid: f7a3a73ca7988488f96938a0bea08a75, type: 2}
+    - target: {fileID: 2543554493610201070, guid: 7d94978edd36fa143bd1c392740860ab,
+        type: 3}
+      propertyPath: eliteCase.simplePairs.Array.data[0].simpleMesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 660617aba5ca24172866c87b084bbddb, type: 2}
     - target: {fileID: 4418062594184920284, guid: 7d94978edd36fa143bd1c392740860ab,
         type: 3}
       propertyPath: m_LocalPosition.x

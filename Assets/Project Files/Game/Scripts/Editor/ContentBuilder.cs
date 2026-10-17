@@ -104,8 +104,8 @@ namespace Watermelon.SquadShooter
             LavaGunBehavior lava = AssetDatabase.LoadAssetAtPath<GameObject>(GAME + "/Prefabs/Weapons/Gun Lava.prefab").GetComponent<LavaGunBehavior>();
             float lavaRadius = new SerializedObject(lava).FindProperty("explosionRadius").floatValue;
             gunBehaviour.FindProperty("explosionRadius").floatValue = lavaRadius * 1.35f;
-            gunBehaviour.FindProperty("bulletHeight.firstValue").floatValue = 0.25f;
-            gunBehaviour.FindProperty("bulletHeight.secondValue").floatValue = 0.9f;
+            gunBehaviour.FindProperty("bulletHeight.firstValue").floatValue = 0.5f;
+            gunBehaviour.FindProperty("bulletHeight.secondValue").floatValue = 1.4f;
             gunBehaviour.ApplyModifiedPropertiesWithoutUndo();
 
             foreach (ParticleSystem particle in gun.GetComponentsInChildren<ParticleSystem>(true))
@@ -125,6 +125,7 @@ namespace Watermelon.SquadShooter
             behaviour.FindProperty("hitParticle").stringValue = "Lava Hit";
             behaviour.FindProperty("wallHitParticle").stringValue = "Lava Wall Hit";
             behaviour.FindProperty("faceVelocity").boolValue = true;
+            behaviour.FindProperty("explodeOnObstacle").boolValue = true;
             behaviour.ApplyModifiedPropertiesWithoutUndo();
 
             Mesh missile = SaveMesh(RocketMesh(), "Rocket_mesh");

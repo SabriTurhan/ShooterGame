@@ -113,6 +113,36 @@ PrefabInstance:
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
       objectReference: {fileID: 0}
+    - target: {fileID: 2543554493610201070, guid: 7d94978edd36fa143bd1c392740860ab,
+        type: 3}
+      propertyPath: eliteCase.pairs.Array.data[0].eliteMesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 9049b01cd34d349febf9bd47c1014b29, type: 2}
+    - target: {fileID: 2543554493610201070, guid: 7d94978edd36fa143bd1c392740860ab,
+        type: 3}
+      propertyPath: eliteCase.pairs.Array.data[1].eliteMesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 5ae5d4dd8c80140c99b54fc19ee8d1cc, type: 2}
+    - target: {fileID: 2543554493610201070, guid: 7d94978edd36fa143bd1c392740860ab,
+        type: 3}
+      propertyPath: eliteCase.pairs.Array.data[0].simpleMesh
+      value: 
+      objectReference: {fileID: 4300000, guid: d0295f19560b4452c92722886bbdf8bd, type: 2}
+    - target: {fileID: 2543554493610201070, guid: 7d94978edd36fa143bd1c392740860ab,
+        type: 3}
+      propertyPath: eliteCase.pairs.Array.data[1].simpleMesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 1b7b4000b7e6b4a169894832e651a4cf, type: 2}
+    - target: {fileID: 2543554493610201070, guid: 7d94978edd36fa143bd1c392740860ab,
+        type: 3}
+      propertyPath: eliteCase.simplePairs.Array.data[0].eliteMesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 99f134da9b6b742b2ba5d5d34adf666e, type: 2}
+    - target: {fileID: 2543554493610201070, guid: 7d94978edd36fa143bd1c392740860ab,
+        type: 3}
+      propertyPath: eliteCase.simplePairs.Array.data[0].simpleMesh
+      value: 
+      objectReference: {fileID: 4300000, guid: beb3195840f50460d97e549adef708c2, type: 2}
     - target: {fileID: 4418062594184920284, guid: 7d94978edd36fa143bd1c392740860ab,
         type: 3}
       propertyPath: m_LocalPosition.x

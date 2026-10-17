@@ -193,6 +193,36 @@ PrefabInstance:
       propertyPath: frontalArmor
       value: 0.8
       objectReference: {fileID: 0}
+    - target: {fileID: 244997728384730678, guid: a88d0da006cc9fa4fbaab4ee2febfc36,
+        type: 3}
+      propertyPath: eliteCase.pairs.Array.data[0].eliteMesh
+      value: 
+      objectReference: {fileID: 4300000, guid: e0cdf5cc85c2744a78d098d00e65b8a2, type: 2}
+    - target: {fileID: 244997728384730678, guid: a88d0da006cc9fa4fbaab4ee2febfc36,
+        type: 3}
+      propertyPath: eliteCase.pairs.Array.data[1].eliteMesh
+      value: 
+      objectReference: {fileID: 4300000, guid: c8a4b2c45b4e94170b8f48f114768e98, type: 2}
+    - target: {fileID: 244997728384730678, guid: a88d0da006cc9fa4fbaab4ee2febfc36,
+        type: 3}
+      propertyPath: eliteCase.pairs.Array.data[0].simpleMesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 586be14e00fc442beb5db89803a4a212, type: 2}
+    - target: {fileID: 244997728384730678, guid: a88d0da006cc9fa4fbaab4ee2febfc36,
+        type: 3}
+      propertyPath: eliteCase.pairs.Array.data[1].simpleMesh
+      value: 
+      objectReference: {fileID: 4300000, guid: aa2ac039392624bba9e51ace33b588ec, type: 2}
+    - target: {fileID: 244997728384730678, guid: a88d0da006cc9fa4fbaab4ee2febfc36,
+        type: 3}
+      propertyPath: eliteCase.simplePairs.Array.data[0].eliteMesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 97b4899fdc138429ea10bddf52f0af29, type: 2}
+    - target: {fileID: 244997728384730678, guid: a88d0da006cc9fa4fbaab4ee2febfc36,
+        type: 3}
+      propertyPath: eliteCase.simplePairs.Array.data[0].simpleMesh
+      value: 
+      objectReference: {fileID: 4300000, guid: b6aa874a6c6f544b8b2503dadf0378b5, type: 2}
     - target: {fileID: 414163921989884983, guid: a88d0da006cc9fa4fbaab4ee2febfc36,
         type: 3}
       propertyPath: m_Mesh

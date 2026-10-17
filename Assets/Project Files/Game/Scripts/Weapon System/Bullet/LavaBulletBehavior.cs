@@ -16,6 +16,8 @@ namespace Watermelon.SquadShooter
         [SerializeField] float stunDuration = 0f;
         [Tooltip("turn the projectile along its flight path (rockets)")]
         [SerializeField] bool faceVelocity = false;
+        [Tooltip("explode with full area damage when hitting cover instead of fizzling (rockets)")]
+        [SerializeField] bool explodeOnObstacle = false;
 
         private float explosionRadius;
         private DuoInt damageValue;
@@ -110,6 +112,12 @@ namespace Watermelon.SquadShooter
 
         protected override void OnObstacleHitted()
         {
+            if (explodeOnObstacle)
+            {
+                OnEnemyHitted(null);
+                return;
+            }
+
             base.OnObstacleHitted();
 
             ParticlesController.PlayParticle(wallHitParticle.GetHashCode()).SetPosition(transform.position);
