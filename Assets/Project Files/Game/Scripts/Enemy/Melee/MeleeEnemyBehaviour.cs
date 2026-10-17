@@ -41,7 +41,7 @@ namespace Watermelon.SquadShooter
             IsWalking = true;
             slowRunningTimer = slowDownDuration.Random();
 
-            navMeshAgent.speed = Stats.MoveSpeed * slowDownSpeedMult;
+            SetMoveSpeed(Stats.MoveSpeed * slowDownSpeedMult);
         }
 
         private void DisableSlowDown()
@@ -49,7 +49,7 @@ namespace Watermelon.SquadShooter
             isSlowRunning = false;
             IsWalking = false;
 
-            navMeshAgent.speed = Stats.MoveSpeed;
+            SetMoveSpeed(Stats.MoveSpeed);
         }
 
         protected override void FixedUpdate()

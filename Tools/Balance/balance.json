@@ -11,6 +11,7 @@
    "name": "MINIGUN",
    "rarity": 0,
    "baseStrength": 1.0,
+   "dpsFactor": 1.0,
    "cardsToUnlock": 0,
    "unlockLevel": 1,
    "stages": [
@@ -185,6 +186,7 @@
    "name": "SHOTGUN",
    "rarity": 0,
    "baseStrength": 1.57,
+   "dpsFactor": 0.9,
    "cardsToUnlock": 5,
    "unlockLevel": 6,
    "stages": [
@@ -359,6 +361,7 @@
    "name": "LAVA GUN",
    "rarity": 1,
    "baseStrength": 4.35,
+   "dpsFactor": 0.55,
    "cardsToUnlock": 10,
    "unlockLevel": 24,
    "stages": [
@@ -530,9 +533,10 @@
    ]
   },
   {
-   "name": "CRYO BLASTER",
+   "name": "CRYO GUN",
    "rarity": 2,
    "baseStrength": 10.77,
+   "dpsFactor": 1.265,
    "cardsToUnlock": 10,
    "unlockLevel": 44,
    "stages": [
@@ -540,10 +544,10 @@
      "stage": 1,
      "price": 10,
      "damage": [
-      10,
-      16
+      18,
+      26
      ],
-     "fireRate": 3.0,
+     "fireRate": 5.0,
      "strength": 10.77,
      "power": 108
     },
@@ -551,10 +555,10 @@
      "stage": 2,
      "price": 480,
      "damage": [
-      11,
-      17
+      20,
+      28
      ],
-     "fireRate": 3.09,
+     "fireRate": 5.14,
      "strength": 12.062,
      "power": 121
     },
@@ -562,10 +566,10 @@
      "stage": 3,
      "price": 575,
      "damage": [
-      12,
-      19
+      21,
+      31
      ],
-     "fireRate": 3.17,
+     "fireRate": 5.29,
      "strength": 13.51,
      "power": 135
     },
@@ -573,10 +577,10 @@
      "stage": 4,
      "price": 690,
      "damage": [
-      13,
-      21
+      23,
+      34
      ],
-     "fireRate": 3.27,
+     "fireRate": 5.44,
      "strength": 15.131,
      "power": 151
     },
@@ -584,10 +588,10 @@
      "stage": 5,
      "price": 830,
      "damage": [
-      14,
-      22
+      25,
+      37
      ],
-     "fireRate": 3.36,
+     "fireRate": 5.6,
      "strength": 16.947,
      "power": 169
     },
@@ -595,10 +599,10 @@
      "stage": 6,
      "price": 995,
      "damage": [
-      15,
-      24
+      28,
+      40
      ],
-     "fireRate": 3.46,
+     "fireRate": 5.76,
      "strength": 18.98,
      "power": 190
     },
@@ -606,10 +610,10 @@
      "stage": 7,
      "price": 1195,
      "damage": [
-      17,
-      27
+      30,
+      43
      ],
-     "fireRate": 3.56,
+     "fireRate": 5.93,
      "strength": 21.258,
      "power": 213
     },
@@ -617,10 +621,10 @@
      "stage": 8,
      "price": 1435,
      "damage": [
-      18,
-      29
+      33,
+      47
      ],
-     "fireRate": 3.66,
+     "fireRate": 6.1,
      "strength": 23.809,
      "power": 238
     },
@@ -628,10 +632,10 @@
      "stage": 9,
      "price": 1720,
      "damage": [
-      20,
-      32
+      36,
+      51
      ],
-     "fireRate": 3.76,
+     "fireRate": 6.27,
      "strength": 26.666,
      "power": 267
     },
@@ -639,10 +643,10 @@
      "stage": 10,
      "price": 2065,
      "damage": [
-      21,
-      34
+      39,
+      56
      ],
-     "fireRate": 3.87,
+     "fireRate": 6.45,
      "strength": 29.866,
      "power": 299
     },
@@ -650,10 +654,10 @@
      "stage": 11,
      "price": 2475,
      "damage": [
-      23,
-      37
+      42,
+      61
      ],
-     "fireRate": 3.98,
+     "fireRate": 6.64,
      "strength": 33.45,
      "power": 334
     },
@@ -661,10 +665,10 @@
      "stage": 12,
      "price": 2970,
      "damage": [
-      25,
-      41
+      46,
+      66
      ],
-     "fireRate": 4.1,
+     "fireRate": 6.83,
      "strength": 37.464,
      "power": 375
     },
@@ -672,10 +676,10 @@
      "stage": 13,
      "price": 3565,
      "damage": [
-      28,
-      44
+      50,
+      72
      ],
-     "fireRate": 4.21,
+     "fireRate": 7.02,
      "strength": 41.96,
      "power": 420
     },
@@ -683,10 +687,10 @@
      "stage": 14,
      "price": 4280,
      "damage": [
-      30,
-      48
+      54,
+      78
      ],
-     "fireRate": 4.34,
+     "fireRate": 7.23,
      "strength": 46.995,
      "power": 470
     },
@@ -694,10 +698,10 @@
      "stage": 15,
      "price": 5135,
      "damage": [
-      33,
-      53
+      59,
+      85
      ],
-     "fireRate": 4.46,
+     "fireRate": 7.43,
      "strength": 52.634,
      "power": 526
     }
@@ -707,6 +711,7 @@
    "name": "TESLA GUN",
    "rarity": 4,
    "baseStrength": 26.67,
+   "dpsFactor": 0.604,
    "cardsToUnlock": 12,
    "unlockLevel": 66,
    "stages": [
@@ -881,6 +886,7 @@
    "name": "ROCKET LAUNCHER",
    "rarity": 3,
    "baseStrength": 58.96,
+   "dpsFactor": 0.98,
    "cardsToUnlock": 12,
    "unlockLevel": 84,
    "stages": [
@@ -2130,7 +2136,7 @@
    "xp": 215,
    "cards": [
     {
-     "weapon": "CRYO BLASTER",
+     "weapon": "CRYO GUN",
      "amount": 2
     }
    ],
@@ -2167,7 +2173,7 @@
    "xp": 225,
    "cards": [
     {
-     "weapon": "CRYO BLASTER",
+     "weapon": "CRYO GUN",
      "amount": 2
     }
    ],
@@ -2188,7 +2194,7 @@
    "xp": 225,
    "cards": [
     {
-     "weapon": "CRYO BLASTER",
+     "weapon": "CRYO GUN",
      "amount": 2
     }
    ],
@@ -2209,7 +2215,7 @@
    "xp": 230,
    "cards": [
     {
-     "weapon": "CRYO BLASTER",
+     "weapon": "CRYO GUN",
      "amount": 2
     }
    ],
@@ -2230,7 +2236,7 @@
    "xp": 230,
    "cards": [
     {
-     "weapon": "CRYO BLASTER",
+     "weapon": "CRYO GUN",
      "amount": 2
     }
    ],

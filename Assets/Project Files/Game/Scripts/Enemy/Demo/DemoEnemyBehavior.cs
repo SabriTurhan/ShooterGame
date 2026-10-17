@@ -111,7 +111,7 @@ namespace Watermelon.SquadShooter
         public override void Attack()
         {
             animatorRef.SetTrigger(ANIMATOR_ATTACK_HASH);
-            navMeshAgent.speed = 0;
+            SetMoveSpeed(0);
             navMeshAgent.isStopped = true;
             navMeshAgent.enabled = false;
             CanPursue = false;

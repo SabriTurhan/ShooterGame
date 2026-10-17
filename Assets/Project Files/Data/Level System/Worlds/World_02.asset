@@ -13012,6 +13012,12 @@ MonoBehaviour:
       Amount: 265
       Character: {fileID: 0}
       Level: 0
+    - DropType: 1
+      CurrencyType: 0
+      Weapon: {fileID: 11400000, guid: 0faf6eca453f34922994547e77da5bac, type: 2}
+      Amount: 2
+      Character: {fileID: 0}
+      Level: 0
     specialBehaviours: []
   - type: 1
     rooms:

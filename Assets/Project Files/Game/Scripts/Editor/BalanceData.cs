@@ -33,7 +33,7 @@ namespace Watermelon.SquadShooter
 
         public static int LevelNumber(int worldIndex, int levelIndex) => worldIndex * LEVELS_PER_WORLD + levelIndex + 1;
 
-        [Serializable] public class WeaponJson { public string name; public int rarity; public float baseStrength; public int cardsToUnlock; public int unlockLevel; public StageJson[] stages; }
+        [Serializable] public class WeaponJson { public string name; public int rarity; public float baseStrength; public float dpsFactor; public int cardsToUnlock; public int unlockLevel; public StageJson[] stages; }
         [Serializable] public class StageJson { public int stage; public int price; public int[] damage; public float fireRate; public float strength; public int power; }
         [Serializable] public class CharacterJson { public string name; public float baseStrength; public int requiredLevel; public CharacterStageJson[] stages; }
         [Serializable] public class CharacterStageJson { public int stage; public int price; public int health; public float strength; public int power; }

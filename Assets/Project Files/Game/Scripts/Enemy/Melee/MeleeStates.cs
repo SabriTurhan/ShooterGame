@@ -24,11 +24,11 @@ namespace Watermelon.Enemy.Melee
             isSlowed = Target.IsWalking;
             if (isSlowed)
             {
-                Target.NavMeshAgent.speed = Target.Stats.PatrollingSpeed;
+                Target.SetMoveSpeed(Target.Stats.PatrollingSpeed);
             }
             else
             {
-                Target.NavMeshAgent.speed = Target.Stats.MoveSpeed;
+                Target.SetMoveSpeed(Target.Stats.MoveSpeed);
             }
 
             Target.MoveToPoint(cachedTargetPos);
@@ -46,11 +46,11 @@ namespace Watermelon.Enemy.Melee
 
             if (isSlowed && !Target.IsWalking)
             {
-                Target.NavMeshAgent.speed = Target.Stats.MoveSpeed;
+                Target.SetMoveSpeed(Target.Stats.MoveSpeed);
             }
             else if (!isSlowed && Target.IsWalking)
             {
-                Target.NavMeshAgent.speed = Target.Stats.PatrollingSpeed;
+                Target.SetMoveSpeed(Target.Stats.PatrollingSpeed);
             }
 
             Target.Animator.SetFloat(ANIMATOR_SPEED_HASH, Target.NavMeshAgent.velocity.magnitude / Target.NavMeshAgent.speed * (isSlowed ? Target.Stats.PatrollingMutliplier : 1f));

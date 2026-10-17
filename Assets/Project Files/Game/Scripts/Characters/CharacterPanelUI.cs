@@ -216,8 +216,9 @@ namespace Watermelon.SquadShooter
 
         private void PlayUpgradeAnimation()
         {
-            int upgradeStateIndex = character.GetCurrentUpgradeIndex() - 1;
-            upgradesStatesImages[upgradeStateIndex].DOColor(upgradeStateActiveColor, 0.3f).OnComplete(delegate
+            int upgradesCount = Mathf.Max(1, character.Upgrades.Length - 1);
+            int dotIndex = Mathf.Clamp(Mathf.FloorToInt((float)character.GetCurrentUpgradeIndex() / upgradesCount * upgradesStatesImages.Length) - 1, 0, upgradesStatesImages.Length - 1);
+            upgradesStatesImages[dotIndex].DOColor(upgradeStateActiveColor, 0.3f).OnComplete(delegate
             {
                 isUpgradeAnimationPlaying = false;
 
@@ -306,8 +307,11 @@ namespace Watermelon.SquadShooter
         {
             if (!character.IsMaxUpgrade())
             {
+                // characters can have more upgrades than the card has dots, so the dots show the share bought
                 int upgradeStateIndex = character.GetCurrentUpgradeIndex();
-                for (int i = 0; i < upgradeStateIndex; i++)
+                int upgradesCount = Mathf.Max(1, character.Upgrades.Length - 1);
+                int filledDots = Mathf.Min(upgradesStatesImages.Length, Mathf.FloorToInt((float)upgradeStateIndex / upgradesCount * upgradesStatesImages.Length));
+                for (int i = 0; i < filledDots; i++)
                 {
                     upgradesStatesImages[i].color = upgradeStateActiveColor;
                 }

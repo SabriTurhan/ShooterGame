@@ -119,6 +119,14 @@ namespace Watermelon.SquadShooter
         private float lastDamagedTime;
         private float lastHitShineTime;
 
+        // slow effect (Cryo Blaster): every movement speed goes through SetMoveSpeed so it can be scaled
+        private static readonly Color FROZEN_EMISSION_COLOR = new Color(0.08f, 0.3f, 0.48f, 1.0f);
+        private float slowMultiplier = 1f;
+        private float slowEndTime;
+        private float baseMoveSpeed;
+        private Color restEmissionColor = Color.black;
+        public bool IsSlowed => slowMultiplier < 1f;
+
         protected float hitAnimationTime;
 
         public HealthbarBehaviour HealthbarBehaviour => healthbarBehaviour;
@@ -253,8 +261,39 @@ namespace Watermelon.SquadShooter
         {
             navMeshAgent.enabled = true;
             navMeshAgent.stoppingDistance = stats.PreferedDistanceToPlayer;
-            navMeshAgent.speed = stats.MoveSpeed;
+            SetMoveSpeed(stats.MoveSpeed);
             navMeshAgent.angularSpeed = stats.AngularSpeed;
+        }
+
+        public void SetMoveSpeed(float speed)
+        {
+            baseMoveSpeed = speed;
+            navMeshAgent.speed = speed * slowMultiplier;
+        }
+
+        // movement and animations run at `multiplier` speed for `duration` seconds and the model turns icy;
+        // repeated hits refresh the timer and the strongest slow wins
+        public void ApplySlow(float multiplier, float duration)
+        {
+            if (isDead) return;
+
+            slowEndTime = Mathf.Max(slowEndTime, Time.time + duration);
+            slowMultiplier = Mathf.Min(slowMultiplier, multiplier);
+
+            UpdateSlowState();
+        }
+
+        private void UpdateSlowState()
+        {
+            navMeshAgent.speed = baseMoveSpeed * slowMultiplier;
+            animatorRef.speed = slowMultiplier;
+
+            restEmissionColor = IsSlowed ? FROZEN_EMISSION_COLOR : Color.black;
+
+            hitShineTweenCase.KillActive();
+            meshRenderer.GetPropertyBlock(hitShinePropertyBlock);
+            hitShinePropertyBlock.SetColor(SHADER_HIT_SHINE_COLOR_HASH, restEmissionColor);
+            meshRenderer.SetPropertyBlock(hitShinePropertyBlock);
         }
 
         public abstract void OnAnimatorCallback(EnemyCallbackType enemyCallbackType);
@@ -357,6 +396,12 @@ namespace Watermelon.SquadShooter
             {
                 hitOffsetMult += Time.fixedDeltaTime;
             }
+
+            if (IsSlowed && (isDead || Time.time > slowEndTime))
+            {
+                slowMultiplier = 1f;
+                UpdateSlowState();
+            }
         }
 
         protected virtual void OnDeath()
@@ -432,7 +477,7 @@ namespace Watermelon.SquadShooter
             hitShinePropertyBlock.SetColor(SHADER_HIT_SHINE_COLOR_HASH, HIT_OVERLAY_COLOR);
             meshRenderer.SetPropertyBlock(hitShinePropertyBlock);
 
-            hitShineTweenCase = meshRenderer.DOPropertyBlockColor(SHADER_HIT_SHINE_COLOR_HASH, hitShinePropertyBlock, Color.black, 0.32f);
+            hitShineTweenCase = meshRenderer.DOPropertyBlockColor(SHADER_HIT_SHINE_COLOR_HASH, hitShinePropertyBlock, restEmissionColor, 0.32f);
         }
 
         protected void SetMaskPercent(float percent)

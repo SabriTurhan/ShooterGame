@@ -41,10 +41,24 @@ WEAPONS = [
     ("MINIGUN",        0, 1.00, (5, 15),  10.0, 60,  1.20, 0,  1),
     ("SHOTGUN",        0, 1.45, (35, 40), 0.8,  90,  1.20, 5,  6),
     ("LAVA GUN",       1, 3.10, (20, 35), 1.0,  220, 1.20, 10, 24),
-    ("CRYO BLASTER",   2, 5.20, (10, 16), 3.0,  480, 1.20, 10, 44),
+    ("CRYO GUN",       2, 5.20, (18, 26), 5.0,  480, 1.20, 10, 44),
     ("TESLA GUN",      4, 8.40, (8, 15),  2.1,  950, 1.20, 12, 66),
     ("ROCKET LAUNCHER", 3, 13.0, (60, 80), 0.7, 1700, 1.20, 12, 84),
 ]
+
+# Raw single-target DPS differs a lot between weapon types (minigun ~100, tesla ~24 at stage 1); enemy HP is scaled
+# by each weapon's stage-1 DPS relative to the minigun, times a bonus for area / chain / slow effects, so equal
+# strength means roughly equal time-to-kill whatever the weapon.
+BULLETS_PER_SHOT = {"SHOTGUN": 3}
+EFFECT_BONUS = {"LAVA GUN": 2.0, "TESLA GUN": 2.5, "ROCKET LAUNCHER": 2.0, "CRYO GUN": 1.15}
+
+
+def dps_factor(w):
+    name, rarity, base, dmg, fr = w[0], w[1], w[2], w[3], w[4]
+    raw = (dmg[0] + dmg[1]) / 2 * fr * BULLETS_PER_SHOT.get(name, 1)
+    reference = (WEAPONS[0][3][0] + WEAPONS[0][3][1]) / 2 * WEAPONS[0][4]
+    return round(raw / reference * EFFECT_BONUS.get(name, 1.0), 3)
+
 
 # name, baseStrength (health factor), first upgrade price, price growth, required XP level
 CHARACTERS = [
@@ -288,7 +302,7 @@ def main():
 
     data = {
         "worlds": WORLD_NAMES,
-        "weapons": [{"name": w[0], "rarity": w[1], "baseStrength": w[2], "cardsToUnlock": w[7], "unlockLevel": w[8],
+        "weapons": [{"name": w[0], "rarity": w[1], "baseStrength": w[2], "dpsFactor": dps_factor(w), "cardsToUnlock": w[7], "unlockLevel": w[8],
                      "stages": [weapon_stage(w, s) for s in range(1, WEAPON_STAGES + 1)]} for w in WEAPONS],
         "characters": [{"name": c[0], "baseStrength": c[1], "requiredLevel": c[4],
                         "stages": [character_stage(c, s) for s in range(1, CHARACTER_STAGES + 1)]} for c in CHARACTERS],
