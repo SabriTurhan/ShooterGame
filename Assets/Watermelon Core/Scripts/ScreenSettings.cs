@@ -24,6 +24,10 @@ namespace Watermelon
         {
             Screen.sleepTimeout = sleepTimeout;
 
+#if UNITY_WEBGL
+            // Browsers pace frames with requestAnimationFrame; any fixed rate falls back to setTimeout and stutters
+            Application.targetFrameRate = -1;
+#else
             if (setFrameRateAutomatically)
             {
                 uint numerator = Screen.currentResolution.refreshRateRatio.numerator;
@@ -53,6 +57,7 @@ namespace Watermelon
                 Application.targetFrameRate = (int)defaultFrameRate;
 #endif
             }
+#endif
         }
 
         private enum AllowedFrameRates
